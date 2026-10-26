@@ -76,6 +76,7 @@ LAYOUT_START = """
 
 # --- 2. INNER PAGES BODY ---
 PAGES_BODY = """
+        <!-- 1. HOME SCREEN -->
         <div id="home" class="app-page active">
             <div class="hero-section">
                 <i class="fa-solid fa-calculator" style="font-size: 50px; margin-bottom: 10px;"></i>
@@ -92,15 +93,27 @@ PAGES_BODY = """
             </div>
         </div>
 
+        <!-- 2. NOTICE SCREEN -->
         <div id="notice" class="app-page">
             <h3 class="page-title"><i class="fa-solid fa-bullhorn me-2"></i>सूचना पट्ट</h3>
             <div class="notice-box"><strong>महत्वपूर्ण:</strong> व्यय प्रतिवेदन समय पर देना अनिवार्य है।</div>
             <div class="notice-box" style="background:#e1f5fe; border-left-color:#0288d1; color:#01579b;"><strong>नया आवंटन:</strong> निदेशालय से मद 2235 में राशि ट्रांसफर हुई।</div>
         </div>
 
+        <!-- 3. SERVICE SCREEN (4 Quick Jump Tabs) -->
         <div id="service" class="app-page">
             <h3 class="page-title"><i class="fa-solid fa-gears me-2"></i>सेवाएं एवं एंट्री</h3>
-            <div class="form-card">
+            
+            <!-- 4 नैविगेशन बटन्स (Bari bari click karne par niche jump karega) -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
+                <a href="#allotment-section" style="text-decoration:none; padding:10px; background:#e2f0d9; color:#385723; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #a9d18e;"><i class="fa-solid fa-circle-plus d-block mb-1"></i>Allotment Entry</a>
+                <a href="#expenditure-section" style="text-decoration:none; padding:10px; background:#fce4d6; color:#c65911; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #f8cbad;"><i class="fa-solid fa-file-invoice-dollar d-block mb-1"></i>Expenditure Entry</a>
+                <a href="#report-section" style="text-decoration:none; padding:10px; background:#fff2cc; color:#7f6000; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #ffe599;"><i class="fa-solid fa-chart-line d-block mb-1"></i>Expe Report</a>
+                <a href="#balance-section" style="text-decoration:none; padding:10px; background:#e8f4f8; color:#1f4e5b; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #b4d6e4;"><i class="fa-solid fa-scale-balanced d-block mb-1"></i>Balance Sheet</a>
+            </div>
+
+            <!-- TAB 1: Allotment Entry Form -->
+            <div id="allotment-section" class="form-card" style="scroll-margin-top: 10px;">
                 <h4><i class="fa-solid fa-circle-plus" style="color: green;"></i> 1. Allotment Entry</h4>
                 <form action="/submit" method="POST">
                     <input type="hidden" name="type" value="Allotment">
@@ -113,7 +126,9 @@ PAGES_BODY = """
                     <button type="submit" class="submit-btn" style="background: green;">आवंटन डेटा सेव करें</button>
                 </form>
             </div>
-            <div class="form-card">
+
+            <!-- TAB 2: Expenditure Entry Form -->
+            <div id="expenditure-section" class="form-card" style="scroll-margin-top: 10px;">
                 <h4><i class="fa-solid fa-file-invoice-dollar" style="color: red;"></i> 2. Expenditure Entry</h4>
                 <form action="/submit" method="POST">
                     <input type="hidden" name="type" value="Expenditure">
@@ -125,8 +140,39 @@ PAGES_BODY = """
                     <button type="submit" class="submit-btn" style="background: red;">व्यय डेटा सेव करें</button>
                 </form>
             </div>
+
+            <!-- TAB 3: Expenditure Report Section (All Bill & Code Wise) -->
+            <div id="report-section" class="form-card" style="scroll-margin-top: 10px; background:#fffdf4;">
+                <h4><i class="fa-solid fa-chart-line" style="color: #7f6000;"></i> 3. Expenditure Report</h4>
+                <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd; margin-bottom:10px;">
+                    <span style="font-size:13px; font-weight:bold; color:#333;">1. Expenditure Report ALL Bill</span>
+                    <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">कुल खर्च किए गए सभी बिलों की विस्तृत सूची।</p>
+                    <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#764ba2; color:#fff; border:none; border-radius:4px;">रिपोर्ट देखें</button>
+                </div>
+                <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd;">
+                    <span style="font-size:13px; font-weight:bold; color:#333;">2. Expenditure Budget Code wise</span>
+                    <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">बजट कोड के अनुसार कुल व्यय का विवरण।</p>
+                    <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#764ba2; color:#fff; border:none; border-radius:4px;">विवरण देखें</button>
+                </div>
+            </div>
+
+            <!-- TAB 4: Balance Sheet Section (Budget code wise & All balance) -->
+            <div id="balance-section" class="form-card" style="scroll-margin-top: 10px; background:#f4f9fa;">
+                <h4><i class="fa-solid fa-scale-balanced" style="color: #1f4e5b;"></i> 4. Balance Sheet</h4>
+                <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd; margin-bottom:10px;">
+                    <span style="font-size:13px; font-weight:bold; color:#333;">1. Total Balance Budget Code wise</span>
+                    <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">किस कोड में कितना बैलेंस बचा है (आवंटन - व्यय)।</p>
+                    <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#0288d1; color:#fff; border:none; border-radius:4px;">बैलेंस जांचें</button>
+                </div>
+                <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd;">
+                    <span style="font-size:13px; font-weight:bold; color:#333;">2. Total Balance ALL</span>
+                    <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">कार्यालय का संचित कुल शेष बजट विवरण।</p>
+                    <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#0288d1; color:#fff; border:none; border-radius:4px;">समरी देखें</button>
+                </div>
+            </div>
         </div>
 
+        <!-- 4. ABOUT SCREEN -->
         <div id="about" class="app-page" style="text-align: center;">
             <h3 class="page-title">About Me</h3>
             <h4 style="color:#764ba2; margin-bottom: 5px;">Rudra Tech Pvt Ltd</h4>
@@ -146,6 +192,7 @@ PAGES_BODY = """
             </form>
         </div>
 """
+
 
 # --- 3. APP LAYOUT END ---
 LAYOUT_END = """
