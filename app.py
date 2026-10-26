@@ -1,8 +1,8 @@
-from flask import Flask, render_template_string, request, redirect
+from flask import Flask, render_template_string, request
 
 app = Flask(__name__)
 
-# --- बेस HTML टेम्पलेट (Bootstrap 5 नेविगेशन बार के साथ) ---
+# --- 1. BASE STRUCTURE ---
 BASE_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="hi">
@@ -10,17 +10,12 @@ BASE_TEMPLATE = """
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rudra Tech - ICDS Budget App</title>
-    <!-- Bootstrap 5 CSS -->
     <link href="https://jsdelivr.net" rel="stylesheet">
-    <!-- FontAwesome Logos के लिए -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
-        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-bottom: 70px; }
+        body { background-color: #f8f9fa; font-family: sans-serif; padding-bottom: 80px; }
         .navbar-custom { background-color: #2c3e50; }
         .card-custom { border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: none; }
-        .nav-tabs .nav-link.active { background-color: #3498db; color: white; border-color: #3498db; }
-        
-        /* बॉटम नेविगेशन बार (5 बटन मोबाइल स्टाइल) */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background-color: #ffffff; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
         .bottom-nav a { text-decoration: none; color: #7f8c8d; text-align: center; font-size: 12px; width: 20%; }
         .bottom-nav a.active { color: #3498db; font-weight: bold; }
@@ -28,261 +23,128 @@ BASE_TEMPLATE = """
     </style>
 </head>
 <body>
-
-    <!-- टॉप हेडर -->
-    <nav class="navbar navbar-dark navbar-custom py-2 shadow shadow-sm mb-4">
+    <nav class="navbar navbar-dark navbar-custom py-2 shadow-sm mb-4">
         <div class="container text-center">
-            <span class="navbar-brand mb-0 h1 mx-auto"><i class="fa-solid fa-calculator me-2"></i>ICDS आवंटन एवं व्यय प्रबंधन प्रणाली</span>
+            <span class="navbar-brand mb-0 h1 mx-auto"><i class="fa-solid fa-calculator me-2"></i>ICDS आवंटन एवं व्यय प्रबंधन</span>
         </div>
     </nav>
-
     <div class="container">
-        {% block content %}{% endblock %}
+        {{ content | safe }}
     </div>
-
-    <!-- 5 पेज का बॉटम नेविगेशन बटन -->
     <div class="bottom-nav">
-        <a href="/" class="{% if active_page == 'home' %}active{% endif %}">
-            <i class="fa-solid fa-house"></i>Home
-        </a>
-        <a href="/notice" class="{% if active_page == 'notice' %}active{% endif %}">
-            <i class="fa-solid fa-bell"></i>Notice
-        </a>
-        <a href="/service" class="{% if active_page == 'service' %}active{% endif %}">
-            <i class="fa-solid fa-gears"></i>Service
-        </a>
-        <a href="/about" class="{% if active_page == 'about' %}active{% endif %}">
-            <i class="fa-solid fa-building"></i>About Me
-        </a>
-        <a href="/contact" class="{% if active_page == 'contact' %}active{% endif %}">
-            <i class="fa-solid fa-envelope"></i>Contact Us
-        </a>
+        <a href="/" class="{% if active == 'home' %}active{% endif %}"><i class="fa-solid fa-house"></i>Home</a>
+        <a href="/notice" class="{% if active == 'notice' %}active{% endif %}"><i class="fa-solid fa-bell"></i>Notice</a>
+        <a href="/service" class="{% if active == 'service' %}active{% endif %}"><i class="fa-solid fa-gears"></i>Service</a>
+        <a href="/about" class="{% if active == 'about' %}active{% endif %}"><i class="fa-solid fa-building"></i>About Me</a>
+        <a href="/contact" class="{% if active == 'contact' %}active{% endif %}"><i class="fa-solid fa-envelope"></i>Contact Us</a>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://jsdelivr.net"></script>
 </body>
 </html>
 """
 
-# --- 1. HOME PAGE (Welcome Screen) ---
+# --- 2. PAGES CONTENT ---
 HOME_HTML = """
-{% extends "base" %}
-{% block content %}
 <div class="row justify-content-center text-center mt-5">
     <div class="col-md-8">
         <div class="card card-custom p-5 bg-white">
-            <img src="https://flaticon.com" style="width: 100px;" class="mx-auto mb-4" alt="Logo">
-            <h1 class="display-5 text-dark fw-bold mb-3">डिजिटल बजट मैनेजर में आपका स्वागत है</h1>
-            <p class="lead text-muted">यहाँ से आप ICDS कार्यालय के विभिन्न बजट हेड, आवंटन (Allotment) और व्यय (Expenditure) का लेखा-जोखा आसानी से प्रबंधित कर सकते हैं।</p>
+            <img src="https://flaticon.com" style="width: 100px;" class="mx-auto mb-4">
+            <h1 class="display-5 text-dark fw-bold mb-3">डिजिटल बजट मैनेजर में स्वागत है</h1>
+            <p class="lead text-muted">यहाँ से आप ICDS कार्यालय के विभिन्न बजट हेड, आवंटन (Allotment) और व्यय (Expenditure) का लेखा-जोखा प्रबंधित कर सकते हैं।</p>
             <hr class="my-4">
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <a href="/service" class="btn btn-primary btn-lg px-4 gap-3"><i class="fa-solid fa-play me-2"></i>काम शुरू करें</a>
-            </div>
+            <a href="/service" class="btn btn-primary btn-lg px-4"><i class="fa-solid fa-play me-2"></i>काम शुरू करें</a>
         </div>
     </div>
 </div>
-{% endblock %}
 """
 
-# --- 2. NOTICE BOARD PAGE ---
 NOTICE_HTML = """
-{% extends "base" %}
-{% block content %}
 <div class="card card-custom p-4 bg-white">
-    <h3 class="text-danger border-bottom pb-2 mb-3"><i class="fa-solid fa-bullhorn me-2"></i>आकर्षक सूचना पट्ट (Notice Board)</h3>
-    <div class="alert alert-warning d-flex align-items-center" role="alert">
-        <i class="fa-solid fa-triangle-exclamation me-3 fs-4"></i>
-        <div>
-            <strong>महत्वपूर्ण सूचना:</strong> वित्तीय वर्ष 2026-27 के लिए सभी यूनिट हेड का व्यय प्रतिवेदन 31 तारीख तक जमा करना अनिवार्य है।
-        </div>
-    </div>
-    <div class="list-group">
-        <div class="list-group-item list-group-item-action py-3">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1 text-primary">नया आवंटन प्राप्त हुआ (Source: HQ Patna)</h5>
-                <small class="text-muted">आज</small>
-            </div>
-            <p class="mb-1">मद संख्या 2235 के अंतर्गत आंगनबाड़ी मानदेय हेतु राशि आवंटित कर दी गई है। कृपया ऑलॉटमेंट एंट्री चेक करें।</p>
-        </div>
-        <div class="list-group-item list-group-item-action py-3">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">बजट कोड वाइज रिपोर्ट अपडेटेड</h5>
-                <small class="text-muted">2 दिन पहले</small>
-            </div>
-            <p class="mb-1">गूगल शीट सिंक को पूरी तरह से दुरुस्त कर दिया गया है। रिपोर्ट टैब लाइव है।</p>
-        </div>
+    <h3 class="text-danger border-bottom pb-2 mb-3"><i class="fa-solid fa-bullhorn me-2"></i>Notice Board</h3>
+    <div class="alert alert-warning">
+        <strong>महत्वपूर्ण सूचना:</strong> वित्तीय वर्ष के लिए सभी यूनिट हेड का व्यय प्रतिवेदन समय पर जमा करना अनिवार्य है।
     </div>
 </div>
-{% endblock %}
 """
 
-# --- 3. SERVICE PAGE (4 Tabs for Reports & Entries) ---
 SERVICE_HTML = """
-{% extends "base" %}
-{% block content %}
 <div class="card card-custom p-4 bg-white">
-    <h3 class="mb-4 text-primary border-bottom pb-2"><i class="fa-solid fa-gears me-2"></i>मुख्य सेवाएं एवं प्रविष्टियां</h3>
-    
-    <!-- 4 मुख्य टैब्स -->
-    <ul class="nav nav-tabs mb-4" id="serviceTabs" role="tablist">
-        <li class="nav-item"><a class="nav-link active" id="report-tab" data-bs-toggle="tab" href="#report" role="tab">1. Report</a></li>
-        <li class="nav-item"><a class="nav-link" id="expenditure-tab" data-bs-toggle="tab" href="#expenditure" role="tab">2. Expenditure Entry</a></li>
-        <li class="nav-item"><a class="nav-link" id="allotment-tab" data-bs-toggle="tab" href="#allotment" role="tab">3. Allotment Entry</a></li>
-    </ul>
-
-    <div class="tab-content" id="serviceTabsContent">
-        <!-- 1. REPORT TAB -->
-        <div class="tab-pane fade show active" id="report" role="tabpanel">
-            <h4 class="text-secondary mb-3">वित्तीय रिपोर्ट गैलरी</h4>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light">
-                        <h5>1. Expenditure Report (ALL Bill)</h5>
-                        <p class="text-muted small">कुल खर्च किए गए सभी बिलों की विस्तृत सूची।</p>
-                        <button class="btn btn-sm btn-outline-primary">देखें</button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light">
-                        <h5>2. Expenditure Budget Code-wise</h5>
-                        <p class="text-muted small">बजट कोड के अनुसार कुल व्यय का विवरण।</p>
-                        <button class="btn btn-sm btn-outline-primary">देखें</button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light">
-                        <h5>3. Total Balance Budget Code-wise</h5>
-                        <p class="text-muted small">किस कोड में कितना बैलेंस बचा है (आवंटन - व्यय)।</p>
-                        <button class="btn btn-sm btn-outline-success">बैलेंस देखें</button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light">
-                        <h5>4. Total Balance ALL</h5>
-                        <p class="text-muted small">कार्यालय का संचित कुल शेष बजट विवरण।</p>
-                        <button class="btn btn-sm btn-outline-success">समरी देखें</button>
-                    </div>
-                </div>
+    <h3 class="mb-4 text-primary border-bottom pb-2"><i class="fa-solid fa-gears me-2"></i>सेवाएं एवं प्रविष्टियां</h3>
+    <div class="p-3 border rounded bg-light mb-3">
+        <h5>1. Allotment Entry</h5>
+        <form action="/submit" method="POST">
+            <input type="hidden" name="type" value="Allotment">
+            <div class="row g-2">
+                <div class="col-6"><input type="text" name="f1" placeholder="Source" class="form-control" required></div>
+                <div class="col-6"><input type="text" name="f2" placeholder="Order No" class="form-control" required></div>
+                <div class="col-4"><input type="text" name="f3" placeholder="Budget Head" class="form-control" required></div>
+                <div class="col-4"><input type="text" name="f4" placeholder="Unit Code" class="form-control" required></div>
+                <div class="col-4"><input type="number" name="f5" placeholder="Amount" class="form-control" required></div>
             </div>
-        </div>
-
-        <!-- 2. EXPENDITURE ENTRY TAB -->
-        <div class="tab-pane fade" id="expenditure" role="tabpanel">
-            <h4 class="text-danger mb-3">व्यय प्रविष्टि (Expenditure Entry)</h4>
-            <form action="/submit-expenditure" method="POST">
-                <div class="row g-3">
-                    <div class="col-md-6"><label class="form-label">1. Order No.</label><input type="text" name="order_no" class="form-control" required></div>
-                    <div class="col-md-6"><label class="form-label">2. Date</label><input type="date" name="date" class="form-control" required></div>
-                    <div class="col-md-6"><label class="form-label">3. Budget Head</label><input type="text" name="budget_head" class="form-control" placeholder="उदा: 2235" required></div>
-                    <div class="col-md-6"><label class="form-label">4. Unit Head</label><input type="text" name="unit_head" class="form-control" required></div>
-                    <div class="col-md-4"><label class="form-label">5. Mad (मद)</label><input type="text" name="mad" class="form-control" required></div>
-                    <div class="col-md-4"><label class="form-label">6. Amount (राशि ₹)</label><input type="number" name="amount" class="form-control" required></div>
-                    <div class="col-md-4"><label class="form-label">7. Remarks</label><input type="text" name="remarks" class="form-control"></div>
-                </div>
-                <button type="submit" class="btn btn-danger mt-4 w-100"><i class="fa-solid fa-floppy-disk me-2"></i>व्यय डेटा सेव करें</button>
-            </form>
-        </div>
-
-           # --- 3. ALLOTMENT ENTRY TAB ---
-        <div class="tab-pane fade" id="allotment" role="tabpanel">
-            <h4 class="text-success mb-3">आवंटन प्रविष्टि (Allotment Entry)</h4>
-            <form action="/submit-allotment" method="POST">
-                <div class="row g-3">
-                    <div class="col-md-6"><label class="form-label">1. Source (स्रोत)</label><input type="text" name="source" class="form-control" required></div>
-                    <div class="col-md-6"><label class="form-label">2. Order No.</label><input type="text" name="order_no" class="form-control" required></div>
-                    <div class="col-md-4"><label class="form-label">3. Budget Head</label><input type="text" name="budget_head" class="form-control" required></div>
-                    <div class="col-md-4"><label class="form-label">4. Unit Code</label><input type="text" name="unit_code" class="form-control" required></div>
-                    <div class="col-md-4"><label class="form-label">5. Amount (प्राप्त राशि ₹)</label><input type="number" name="amount" class="form-control" required></div>
-                    <div class="col-12"><label class="form-label">6. Remark</label><input type="text" name="remark" class="form-control"></div>
-                </div>
-                <button type="submit" class="btn btn-success mt-4 w-100"><i class="fa-solid fa-circle-check me-2"></i>आवंटन डेटा सेव करें</button>
-            </form>
-        </div>
+            <button class="btn btn-success btn-sm mt-2 w-100">आवंटन डेटा सेव करें</button>
+        </form>
+    </div>
+    <div class="p-3 border rounded bg-light">
+        <h5>2. Expenditure Entry</h5>
+        <form action="/submit" method="POST">
+            <input type="hidden" name="type" value="Expenditure">
+            <div class="row g-2">
+                <div class="col-6"><input type="text" name="f1" placeholder="Order No" class="form-control" required></div>
+                <div class="col-6"><input type="date" name="f2" class="form-control" required></div>
+                <div class="col-4"><input type="text" name="f3" placeholder="Budget Head" class="form-control" required></div>
+                <div class="col-4"><input type="text" name="f4" placeholder="Unit Head" class="form-control" required></div>
+                <div class="col-4"><input type="number" name="f5" placeholder="Amount" class="form-control" required></div>
+            </div>
+            <button class="btn btn-danger btn-sm mt-2 w-100">व्यय डेटा सेव करें</button>
+        </form>
     </div>
 </div>
-{% endblock %}
 """
 
-# --- 4. ABOUT ME PAGE ---
 ABOUT_HTML = """
-{% extends "base" %}
-{% block content %}
 <div class="card card-custom p-4 text-center bg-white">
     <h3 class="text-primary mb-3">Rudra Tech Pvt Ltd</h3>
-    <p class="text-muted">हम सरकारी कार्यालयों और व्यवसायों के लिए उच्च गुणवत्ता वाले सॉफ्टवेयर और डिजिटल टूल्स का निर्माण करते हैं।</p>
-    <hr>
-    <h5>हमारे सोशल साइट्स से जुड़ें:</h5>
-    <div class="my-4">
-        <a href="https://wa.me" target="_blank" class="btn btn-success mx-2 btn-lg shadow-sm"><i class="fa-brands fa-whatsapp me-2"></i>WhatsApp</a>
-        <a href="https://facebook.com" target="_blank" class="btn btn-primary mx-2 btn-lg shadow-sm"><i class="fa-brands fa-facebook me-2"></i>Facebook</a>
-        <a href="https://linkedin.com" target="_blank" class="btn btn-dark mx-2 btn-lg shadow-sm"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</a>
-    </div>
+    <p class="text-muted">हम सरकारी कार्यालयों के लिए डिजिटल टूल्स का निर्माण करते हैं।</p>
+    <a href="https://wa.me" target="_blank" class="btn btn-success mt-3"><i class="fa-brands fa-whatsapp me-2"></i>WhatsApp Chat</a>
 </div>
-{% endblock %}
 """
 
-# --- 5. CONTACT US PAGE ---
 CONTACT_HTML = """
-{% extends "base" %}
-{% block content %}
 <div class="card card-custom p-4 bg-white">
-    <h3 class="text-primary mb-3"><i class="fa-solid fa-paper-plane me-2"></i>Contact Us (एडमिन को सन्देश भेजें)</h3>
-    <form action="/submit-contact" method="POST">
-        <div class="mb-3">
-            <label class="form-label">आपका नाम</label>
-            <input type="text" name="name" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">विषय (Subject)</label>
-            <input type="text" name="subject" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">सन्देश बॉक्स (Message Box)</label>
-            <textarea name="message" class="form-control" rows="5" placeholder="यहाँ अपना सन्देश लिखें..." required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">डायरेक्ट मैसेज भेजें</button>
+    <h3 class="text-primary mb-3">Contact Us</h3>
+    <form action="/submit" method="POST">
+        <input type="hidden" name="type" value="Contact">
+        <div class="mb-2"><input type="text" name="f1" placeholder="आपका नाम" class="form-control" required></div>
+        <div class="mb-2"><input type="text" name="f2" placeholder="विषय" class="form-control" required></div>
+        <div class="mb-2"><textarea name="f3" placeholder="सन्देश लिखें..." class="form-control" rows="3" required></textarea></div>
+        <button class="btn btn-primary w-100">मैसेज भेजें</button>
     </form>
 </div>
-{% endblock %}
 """
 
-# --- URL ROUTING (राउट्स) ---
+# --- 3. ROUTES ---
 @app.route('/')
 def home():
-    return render_template_string(BASE_TEMPLATE + HOME_HTML, active_page='home')
+    return render_template_string(BASE_TEMPLATE, content=HOME_HTML, active='home')
 
 @app.route('/notice')
 def notice():
-    return render_template_string(BASE_TEMPLATE + NOTICE_HTML, active_page='notice')
+    return render_template_string(BASE_TEMPLATE, content=NOTICE_HTML, active='notice')
 
 @app.route('/service')
 def service():
-    return render_template_string(BASE_TEMPLATE + SERVICE_HTML, active_page='service')
+    return render_template_string(BASE_TEMPLATE, content=SERVICE_HTML, active='service')
 
 @app.route('/about')
 def about():
-    return render_template_string(BASE_TEMPLATE + ABOUT_HTML, active_page='about')
+    return render_template_string(BASE_TEMPLATE, content=ABOUT_HTML, active='about')
 
 @app.route('/contact')
 def contact():
-    return render_template_string(BASE_TEMPLATE + CONTACT_HTML, active_page='contact')
+    return render_template_string(BASE_TEMPLATE, content=CONTACT_HTML, active='contact')
 
-# --- फॉर्म सबमिशन हैंडल्स (डेटा रिसीव करने के लिए) ---
-@app.route('/submit-expenditure', methods=['POST'])
-def submit_expenditure():
-    print(request.form) 
-    return "<h3>व्यय (Expenditure) डेटा प्राप्त हुआ! गूगल शीट सेटअप के बाद यह वहाँ दिखने लगेगा।</h3><a href='/service' class='btn btn-primary'>वापस जाएं</a>"
-
-@app.route('/submit-allotment', methods=['POST'])
-def submit_allotment():
-    print(request.form)
-    return "<h3>आवंटन (Allotment) डेटा प्राप्त हुआ! गूगल शीट सेटअप के बाद यह वहाँ दिखने लगेगा।</h3><a href='/service' class='btn btn-primary'>वापस जाएं</a>"
-
-@app.route('/submit-contact', methods=['POST'])
-def submit_contact():
-    print(request.form)
-    return "<h3>आपका सन्देश एडमिन को भेज दिया गया है!</h3><a href='/contact' class='btn btn-primary'>वापस जाएं</a>"
+@app.route('/submit', methods=['POST'])
+def submit():
+    return f"<h3>डेटा सफलतापूर्वक प्राप्त हुआ (प्रकार: {request.form.get('type')})!</h3><a href='/service' class='btn btn-primary'>वापस जाएं</a>"
 
 if __name__ == '__main__':
     app.run(debug=True)
