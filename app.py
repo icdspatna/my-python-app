@@ -184,94 +184,105 @@ SERVICE_HTML = """
             </form>
         </div>
 
-        <!-- 3. ALLOTMENT ENTRY TAB -->
+           # --- 3. ALLOTMENT ENTRY TAB ---
         <div class="tab-pane fade" id="allotment" role="tabpanel">
-आवंटन प्रविष्टि (Allotment Entry)
-
-
-1. Source (स्रोत)
-2. Order No.
-3. Budget Head
-4. Unit Code
-5. Amount (प्राप्त राशि ₹)
-6. Remark
-
-आवंटन डेटा सेव करें
-
-
-
-
+            <h4 class="text-success mb-3">आवंटन प्रविष्टि (Allotment Entry)</h4>
+            <form action="/submit-allotment" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="form-label">1. Source (स्रोत)</label><input type="text" name="source" class="form-control" required></div>
+                    <div class="col-md-6"><label class="form-label">2. Order No.</label><input type="text" name="order_no" class="form-control" required></div>
+                    <div class="col-md-4"><label class="form-label">3. Budget Head</label><input type="text" name="budget_head" class="form-control" required></div>
+                    <div class="col-md-4"><label class="form-label">4. Unit Code</label><input type="text" name="unit_code" class="form-control" required></div>
+                    <div class="col-md-4"><label class="form-label">5. Amount (प्राप्त राशि ₹)</label><input type="number" name="amount" class="form-control" required></div>
+                    <div class="col-12"><label class="form-label">6. Remark</label><input type="text" name="remark" class="form-control"></div>
+                </div>
+                <button type="submit" class="btn btn-success mt-4 w-100"><i class="fa-solid fa-circle-check me-2"></i>आवंटन डेटा सेव करें</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
 """
 
---- 4. ABOUT ME PAGE ---
-
+# --- 4. ABOUT ME PAGE ---
 ABOUT_HTML = """
 {% extends "base" %}
 {% block content %}
-
-Rudra Tech Pvt Ltd
-हम सरकारी कार्यालयों और व्यवसायों के लिए उच्च गुणवत्ता वाले सॉफ्टवेयर और डिजिटल टूल्स का निर्माण करते हैं।
-
-हमारे सोशल साइट्स से जुड़ें:
-
-WhatsApp
-Facebook
-LinkedIn
-
-
+<div class="card card-custom p-4 text-center bg-white">
+    <h3 class="text-primary mb-3">Rudra Tech Pvt Ltd</h3>
+    <p class="text-muted">हम सरकारी कार्यालयों और व्यवसायों के लिए उच्च गुणवत्ता वाले सॉफ्टवेयर और डिजिटल टूल्स का निर्माण करते हैं।</p>
+    <hr>
+    <h5>हमारे सोशल साइट्स से जुड़ें:</h5>
+    <div class="my-4">
+        <a href="https://wa.me" target="_blank" class="btn btn-success mx-2 btn-lg shadow-sm"><i class="fa-brands fa-whatsapp me-2"></i>WhatsApp</a>
+        <a href="https://facebook.com" target="_blank" class="btn btn-primary mx-2 btn-lg shadow-sm"><i class="fa-brands fa-facebook me-2"></i>Facebook</a>
+        <a href="https://linkedin.com" target="_blank" class="btn btn-dark mx-2 btn-lg shadow-sm"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</a>
+    </div>
+</div>
 {% endblock %}
 """
 
---- 5. CONTACT US PAGE ---
-
+# --- 5. CONTACT US PAGE ---
 CONTACT_HTML = """
 {% extends "base" %}
 {% block content %}
-
-Contact Us (एडमिन को सन्देश भेजें)
-
-आपका नाम
-विषय (Subject)
-सन्देश बॉक्स (Message Box)
-डायरेक्ट मैसेज भेजें
-
-
+<div class="card card-custom p-4 bg-white">
+    <h3 class="text-primary mb-3"><i class="fa-solid fa-paper-plane me-2"></i>Contact Us (एडमिन को सन्देश भेजें)</h3>
+    <form action="/submit-contact" method="POST">
+        <div class="mb-3">
+            <label class="form-label">आपका नाम</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">विषय (Subject)</label>
+            <input type="text" name="subject" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">सन्देश बॉक्स (Message Box)</label>
+            <textarea name="message" class="form-control" rows="5" placeholder="यहाँ अपना सन्देश लिखें..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">डायरेक्ट मैसेज भेजें</button>
+    </form>
+</div>
 {% endblock %}
 """
 
---- URL ROUTING (राउट्स) ---
-
+# --- URL ROUTING (राउट्स) ---
 @app.route('/')
 def home():
-return render_template_string(BASE_TEMPLATE + HOME_HTML, active_page='home')
+    return render_template_string(BASE_TEMPLATE + HOME_HTML, active_page='home')
+
 @app.route('/notice')
 def notice():
-return render_template_string(BASE_TEMPLATE + NOTICE_HTML, active_page='notice')
+    return render_template_string(BASE_TEMPLATE + NOTICE_HTML, active_page='notice')
+
 @app.route('/service')
 def service():
-return render_template_string(BASE_TEMPLATE + SERVICE_HTML, active_page='service')
+    return render_template_string(BASE_TEMPLATE + SERVICE_HTML, active_page='service')
+
 @app.route('/about')
 def about():
-return render_template_string(BASE_TEMPLATE + ABOUT_HTML, active_page='about')
+    return render_template_string(BASE_TEMPLATE + ABOUT_HTML, active_page='about')
+
 @app.route('/contact')
 def contact():
-return render_template_string(BASE_TEMPLATE + CONTACT_HTML, active_page='contact')
+    return render_template_string(BASE_TEMPLATE + CONTACT_HTML, active_page='contact')
 
---- फॉर्म सबमिशन हैंडल्स (डेटा रिसीव करने के लिए) ---
-
+# --- फॉर्म सबमिशन हैंडल्स (डेटा रिसीव करने के लिए) ---
 @app.route('/submit-expenditure', methods=['POST'])
 def submit_expenditure():
-# यहाँ पर हम आगे गूगल शीट का कोड जोड़ेंगे
-print(request.form)
-return "व्यय (Expenditure) डेटा प्राप्त हुआ! गूगल शीट सेटअप के बाद यह वहाँ दिखने लगेगा।वापस जाएं"
+    print(request.form) 
+    return "<h3>व्यय (Expenditure) डेटा प्राप्त हुआ! गूगल शीट सेटअप के बाद यह वहाँ दिखने लगेगा।</h3><a href='/service' class='btn btn-primary'>वापस जाएं</a>"
+
 @app.route('/submit-allotment', methods=['POST'])
 def submit_allotment():
-print(request.form)
-return "आवंटन (Allotment) डेटा प्राप्त हुआ! गूगल शीट सेटअप के बाद यह वहाँ दिखने लगेगा।वापस जाएं"
+    print(request.form)
+    return "<h3>आवंटन (Allotment) डेटा प्राप्त हुआ! गूगल शीट सेटअप के बाद यह वहाँ दिखने लगेगा।</h3><a href='/service' class='btn btn-primary'>वापस जाएं</a>"
+
 @app.route('/submit-contact', methods=['POST'])
 def submit_contact():
-print(request.form)
-return "आपका सन्देश एडमिन को भेज दिया गया है!वापस जाएं"
-if name == 'main':
-app.run(debug=True)
+    print(request.form)
+    return "<h3>आपका सन्देश एडमिन को भेज दिया गया है!</h3><a href='/contact' class='btn btn-primary'>वापस जाएं</a>"
+
+if __name__ == '__main__':
+    app.run(debug=True)
