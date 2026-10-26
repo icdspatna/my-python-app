@@ -2,42 +2,73 @@ from flask import Flask, render_template_string, request
 
 app = Flask(__name__)
 
-# --- 1. BASE STRUCTURE ---
+# --- 1. BASE STRUCTURE (मोबाइल के लिए 100% फिट) ---
 BASE_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Rudra Tech - ICDS Budget App</title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://jsdelivr.net" rel="stylesheet">
+    <!-- FontAwesome Logos -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
-        body { background-color: #f8f9fa; font-family: sans-serif; padding-bottom: 80px; }
-        .navbar-custom { background-color: #2c3e50; }
-        .card-custom { border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: none; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background-color: #ffffff; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
-        .bottom-nav a { text-decoration: none; color: #7f8c8d; text-align: center; font-size: 12px; width: 20%; }
+        html, body { 
+            width: 100%;
+            overflow-x: hidden; /* स्क्रीन को दाएं-बायें हिलने से रोकने के लिए */
+            background-color: #f8f9fa; 
+            font-family: sans-serif; 
+            padding-bottom: 80px; 
+        }
+        .navbar-custom { background-color: #2c3e50; width: 100%; }
+        .card-custom { border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: none; margin-bottom: 20px; }
+        
+        /* मोबाइल रिस्पॉन्सिव बॉटम नेविगेशन बार */
+        .bottom-nav { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 65px; 
+            background-color: #ffffff; 
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1); 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center; 
+            z-index: 1050; 
+        }
+        .bottom-nav a { 
+            text-decoration: none; 
+            color: #7f8c8d; 
+            text-align: center; 
+            font-size: 11px; 
+            flex-grow: 1;
+            padding: 5px 0;
+        }
         .bottom-nav a.active { color: #3498db; font-weight: bold; }
-        .bottom-nav i { font-size: 20px; display: block; margin-bottom: 2px; }
+        .bottom-nav i { font-size: 22px; display: block; margin-bottom: 3px; }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark navbar-custom py-2 shadow-sm mb-4">
-        <div class="container text-center">
-            <span class="navbar-brand mb-0 h1 mx-auto"><i class="fa-solid fa-calculator me-2"></i>ICDS आवंटन एवं व्यय प्रबंधन</span>
+    <nav class="navbar navbar-dark navbar-custom py-2 shadow-sm mb-3">
+        <div class="container-fluid text-center">
+            <span class="navbar-brand mb-0 h1 mx-auto" style="font-size: 1.1rem;"><i class="fa-solid fa-calculator me-2"></i>ICDS आवंटन एवं व्यय प्रबंधन</span>
         </div>
     </nav>
-    <div class="container">
+    <div class="container-fluid px-3">
         {{ content | safe }}
     </div>
     <div class="bottom-nav">
         <a href="/" class="{% if active == 'home' %}active{% endif %}"><i class="fa-solid fa-house"></i>Home</a>
         <a href="/notice" class="{% if active == 'notice' %}active{% endif %}"><i class="fa-solid fa-bell"></i>Notice</a>
         <a href="/service" class="{% if active == 'service' %}active{% endif %}"><i class="fa-solid fa-gears"></i>Service</a>
-        <a href="/about" class="{% if active == 'about' %}active{% endif %}"><i class="fa-solid fa-building"></i>About Me</a>
-        <a href="/contact" class="{% if active == 'contact' %}active{% endif %}"><i class="fa-solid fa-envelope"></i>Contact Us</a>
+        <a href="/about" class="{% if active == 'about' %}active{% endif %}"><i class="fa-solid fa-building"></i>About</a>
+        <a href="/contact" class="{% if active == 'contact' %}active{% endif %}"><i class="fa-solid fa-envelope"></i>Contact</a>
     </div>
+    <!-- Bootstrap JS -->
+    <script src="https://jsdelivr.net"></script>
 </body>
 </html>
 """
