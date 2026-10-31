@@ -203,6 +203,7 @@ PAGES_BODY = """
 
 
 # --- 3. APP LAYOUT END ---
+# --- 3. APP LAYOUT END ---
 LAYOUT_END = """
         <div class="bottom-nav">
             <div class="nav-item active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i>Home</div>
@@ -212,46 +213,39 @@ LAYOUT_END = """
             <div class="nav-item" onclick="switchPage('contact')"><i class="fa-solid fa-envelope"></i>Contact</div>
         </div>
     </div>
+    
     <script>
-<script>
-// 1. यह आपका पुराना फंक्शन है (मुख्य पेज बदलने के लिए)
-function switchPage(pageId) {
-    document.querySelectorAll('.app-page').forEach(page => {
-        page.classList.remove('active');
-    });
-    document.getElementById(pageId).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    const pages = ['home', 'notice', 'service', 'about', 'contact'];
-    const index = pages.indexOf(pageId);
-    if(index !== -1) {
-        document.querySelectorAll('.nav-item')[index].classList.add('active');
+    // 1. मुख्य पेज बदलने के लिए पुराना फंक्शन
+    function switchPage(pageId) {
+        document.querySelectorAll('.app-page').forEach(page => {
+            page.classList.remove('active');
+        });
+        document.getElementById(pageId).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        const pages = ['home', 'notice', 'service', 'about', 'contact'];
+        const index = pages.indexOf(pageId);
+        if(index !== -1) {
+            document.querySelectorAll('.nav-item')[index].classList.add('active');
+        }
     }
-}
 
-// 2. यह नया फंक्शन है (आपके 4 फॉर्म्स / सब-पेज बदलने के लिए)
-function showSection(sectionId) {
-    // पहले चारों सेक्शन्स को छुपाएं
-    var contents = document.getElementsByClassName('tab-content');
-    for (var i = 0; i < contents.length; i++) {
-        contents[i].style.display = 'none';
+    // 2. आपके 4 सब-फॉर्म्स / टैब बदलने के लिए नया फंक्शन
+    function showSection(sectionId) {
+        var contents = document.getElementsByClassName('tab-content');
+        for (var i = 0; i < contents.length; i++) {
+            contents[i].style.display = 'none';
+        }
+        var target = document.getElementById(sectionId);
+        if(target) {
+            target.style.display = 'block';
+        }
     }
-    // सिर्फ क्लिक किए गए सेक्शन को दिखाएं
-    var target = document.getElementById(sectionId);
-    if(target) {
-        target.style.display = 'block';
-    }
-}
-</script>
-
-       
-            
-
+    </script>
 </body>
 </html>
 """
-
 # --- 4. FLASK ROUTING ---
 @app.route('/')
 def main_app():
