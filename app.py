@@ -361,34 +361,89 @@ LAYOUT_END = """
     </div>
     
     <script>
-    // 1. मुख्य पेज बदलने के लिए पुराना फंक्शन
-    function switchPage(pageId) {
-        document.querySelectorAll('.app-page').forEach(page => {
-            page.classList.remove('active');
-        });
-        document.getElementById(pageId).classList.add('active');
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.classList.remove('active');
-        });
-        const pages = ['home', 'notice', 'service', 'about', 'contact'];
-        const index = pages.indexOf(pageId);
-        if(index !== -1) {
-            document.querySelectorAll('.nav-item')[index].classList.add('active');
-        }
+    <script>
+// 1. मुख्य पेजों को बदलने के लिए फंक्शन (बॉटम नेव बार और लॉगिन के लिए)
+function switchPage(pageId) {
+    // सभी स्क्रीन्स को छिपाएं
+    document.querySelectorAll('.app-page').forEach(page => {
+        page.classList.remove('active');
+        page.style.display = 'none';
+    });
+    
+    // केवल चुनी हुई स्क्रीन को दिखाएं
+    const activePage = document.getElementById(pageId);
+    if(activePage) {
+        activePage.classList.add('active');
+        activePage.style.display = 'block';
+    }
+    
+    // बॉटम नेव बार के एक्टिव कलर को बदलना
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    const pages = ['home', 'notice', 'service', 'about', 'contact'];
+    const index = pages.indexOf(pageId);
+    if(index !== -1 && document.querySelectorAll('.nav-item')[index]) {
+        document.querySelectorAll('.nav-item')[index].classList.add('active');
+    }
+}
+
+// 2. सर्विस स्क्रीन के अंदर के 4 सब-फॉर्म्स / टैब्स को बदलने के लिए फंक्शन
+function showTab(event, sectionId) {
+    if(event) {
+        event.preventDefault(); // डिफ़ॉल्ट एक्शन को रोकें
     }
 
-    // 2. आपके 4 सब-फॉर्म्स / टैब बदलने के लिए नया फंक्शन
-    function showSection(sectionId) {
-        var contents = document.getElementsByClassName('tab-content');
-        for (var i = 0; i < contents.length; i++) {
-            contents[i].style.display = 'none';
-        }
-        var target = document.getElementById(sectionId);
-        if(target) {
-            target.style.display = 'block';
-        }
+    // सभी सब-सेक्शन्स (tab-content) को छुपाएं
+    var contents = document.getElementsByClassName('tab-content');
+    for (var i = 0; i < contents.length; i++) {
+        contents[i].style.display = 'none';
+        contents[i].classList.remove('active');
     }
-    </script>
+    
+    // सभी बटन्स से एक्टिव क्लास हटाएं
+    var tabButtons = document.getElementsByClassName('tab-btn');
+    for (var j = 0; j < tabButtons.length; j++) {
+        tabButtons[j].classList.remove('active');
+    }
+    
+    // केवल टारगेट सेक्शन को दिखाएं
+    var target = document.getElementById(sectionId);
+    if(target) {
+        target.style.display = 'block';
+        target.classList.add('active');
+    }
+    
+    // क्लिक किए गए बटन को एक्टिव स्टाइल दें
+    if(event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+    }
+}
+
+// 3. पेज लोड होते ही केवल लॉगिन (home) स्क्रीन चालू रखने का परमानेंट फिक्स
+window.addEventListener('DOMContentLoaded', () => {
+    // पहले सभी पेजों को पूरी तरह छुपाएं
+    document.querySelectorAll('.app-page').forEach(page => {
+        page.classList.remove('active');
+        page.style.display = 'none';
+    });
+    
+    // केवल लॉगिन (home) पेज को एक्टिव और विज़िबल करें
+    const homePage = document.getElementById('home');
+    if(homePage) {
+        homePage.classList.add('active');
+        homePage.style.display = 'block';
+    }
+    
+    // शुरुआत में सर्विस स्क्रीन के अंदर डिफ़ॉल्ट रूप से बैलेंस शीट (Balance Sheet) टैब को ओपन रखें
+    const defaultTab = document.getElementById('balance-section');
+    if(defaultTab) {
+        defaultTab.style.display = 'block';
+        defaultTab.classList.add('active');
+    }
+});
+</script>
+
 <script>
 // स्क्रिप्ट की URL यहाँ पेस्ट करें
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9r-WgL45vuwPp4lxwFyC7lnqfL8m9ihjh9-FZAV9wVbfibPsw1hKUhVW1MxdJkoY4/exec";
