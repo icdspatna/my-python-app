@@ -179,7 +179,7 @@ PAGES_BODY = """
         <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#0288d1; color:#fff; border:none; border-radius:4px; cursor: pointer;">समरी देखें</button>
     </div>
 </div>
-
+</div>
         <!-- 4. ABOUT SCREEN -->
         <div id="about" class="app-page" style="text-align: center;">
             <h3 class="page-title">About Me</h3>
