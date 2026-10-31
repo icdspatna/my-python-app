@@ -146,176 +146,186 @@ PAGES_BODY = """
             <div class="notice-box" style="background:#e1f5fe; border-left-color:#0288d1; color:#01579b;"><strong>New Allotment:</strong> निदेशालय से मद 2235 में राशि ट्रांसफर हुई।</div>
         </div>
 
-        <!-- 3. SERVICE SCREEN (4 Quick Jump Tabs) -->
-        <div id="service" class="app-page">
+                <!-- 3. SERVICE SCREEN (4 Quick Jump Tabs) -->
+        <div id="service" class="app-page active">
             <h3 class="page-title"><i class="fa-solid fa-gears me-2"></i>Entry Service</h3>
             
             <!-- 4 नैविगेशन बटन्स -->
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
-    <button class="tab-btn" onclick="showTab(event, 'allotment-section')" style="cursor:pointer; padding:10px; background:#e2f0d9; color:#385723; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #a9d18e;">Allotment Entry</button>
-    <button class="tab-btn" onclick="showTab(event, 'expenditure-section')" style="cursor:pointer; padding:10px; background:#fce4d6; color:#c65911; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #f8cbad;">Expenditure Entry</button>
-    <button class="tab-btn" onclick="showTab(event, 'report-section')" style="cursor:pointer; padding:10px; background:#fff2cc; color:#7f6000; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #ffe599;">Expe Report</button>
-    <button class="tab-btn active" onclick="showTab(event, 'balance-section')" style="cursor:pointer; padding:10px; background:#e8f4f8; color:#1f4e5b; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #b4d6e4;">Balance Sheet</button>
-</div>
-
-<!-- TAB 1: Allotment Entry Form (डिफ़ॉल्ट रूप से छुपा रहेगा) -->
-<div id="allotment-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
-    <h4><i class="fa-solid fa-circle-plus" style="color: green;"></i> 1. Allotment Entry</h4>
-    <form action="/submit" method="POST">
-        <input type="hidden" name="type" value="Allotment">
-        <select name="source" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-    <option value="" disabled selected hidden>Source (स्रोत चुनें)</option>
-    <option value="CFMS">CFMS</option>
-    <option value="HRMS">HRMS</option>
-    <option value="PFMS">PFMS</option>
-    <option value="OTHER">Other (अन्य)</option>
-</select>
-
-        <input type="text" name="order_no" placeholder="Order No." class="app-input" required>
-       <select name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-    <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
-    <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
-    <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
-    <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
-    <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
-    <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
-    <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
-    <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
-    <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
-    <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
-    <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
-    <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
-    <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
-    <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
-    <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
-    <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
-</select>
-
-       <select name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-    <option value="" disabled selected hidden>Unit Code (यूनिट कोड चुनें)</option>
-    <option value="01.01">01.01</option>
-    <option value="01.03">01.03</option>
-    <option value="01.04">01.04</option>
-    <option value="01.05">01.05</option>
-    <option value="01.06">01.06</option>
-    <option value="01.07">01.07</option>
-    <option value="02.01">02.01</option>
-    <option value="06.01">06.01</option>
-    <option value="11.01">11.01</option>
-    <option value="13.01">13.01</option>
-    <option value="13.10">13.10</option>
-    <option value="14.01">14.01</option>
-    <option value="16.01">16.01</option>
-    <option value="20.03">20.03</option>
-    <option value="21.01">21.01</option>
-    <option value="21.03">21.03</option>
-    <option value="26.01">26.01</option>
-    <option value="28.02">28.02</option>
-    <option value="31.06">31.06</option>
-    <option value="52.01">52.01</option>
-</select>
-
-        <input type="number" name="amount" placeholder="Amount (राशि ₹)" class="app-input" required>
-        <input type="text" name="remark" placeholder="Remark" class="app-input">
-        <button type="submit" class="submit-btn" style="background: green; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">आवंटन डेटा सेव करें</button>
-    </form> 
-</div>
-
-<!-- TAB 2: Expenditure Entry Form (डिफ़ॉल्ट रूप से छुपा रहेगा) -->
-<div id="expenditure-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
-    <h4><i class="fa-solid fa-file-invoice-dollar" style="color: red;"></i> 2. Expenditure Entry</h4>
-    <form action="/submit" method="POST">
-        <input type="hidden" name="type" value="Expenditure">
-        <input type="text" name="order_no" placeholder="Order No." class="app-input" required>
-        <input type="date" name="date" class="app-input" required>
-        <select name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-    <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
-    <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
-    <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
-    <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
-    <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
-    <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
-    <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
-    <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
-    <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
-    <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
-    <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
-    <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
-    <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
-    <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
-    <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
-    <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
-</select>
-        <select name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-    <option value="" disabled selected hidden>Unit Code (यूनिट कोड चुनें)</option>
-    <option value="01.01">01.01</option>
-    <option value="01.03">01.03</option>
-    <option value="01.04">01.04</option>
-    <option value="01.05">01.05</option>
-    <option value="01.06">01.06</option>
-    <option value="01.07">01.07</option>
-    <option value="02.01">02.01</option>
-    <option value="06.01">06.01</option>
-    <option value="11.01">11.01</option>
-    <option value="13.01">13.01</option>
-    <option value="13.10">13.10</option>
-    <option value="14.01">14.01</option>
-    <option value="16.01">16.01</option>
-    <option value="20.03">20.03</option>
-    <option value="21.01">21.01</option>
-    <option value="21.03">21.03</option>
-    <option value="26.01">26.01</option>
-    <option value="28.02">28.02</option>
-    <option value="31.06">31.06</option>
-    <option value="52.01">52.01</option>
-</select>
-
-        <input type="number" name="amount" placeholder="Amount (व्यय राशि ₹)" class="app-input" required>
-        <button type="submit" class="submit-btn" style="background: red; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">व्यय डेटा सेव करें</button>
-    </form>
-</div>
-        <!-- TAB 3: Expenditure Report Section -->
-        <div id="report-section" class="tab-content">
-            <div style="background: #003366; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="margin: 0; font-size: 16px; font-weight: 600;"><i class="fa-solid fa-file-invoice-dollar me-2"></i> Recent Bill Records</h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
+                <button class="tab-btn" onclick="showTab(event, 'allotment-section')" style="cursor:pointer; padding:10px; background:#e2f0d9; color:#385723; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #a9d18e;">Allotment Entry</button>
+                <button class="tab-btn" onclick="showTab(event, 'expenditure-section')" style="cursor:pointer; padding:10px; background:#fce4d6; color:#c65911; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #f8cbad;">Expenditure Entry</button>
+                <button class="tab-btn" onclick="showTab(event, 'report-section')" style="cursor:pointer; padding:10px; background:#fff2cc; color:#7f6000; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #ffe599;">Expe Report</button>
+                <button class="tab-btn active" onclick="showTab(event, 'balance-section')" style="cursor:pointer; padding:10px; background:#e8f4f8; color:#1f4e5b; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #b4d6e4;">Balance Sheet</button>
             </div>
-            <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <div style="overflow-x: auto; max-height: 350px; overflow-y: auto;">
-                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
-                        <thead>
-                            <tr style="background: #f8f9fa; border-bottom: 2px solid #eee; color: #666;">
-                                <th style="padding: 10px;">Bill No</th>
-                                <th style="padding: 10px;">Date</th>
-                                <th style="padding: 10px;">Head</th>
-                                <th style="padding: 10px;">Amount</th>
-                                <th style="padding: 10px;">Purpose</th>
-                            </tr>
-                        </thead>
-                        <tbody id="expBody">
-                            <!-- लाइव डेटा यहाँ लोड होगा -->
-                        </tbody>
-                    </table>
+
+            <!-- TAB 1: Allotment Entry Form -->
+            <div id="allotment-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
+                <h4><i class="fa-solid fa-circle-plus" style="color: green;"></i> 1. Allotment Entry</h4>
+                <form id="altForm" method="POST">
+                    <input type="hidden" name="type" value="Allotment">
+                    <select id="altSrc" name="source" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                        <option value="" disabled selected hidden>Source (स्रोत चुनें)</option>
+                        <option value="CFMS">CFMS</option>
+                        <option value="HRMS">HRMS</option>
+                        <option value="PFMS">PFMS</option>
+                        <option value="OTHER">Other (अन्य)</option>
+                    </select>
+
+                    <input type="text" id="altOrd" name="order_no" placeholder="Order No." class="app-input" required>
+                    
+                    <select id="altHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                        <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
+                        <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
+                        <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
+                        <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
+                        <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
+                        <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
+                        <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
+                        <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
+                        <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
+                        <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
+                        <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
+                        <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
+                        <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
+                        <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
+                        <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
+                        <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
+                    </select>
+
+                    <select id="altUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                        <option value="" disabled selected hidden>Unit Code (यूनिट कोड चुनें)</option>
+                        <option value="01.01">01.01</option>
+                        <option value="01.03">01.03</option>
+                        <option value="01.04">01.04</option>
+                        <option value="01.05">01.05</option>
+                        <option value="01.06">01.06</option>
+                        <option value="01.07">01.07</option>
+                        <option value="02.01">02.01</option>
+                        <option value="06.01">06.01</option>
+                        <option value="11.01">11.01</option>
+                        <option value="13.01">13.01</option>
+                        <option value="13.10">13.10</option>
+                        <option value="14.01">14.01</option>
+                        <option value="16.01">16.01</option>
+                        <option value="20.03">20.03</option>
+                        <option value="21.01">21.01</option>
+                        <option value="21.03">21.03</option>
+                        <option value="26.01">26.01</option>
+                        <option value="28.02">28.02</option>
+                        <option value="31.06">31.06</option>
+                        <option value="52.01">52.01</option>
+                    </select>
+
+                    <input type="number" id="altAmt" name="amount" placeholder="Amount (राशि ₹)" class="app-input" required>
+                    <input type="text" id="altRemark" name="remark" placeholder="Remark" class="app-input">
+                    <input type="hidden" id="altLet" value="00000">
+                    <input type="hidden" id="altDat" value="2026-04-01">
+                    <button type="submit" class="submit-btn" style="background: green; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">आवंटन डेटा सेव करें</button>
+                </form> 
+            </div>
+
+            <!-- TAB 2: Expenditure Entry Form -->
+            <div id="expenditure-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
+                <h4><i class="fa-solid fa-file-invoice-dollar" style="color: red;"></i> 2. Expenditure Entry</h4>
+                <form id="expForm" method="POST">
+                    <input type="hidden" name="type" value="Expenditure">
+                    <input type="text" id="expOrd" name="order_no" placeholder="Order No." class="app-input" required>
+                    <input type="date" id="expDat" name="date" class="app-input" required>
+                    
+                    <select id="expHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                        <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
+                        <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
+                        <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
+                        <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
+                        <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
+                        <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
+                        <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
+                        <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
+                        <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
+                        <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
+                        <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
+                        <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
+                        <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
+                        <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
+                        <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
+                        <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
+                    </select>
+
+                    <select id="expUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                        <option value="" disabled selected hidden>Unit Code (यूनिट कोड चुनें)</option>
+                        <option value="01.01">01.01</option>
+                        <option value="01.03">01.03</option>
+                        <option value="01.04">01.04</option>
+                        <option value="01.05">01.05</option>
+                        <option value="01.06">01.06</option>
+                        <option value="01.07">01.07</option>
+                        <option value="02.01">02.01</option>
+                        <option value="06.01">06.01</option>
+                        <option value="11.01">11.01</option>
+                        <option value="13.01">13.01</option>
+                        <option value="13.10">13.10</option>
+                        <option value="14.01">14.01</option>
+                        <option value="16.01">16.01</option>
+                        <option value="20.03">20.03</option>
+                        <option value="21.01">21.01</option>
+                        <option value="21.03">21.03</option>
+                        <option value="26.01">26.01</option>
+                        <option value="28.02">28.02</option>
+                        <option value="31.06">31.06</option>
+                        <option value="52.01">52.01</option>
+                    </select>
+
+                    <input type="hidden" id="expSrc" value="OTHER">
+                    <input type="hidden" id="expBill" value="000">
+                    <input type="hidden" id="expPur" value="Office Expenses">
+                    <button type="submit" class="submit-btn" style="background: red; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">व्यय डेटा सेव करें</button>
+                </form>
+            </div>
+
+            <!-- TAB 3: Expenditure Report Section -->
+            <div id="report-section" class="tab-content" style="display: none;">
+                <div style="background: #003366; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-size: 16px; font-weight: 600;"><i class="fa-solid fa-file-invoice-dollar me-2"></i> Recent Bill Records</h3>
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <div style="overflow-x: auto; max-height: 350px; overflow-y: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                            <thead>
+                                <tr style="background: #f8f9fa; border-bottom: 2px solid #eee; color: #666;">
+                                    <th style="padding: 10px;">Bill No</th>
+                                    <th style="padding: 10px;">Date</th>
+                                    <th style="padding: 10px;">Head</th>
+                                    <th style="padding: 10px;">Amount</th>
+                                    <th style="padding: 10px;">Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expBody">
+                                <!-- लाइव डेटा यहाँ ऑटोमैटिक लोड होगा -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- TAB 4: Balance Sheet Section -->
-        <div id="balance-section" class="tab-content" style="display: block;">
-            <div style="background: #1f4e5b; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="margin: 0; font-size: 16px; font-weight: 600;"><i class="fa-solid fa-scale-balanced me-2"></i> 4. Balance Sheet</h3>
-            </div>
-            <!-- लाइव स्ट्रिप कंटेनर -->
-            <div id="totalStrip" style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: thin;">
-                <!-- कार्ड्स ऑटोमैटिक जेनरेट होंगे -->
-            </div>
-            <!-- लाइव बैलेंस लिस्ट कंटेनर -->
-            <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <h4 style="margin: 0 0 12px 0; font-size: 13px; color: #555; border-bottom: 2px solid #f4f4f4; padding-bottom: 6px;">Remaining Balance (शेष बजट विवरण)</h4>
-                <div id="balanceList">
-                    <!-- बची हुई राशि यहाँ ऑटोमैटिक घटेगी -->
+            <!-- TAB 4: Balance Sheet Section -->
+            <div id="balance-section" class="tab-content" style="display: block;">
+                <div style="background: #1f4e5b; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-size: 16px; font-weight: 600;"><i class="fa-solid fa-scale-balanced me-2"></i> 4. Balance Sheet</h3>
+                </div>
+                <!-- लाइव स्ट्रिप कंटेनर (Total Allotment Head-wise Cards) -->
+                <div id="totalStrip" style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: thin;">
+                    <!-- कार्ड्स जावास्क्रिप्ट द्वारा स्वतः जेनरेट होंगे -->
+                </div>
+                <!-- लाइव बैलेंस लिस्ट कंटेनर -->
+                <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="margin: 0 0 12px 0; font-size: 13px; color: #555; border-bottom: 2px solid #f4f4f4; padding-bottom: 6px;">Remaining Balance (शेष बजट विवरण)</h4>
+                    <div id="balanceList">
+                        <!-- बची हुई राशि यहाँ ऑटोमैटिक घटेगी -->
+                    </div>
                 </div>
             </div>
-        </div>
+            
+        </div> <!-- यह id="service" स्क्रीन का मुख्य क्लोजिंग टैग है -->
 
 
         <!-- 4. ABOUT SCREEN -->
