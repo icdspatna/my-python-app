@@ -12,6 +12,44 @@ LAYOUT_START = """
     <title>ICDS App - Rudra Tech</title>
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
+            .tab-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .tab-content.active {
+            display: block !important;
+        }
+        /* लाइव टोटल आवंटन कार्ड्स के लिए स्टाइल */
+        .total-card {
+            min-width: 140px;
+            flex: 1;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-top: 4px solid #0288d1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: left;
+            display: inline-block;
+        }
+        .total-card h5 { margin: 0; font-size: 11px; color: #777; font-weight: bold; }
+        .total-card p { margin: 5px 0 0 0; font-size: 15px; font-weight: bold; color: #333; }
+        
+        /* लाइव Remaining Balance लिस्ट के लिए स्टाइल */
+        .bal-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background: #fafafa;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #eee;
+        }
+        .bal-item span { color: #333; font-weight: 500; }
+        .bal-item strong { font-weight: bold; color: #2e7d32; }
     .tab-content {
     display: none; /* डिफ़ॉल्ट रूप से सब छुप जाएगा */
     padding: 15px;
@@ -235,6 +273,48 @@ PAGES_BODY = """
         <button type="submit" class="submit-btn" style="background: red; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">व्यय डेटा सेव करें</button>
     </form>
 </div>
+        <!-- TAB 3: Expenditure Report Section -->
+        <div id="report-section" class="tab-content">
+            <div style="background: #003366; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0; font-size: 16px; font-weight: 600;"><i class="fa-solid fa-file-invoice-dollar me-2"></i> Recent Bill Records</h3>
+            </div>
+            <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="overflow-x: auto; max-height: 350px; overflow-y: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                        <thead>
+                            <tr style="background: #f8f9fa; border-bottom: 2px solid #eee; color: #666;">
+                                <th style="padding: 10px;">Bill No</th>
+                                <th style="padding: 10px;">Date</th>
+                                <th style="padding: 10px;">Head</th>
+                                <th style="padding: 10px;">Amount</th>
+                                <th style="padding: 10px;">Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expBody">
+                            <!-- लाइव डेटा यहाँ लोड होगा -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Balance Sheet Section -->
+        <div id="balance-section" class="tab-content" style="display: block;">
+            <div style="background: #1f4e5b; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0; font-size: 16px; font-weight: 600;"><i class="fa-solid fa-scale-balanced me-2"></i> 4. Balance Sheet</h3>
+            </div>
+            <!-- लाइव स्ट्रिप कंटेनर -->
+            <div id="totalStrip" style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: thin;">
+                <!-- कार्ड्स ऑटोमैटिक जेनरेट होंगे -->
+            </div>
+            <!-- लाइव बैलेंस लिस्ट कंटेनर -->
+            <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h4 style="margin: 0 0 12px 0; font-size: 13px; color: #555; border-bottom: 2px solid #f4f4f4; padding-bottom: 6px;">Remaining Balance (शेष बजट विवरण)</h4>
+                <div id="balanceList">
+                    <!-- बची हुई राशि यहाँ ऑटोमैटिक घटेगी -->
+                </div>
+            </div>
+        </div>
 
 
         <!-- 4. ABOUT SCREEN -->
