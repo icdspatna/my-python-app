@@ -12,6 +12,14 @@ LAYOUT_START = """
     <title>ICDS App - Rudra Tech</title>
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
+    .tab-content {
+    display: none; /* डिफ़ॉल्ट रूप से सब छुप जाएगा */
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 10px;
+            }
+
         body {
             margin: 0; padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -104,13 +112,31 @@ PAGES_BODY = """
         <div id="service" class="app-page">
             <h3 class="page-title"><i class="fa-solid fa-gears me-2"></i>Entry Service</h3>
             
-            <!-- 4 नैविगेशन बटन्स (Bari bari click karne par niche jump karega) -->
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
-                <a href="#allotment-section" style="text-decoration:none; padding:10px; background:#e2f0d9; color:#385723; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #a9d18e;"><i class="fa-solid fa-circle-plus d-block mb-1"></i>Allotment Entry</a>
-                <a href="#expenditure-section" style="text-decoration:none; padding:10px; background:#fce4d6; color:#c65911; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #f8cbad;"><i class="fa-solid fa-file-invoice-dollar d-block mb-1"></i>Expenditure Entry</a>
-                <a href="#report-section" style="text-decoration:none; padding:10px; background:#fff2cc; color:#7f6000; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #ffe599;"><i class="fa-solid fa-chart-line d-block mb-1"></i>Expe Report</a>
-                <a href="#balance-section" style="text-decoration:none; padding:10px; background:#e8f4f8; color:#1f4e5b; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #b4d6e4;"><i class="fa-solid fa-scale-balanced d-block mb-1"></i>Balance Sheet</a>
-            </div>
+            <!-- 4 नैविगेशन बटन्स -->
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
+    <button onclick="showSection('allotment-section')" style="cursor:pointer; padding:10px; background:#e2f0d9; color:#385723; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #a9d18e;">Allotment Entry</button>
+    <button onclick="showSection('expenditure-section')" style="cursor:pointer; padding:10px; background:#fce4d6; color:#c65911; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #f8cbad;">Expenditure Entry</button>
+    <button onclick="showSection('report-section')" style="cursor:pointer; padding:10px; background:#fff2cc; color:#7f6000; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #ffe599;">Expe Report</button>
+    <button onclick="showSection('balance-section')" style="cursor:pointer; padding:10px; background:#e8f4f8; color:#1f4e5b; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #b4d6e4;">Balance Sheet</button>
+</div>
+
+<!-- आपके चारों फॉर्म / सेक्शन्स -->
+<div id="allotment-section" class="tab-content">
+    <!-- यहाँ अपना पुराना Allotment फॉर्म रखें -->
+</div>
+
+<div id="expenditure-section" class="tab-content">
+    <!-- यहाँ अपना पुराना Expenditure फॉर्म रखें -->
+</div>
+
+<div id="report-section" class="tab-content">
+    <!-- यहाँ अपना पुराना Report कोड रखें -->
+</div>
+
+<!-- Balance Sheet डिफ़ॉल्ट रूप से दिखेगी इसलिए style="display: block;" लगाया है -->
+<div id="balance-section" class="tab-content" style="display: block;">
+    <!-- यहाँ अपना पुराना Balance Sheet कोड रखें -->
+</div>
 
             <!-- TAB 1: Allotment Entry Form -->
             <div id="allotment-section" class="form-card" style="scroll-margin-top: 10px;">
@@ -220,6 +246,20 @@ LAYOUT_END = """
             }
         }
     </script>
+                <!-- TAB 1: Allotment Entry Form -->
+            <div id="allotment-section" class="form-card" style="scroll-margin-top: 10px;">
+                <h4><i class="fa-solid fa-circle-plus" style="color: green;"></i> 1. Allotment Entry</h4>
+                <form action="/submit" method="POST">
+                    <input type="hidden" name="type" value="Allotment">
+                    <input type="text" name="source" placeholder="Source (स्रोत)" class="app-input" required>
+                    <input type="text" name="order_no" placeholder="Order No." class="app-input" required>
+                    <input type="text" name="budget_head" placeholder="Budget Head" class="app-input" required>
+                    <input type="text" name="unit_code" placeholder="Unit Code" class="app-input" required>
+                    <input type="number" name="amount" placeholder="Amount (राशि ₹)" class="app-input" required>
+                    <input type="text" name="remark" placeholder="Remark" class="app-input">
+                    <button type="submit" class="submit-btn" style="background: green;">आवंटन डेटा सेव करें</button>
+                </form>
+            </div>
 </body>
 </html>
 """
