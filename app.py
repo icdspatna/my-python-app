@@ -679,6 +679,93 @@ function updateDashboardUI(data) {
 }
 </script>
 </body>
+<!-- पूरी तरह से नया और अचूक स्क्रिप्ट ब्लॉक -->
+<script>
+    // फंक्शंस को सीधे विंडो (Global) पर असाइन कर रहे हैं ताकि एरर का कोई चांस न रहे
+    window.switchPage = function(pageId) {
+        console.log("Switching to page: " + pageId); // ब्राउज़र कंसोल में चेक करने के लिए
+        
+        // 1. सभी स्क्रीन्स को छुपाएं
+        var pages = document.querySelectorAll('.app-page');
+        pages.forEach(function(page) {
+            page.classList.remove('active');
+            page.style.display = 'none';
+        });
+        
+        // 2. केवल चुनी हुई स्क्रीन दिखाएं
+        var activePage = document.getElementById(pageId);
+        if(activePage) {
+            activePage.classList.add('active');
+            activePage.style.display = 'block';
+        }
+        
+        // 3. बॉटम नेव बार एक्टिव कलर बदलना
+        var navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(function(item) {
+            item.classList.remove('active');
+        });
+        
+        var pageList = ['home', 'notice', 'service', 'about', 'contact'];
+        var index = pageList.indexOf(pageId);
+        if(index !== -1 && navItems[index]) {
+            navItems[index].classList.add('active');
+        }
+    };
+
+    window.showTab = function(event, sectionId) {
+        console.log("Showing tab section: " + sectionId);
+        if(event) event.preventDefault();
+
+        // 1. सभी सब-फॉर्म्स (tab-content) को छुपाएं
+        var contents = document.querySelectorAll('.tab-content');
+        contents.forEach(function(content) {
+            content.style.display = 'none';
+            content.classList.remove('active');
+        });
+        
+        // 2. सभी बटन्स से एक्टिव क्लास हटाएं
+        var tabButtons = document.querySelectorAll('.tab-btn');
+        tabButtons.forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+        
+        // 3. केवल टारगेट सेक्शन दिखाएं
+        var target = document.getElementById(sectionId);
+        if(target) {
+            target.style.display = 'block';
+            target.classList.add('active');
+        }
+        
+        // 4. क्लिक किए गए बटन को एक्टिव कलर दें
+        if(event && event.currentTarget) {
+            event.currentTarget.classList.add('active');
+        }
+    };
+
+    // पेज लोड होने पर शुरुआती सेटअप
+    window.addEventListener('DOMContentLoaded', function() {
+        // लॉगिन (home) को छोड़कर सब छुपाएं
+        var pages = document.querySelectorAll('.app-page');
+        pages.forEach(function(page) {
+            page.classList.remove('active');
+            page.style.display = 'none';
+        });
+        
+        var homePage = document.getElementById('home');
+        if(homePage) {
+            homePage.classList.add('active');
+            homePage.style.display = 'block';
+        }
+
+        // डिफ़ॉल्ट रूप से बैलेंस शीट टैब को ओपन रखें
+        var defaultTab = document.getElementById('balance-section');
+        if(defaultTab) {
+            defaultTab.style.display = 'block';
+            defaultTab.classList.add('active');
+        }
+    });
+</script>
+
 </html>
 """
 # --- 4. FLASK ROUTING ---
