@@ -236,31 +236,96 @@ PAGES_BODY = """
     </form>
 </div>
 
-<!-- TAB 3: Expenditure Report Section (डिफ़ॉल्ट रूप से छुपा रहेगा) -->
-<div id="report-section" class="tab-content" style="display: none; scroll-margin-top: 10px; background:#fffdf4; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-    <h4><i class="fa-solid fa-chart-line" style="color: #7f6000;"></i> 3. Expenditure Report</h4>
-    <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd; margin-bottom:10px;">
-        <span style="font-size:13px; font-weight:bold; color:#333;">1. Expenditure Report ALL Bill</span>
-        <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">कुल खर्च किए गए सभी बिलों की विस्तृत सूची।</p>
-        <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#764ba2; color:#fff; border:none; border-radius:4px; cursor: pointer;">रिपोर्ट देखें</button>
+<!-- TAB 3: Expenditure Report Section (केवल Recent Bill Records) -->
+<div id="report-section" class="tab-content" style="display: none; scroll-margin-top: 10px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f4f7f6; padding: 15px; border-radius: 12px; border: 1px solid #e0e0e0;">
+    
+    <div style="background: #003366; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 16px; font-weight: 600;"><i class="fa-solid fa-file-invoice-dollar me-2"></i> Recent Bill Records</h3>
+        <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 11px;">व्यय रिपोर्ट</span>
+    </div>
+
+    <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div style="overflow-x: auto; max-height: 350px; overflow-y: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                <thead>
+                    <tr style="background: #f8f9fa; border-bottom: 2px solid #eee; color: #666;">
+                        <th style="padding: 10px;">Bill No</th>
+                        <th style="padding: 10px;">Date</th>
+                        <th style="padding: 10px;">Head</th>
+                        <th style="padding: 10px;">Amount</th>
+                        <th style="padding: 10px;">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #f4f4f4;">
+                        <td style="padding: 10px; font-weight: 500;">21/2026-27</td>
+                        <td style="padding: 10px; color: #666;">8/5/2026</td>
+                        <td style="padding: 10px; color: #666;">51-2236-02-789-0204</td>
+                        <td style="padding: 10px; color: #dd4b39; font-weight: bold;">₹3,497,000</td>
+                        <td style="padding: 10px; color: #666;">purak poshahar july 26</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f4f4f4;">
+                        <td style="padding: 10px; font-weight: 500;">22/2026-27</td>
+                        <td style="padding: 10px; color: #666;">8/6/2026</td>
+                        <td style="padding: 10px; color: #666;">51-2235-02-102-0123</td>
+                        <td style="padding: 10px; color: #dd4b39; font-weight: bold;">₹6,000</td>
+                        <td style="padding: 10px; color: #666;">office contingency</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-<!-- TAB 4: Balance Sheet Section (यह डिफ़ॉल्ट रूप से दिखेगा: display: block;) -->
-<div id="balance-section" class="tab-content" style="display: block; scroll-margin-top: 10px; background:#f4f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-    <h4><i class="fa-solid fa-scale-balanced" style="color: #1f4e5b;"></i> 4. Balance Sheet</h4>
-    <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd; margin-bottom:10px;">
-        <span style="font-size:13px; font-weight:bold; color:#333;">1. Total Balance Budget Code wise</span>
-        <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">किस कोड में कितना बैलेंस बचा है (आवंटन - व्यय)।</p>
-        <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#0288d1; color:#fff; border:none; border-radius:4px; cursor: pointer;">बैलेंस जांचें</button>
+
+<!-- TAB 4: Balance Sheet Section (Total Allotment Cards & Remaining Balance) -->
+<div id="balance-section" class="tab-content" style="display: block; scroll-margin-top: 10px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f4f7f6; padding: 15px; border-radius: 12px; border: 1px solid #e0e0e0;">
+    
+    <div style="background: #1f4e5b; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 16px; font-weight: 600;"><i class="fa-solid fa-scale-balanced me-2"></i> 4. Balance Sheet</h3>
+        <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 11px;">बैलेंस शीट</span>
     </div>
-    <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd;">
-        <span style="font-size:13px; font-weight:bold; color:#333;">2. Total Balance ALL</span>
-        <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">कार्यालय का संचित कुल शेष बजट विवरण।</p>
-        <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#0288d1; color:#fff; border:none; border-radius:4px; cursor: pointer;">समरी देखें</button>
+
+    <!-- A. TOP CARDS (Total Allotment Slider) -->
+    <div style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: thin;">
+        <div style="min-width: 140px; flex: 1; background: white; padding: 12px; border-radius: 8px; border-top: 4px solid #0288d1; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <div style="font-size: 11px; color: #777; font-weight: bold;">Total: 0123</div>
+            <div style="font-size: 15px; font-weight: bold; color: #333; margin-top: 5px;">₹1,298,926</div>
+        </div>
+        <div style="min-width: 140px; flex: 1; background: white; padding: 12px; border-radius: 8px; border-top: 4px solid #00a65a; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <div style="font-size: 11px; color: #777; font-weight: bold;">Total: 0105</div>
+            <div style="font-size: 15px; font-weight: bold; color: #333; margin-top: 5px;">₹32,482</div>
+        </div>
+        <div style="min-width: 140px; flex: 1; background: white; padding: 12px; border-radius: 8px; border-top: 4px solid #f39c12; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <div style="font-size: 11px; color: #777; font-weight: bold;">Total: 0225</div>
+            <div style="font-size: 15px; font-weight: bold; color: #333; margin-top: 5px;">₹277,353</div>
+        </div>
+    </div>
+
+    <!-- B. REMAINING BALANCE LIST -->
+    <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <h4 style="margin: 0 0 12px 0; font-size: 13px; color: #555; border-bottom: 2px solid #f4f4f4; padding-bottom: 6px;">Remaining Balance (शेष बजट विवरण)</h4>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; padding: 8px; background: #fafafa; border-radius: 4px; font-size: 12px;">
+                <span style="color: #333; font-weight: 500;">51-2235-02-102-0123</span>
+                <span style="font-weight: bold; color: #2e7d32;">₹302,157</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 8px; background: #fafafa; border-radius: 4px; font-size: 12px;">
+                <span style="color: #333; font-weight: 500;">51-2235-02-102-0105</span>
+                <span style="font-weight: bold; color: #2e7d32;">₹16</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 8px; background: #fafafa; border-radius: 4px; font-size: 12px;">
+                <span style="color: #333; font-weight: 500;">51-2235-02-102-0225</span>
+                <span style="font-weight: bold; color: #2e7d32;">₹86,951</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 8px; background: #fff5f5; border-radius: 4px; font-size: 12px; border-left: 3px solid #d32f2f;">
+                <span style="color: #c62828; font-weight: 500;">51-2236-02-101-0103</span>
+                <span style="font-weight: bold; color: #c62828;">-₹368,280</span>
+            </div>
+        </div>
     </div>
 </div>
-</div>
+
         <!-- 4. ABOUT SCREEN -->
         <div id="about" class="app-page" style="text-align: center;">
             <h3 class="page-title">About Me</h3>
