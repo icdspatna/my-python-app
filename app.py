@@ -213,7 +213,8 @@ LAYOUT_END = """
         </div>
     </div>
     <script>
-// 1. यह आपका पुराना फंक्शन है (इसे वैसे ही रहने दें ताकि मुख्य नेविगेशन काम करे)
+<script>
+// 1. यह आपका पुराना फंक्शन है (मुख्य पेज बदलने के लिए)
 function switchPage(pageId) {
     document.querySelectorAll('.app-page').forEach(page => {
         page.classList.remove('active');
@@ -229,14 +230,14 @@ function switchPage(pageId) {
     }
 }
 
-// 2. यह नया फंक्शन है जो आपके 4 नए फॉर्म्स (Allotment, Expenditure आदि) को स्विच करेगा
+// 2. यह नया फंक्शन है (आपके 4 फॉर्म्स / सब-पेज बदलने के लिए)
 function showSection(sectionId) {
-    // पहले चारों सब-फॉर्म्स को छुपाएं
+    // पहले चारों सेक्शन्स को छुपाएं
     var contents = document.getElementsByClassName('tab-content');
     for (var i = 0; i < contents.length; i++) {
         contents[i].style.display = 'none';
     }
-    // सिर्फ उस फॉर्म को दिखाएं जिस पर क्लिक किया गया है
+    // सिर्फ क्लिक किए गए सेक्शन को दिखाएं
     var target = document.getElementById(sectionId);
     if(target) {
         target.style.display = 'block';
@@ -244,17 +245,6 @@ function showSection(sectionId) {
 }
 </script>
 
-        <script>
-        function showSection(sectionId) {
-    // पहले सभी फॉर्म्स को छुपाएं
-    var contents = document.getElementsByClassName('tab-content');
-    for (var i = 0; i < contents.length; i++) {
-        contents[i].style.display = 'none';
-    }
-    // सिर्फ क्लिक किए गए फॉर्म को दिखाएं
-    document.getElementById(sectionId).style.display = 'block';
-}
-</script>
        
             
 
