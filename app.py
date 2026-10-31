@@ -121,25 +121,9 @@ PAGES_BODY = """
 </div>
 
 <!-- आपके चारों फॉर्म / सेक्शन्स -->
-<div id="allotment-section" class="tab-content">
+<div id="allotment-section" class="tab-content"style="scroll-margin-top: 10px;">
     <!-- यहाँ अपना पुराना Allotment फॉर्म रखें -->
-</div>
-
-<div id="expenditure-section" class="tab-content">
-    <!-- यहाँ अपना पुराना Expenditure फॉर्म रखें -->
-</div>
-
-<div id="report-section" class="tab-content">
-    <!-- यहाँ अपना पुराना Report कोड रखें -->
-</div>
-
-<!-- Balance Sheet डिफ़ॉल्ट रूप से दिखेगी इसलिए style="display: block;" लगाया है -->
-<div id="balance-section" class="tab-content" style="display: block;">
-    <!-- यहाँ अपना पुराना Balance Sheet कोड रखें -->
-</div>
-
-            <!-- TAB 1: Allotment Entry Form -->
-            <div id="allotment-section" class="form-card" style="scroll-margin-top: 10px;">
+    <!-- TAB 1: Allotment Entry Form -->
                 <h4><i class="fa-solid fa-circle-plus" style="color: green;"></i> 1. Allotment Entry</h4>
                 <form action="/submit" method="POST">
                     <input type="hidden" name="type" value="Allotment">
@@ -151,10 +135,13 @@ PAGES_BODY = """
                     <input type="text" name="remark" placeholder="Remark" class="app-input">
                     <button type="submit" class="submit-btn" style="background: green;">आवंटन डेटा सेव करें</button>
                 </form>
-            </div>
+          
+</div>
 
-            <!-- TAB 2: Expenditure Entry Form -->
-            <div id="expenditure-section" class="form-card" style="scroll-margin-top: 10px;">
+<div id="expenditure-section" class="tab-content"style="scroll-margin-top: 10px;">
+    <!-- यहाँ अपना पुराना Expenditure फॉर्म रखें -->
+
+    <!-- TAB 2: Expenditure Entry Form -->
                 <h4><i class="fa-solid fa-file-invoice-dollar" style="color: red;"></i> 2. Expenditure Entry</h4>
                 <form action="/submit" method="POST">
                     <input type="hidden" name="type" value="Expenditure">
@@ -165,16 +152,23 @@ PAGES_BODY = """
                     <input type="number" name="amount" placeholder="Amount (व्यय राशि ₹)" class="app-input" required>
                     <button type="submit" class="submit-btn" style="background: red;">व्यय डेटा सेव करें</button>
                 </form>
-            </div>
+            
+</div>
 
+<div id="report-section" class="tab-content">
+    <!-- यहाँ अपना पुराना Report कोड रखें -->
+</div>
+
+<!-- Balance Sheet डिफ़ॉल्ट रूप से दिखेगी इसलिए style="display: block;" लगाया है -->
+<div id="balance-section" class="tab-content" style="display: block;"style="scroll-margin-top: 10px; background:#fffdf4;">
+    <!-- यहाँ अपना पुराना Balance Sheet कोड रखें -->
             <!-- TAB 3: Expenditure Report Section (All Bill & Code Wise) -->
-            <div id="report-section" class="form-card" style="scroll-margin-top: 10px; background:#fffdf4;">
                 <h4><i class="fa-solid fa-chart-line" style="color: #7f6000;"></i> 3. Expenditure Report</h4>
                 <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd; margin-bottom:10px;">
                     <span style="font-size:13px; font-weight:bold; color:#333;">1. Expenditure Report ALL Bill</span>
                     <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">कुल खर्च किए गए सभी बिलों की विस्तृत सूची।</p>
                     <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#764ba2; color:#fff; border:none; border-radius:4px;">रिपोर्ट देखें</button>
-                </div>
+    </div>
                 <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd;">
                     <span style="font-size:13px; font-weight:bold; color:#333;">2. Expenditure Budget Code wise</span>
                     <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">बजट कोड के अनुसार कुल व्यय का विवरण।</p>
