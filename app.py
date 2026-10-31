@@ -480,7 +480,149 @@ function updateUI(data) {
         // नोट: यहाँ आप अपने आवश्यकतानुसार फ़ॉर्मेट में हेड-वाइज़ समरी रेंडर कर सकते हैं
     }
 }
-</script>    
+</script> 
+<script>
+// अपनी नई जेनरेटेड Google Web App URL यहाँ डालें
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyA3ZqLiKnxjfE3g9fo8vbwq4Cks43Ob-EEV5ZI0E3flWRp618kmgCceNFhGJ1h3C4L/exec";
+
+// 1. पेज लोड होते ही पुराना डेटा अपने आप लोड करें (Fetch Data on Load)
+document.addEventListener("DOMContentLoaded", function() {
+    fetchLiveData();
+});
+
+function fetchLiveData() {
+    // स्क्रीन पर लोडिंग स्टेट दिखाने के लिए
+    const totalStrip = document.getElementById('totalStrip');
+    const balanceList = document.getElementById('balanceList');
+    const expBody = document.getElementById('expBody');
+    
+    if(totalStrip) totalStrip.innerHTML = '<p style="padding:10px; color:#666; font-size:12px;"><i class="fa-solid fa-spinner fa-spin me-1"></i> लाइव डेटा लोड हो रहा है...</p>';
+    if(balanceList) balanceList.innerHTML = '<p style="padding:10px; color:#666; font-size:12px;">अपडेट किया जा रहा है...</p>';
+    if(expBody) expBody.innerHTML = '<tr><td colspan="5" style="padding:15px; text-align:center; color:#666;"><i class="fa-solid fa-spinner fa-spin me-1"></i> रिकॉर्ड्स लोड हो रहे हैं...</td></tr>';
+
+    // GET रिक्वेस्ट के जरिए पुराना डेटा मंगाना (Apps Script में doGet हैंडलर होना चाहिए)
+    fetch(`${GOOGLE_SCRIPT_URL}?action=getData`)
+    .then(response => response.json())
+    .then(res => {
+        if(res.result === "success") {
+            updateDashboardUI(res.data);
+        } else {
+            console.error("डेटा लोड करने में विफल:", res.error);
+        }
+    })
+    .catch(error => {
+        console.error("कनेक्शन एरर:", error);
+    });
+}
+
+// 2. ऑलॉटमेंट फॉर्म सबमिशन इवेंट
+document.getElementById('altForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitData(this, "आवंटन डेटा सेव करें");
+});
+
+// 3. एक्सपेंडिचर फॉर्म सबमिशन इवेंट
+document.getElementById('expForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitData(this, "व्यय डेटा सेव करें");
+});
+
+// कॉमन डेटा सबमिशन लॉजिक
+function submitData(formElement, originalBtnText) {
+    const btn = formElement.querySelector('button[type="submit"]');
+    btn.innerText = "सेव हो रहा है...";
+    btn.disabled = true;
+
+    const formData = new FormData(formElement);
+
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(res => {
+        if(res.result === "success") {
+            alert("डेटा सफलतापूर्वक Google Sheet में रिकॉर्ड हो गया है!");
+            formElement.reset();
+            updateDashboardUI(res.data); // सबमिशन के तुरंत बाद UI लाइव अपडेट
+        } else {
+            alert("त्रुटि: " + res.error);
+        }
+    })
+    .catch(error => {
+        alert("सर्वर से कनेक्ट नहीं हो पाया। कृपया दोबारा प्रयास करें।");
+        console.error('Error:', error);
+    })
+    .finally(() => {
+        btn.innerText = originalBtnText;
+        btn.disabled = false;
+    });
+}
+
+// 4. दोनों टैब (Expe Report और Balance Sheet) को लाइव रेंडर करने वाला मास्टर फंक्शन
+function updateDashboardUI(data) {
+    
+    // TAB 4: Balance Sheet के मुख्य कार्ड्स अपडेट करना
+    const totalStrip = document.getElementById('totalStrip');
+    if(totalStrip) {
+        totalStrip.innerHTML = `
+            <div style="background: #fff; padding: 12px 18px; min-width: 140px; border-radius: 8px; border-left: 4px solid #1f4e5b; flex: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <p style="font-size: 11px; color:#777; margin:0; font-weight:bold; text-transform:uppercase;">TOTAL ALLOTMENT</p>
+                <p style="font-size:16px; color:#1f4e5b; margin:0; font-weight:bold;">₹${data.totalAllotment.toLocaleString('en-IN')}</p>
+            </div>
+            <div style="background: #fff; padding: 12px 18px; min-width: 140px; border-radius: 8px; border-left: 4px solid #e74c3c; flex: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <p style="font-size: 11px; color:#777; margin:0; font-weight:bold; text-transform:uppercase;">TOTAL EXPENSE</p>
+                <p style="font-size:16px; color:#e74c3c; margin:0; font-weight:bold;">₹${data.totalExpenditure.toLocaleString('en-IN')}</p>
+            </div>
+            <div style="background: #fff; padding: 12px 18px; min-width: 140px; border-radius: 8px; border-left: 4px solid #2ecc71; flex: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <p style="font-size: 11px; color:#777; margin:0; font-weight:bold; text-transform:uppercase;">NET BALANCE</p>
+                <p style="font-size:16px; color:#2ecc71; margin:0; font-weight:bold;">₹${data.netBalance.toLocaleString('en-IN')}</p>
+            </div>
+        `;
+    }
+
+    // TAB 4: बची हुई राशि (balanceList) हेड-वाइज अपडेट करना
+    const balanceList = document.getElementById('balanceList');
+    if(balanceList) {
+        balanceList.innerHTML = "";
+        if(!data.headWiseReport || data.headWiseReport.length === 0) {
+            balanceList.innerHTML = '<p style="color:#999; font-size:12px; margin:5px 0;">कोई बजट कोड आवंटित नहीं है।</p>';
+        } else {
+            data.headWiseReport.forEach(item => {
+                balanceList.innerHTML += `
+                    <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f4f4f4; font-size: 12px;">
+                        <span style="color: #333; font-weight: 500;"><i class="fa-solid fa-folder-open text-muted me-2"></i> ${item.head}</span>
+                        <span style="color: ${item.remaining < 5000 ? '#e67e22' : '#2ecc71'}; font-weight: bold;">
+                            शेष: ₹${item.remaining.toLocaleString('en-IN')}
+                        </span>
+                    </div>
+                `;
+            });
+        }
+    }
+
+    // TAB 3: Recent Bill Records टेबल (expBody) लाइव अपडेट करना
+    const expBody = document.getElementById('expBody');
+    if(expBody) {
+        expBody.innerHTML = "";
+        if(!data.recentExpenses || data.recentExpenses.length === 0) {
+            expBody.innerHTML = `<tr><td colspan="5" style="padding:15px; text-align:center; color:#999;">कोई बिल रिकॉर्ड उपलब्ध नहीं है।</td></tr>`;
+        } else {
+            data.recentExpenses.forEach(exp => {
+                expBody.innerHTML += `
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px; font-weight:500;">${exp.bill_no}</td>
+                        <td style="padding: 10px; color:#555;">${exp.date}</td>
+                        <td style="padding: 10px; color:#003366;">${exp.head}</td>
+                        <td style="padding: 10px; font-weight:bold; color:#c65911;">₹${exp.amount.toLocaleString('en-IN')}</td>
+                        <td style="padding: 10px; color:#666;">${exp.purpose}</td>
+                    </tr>
+                `;
+            });
+        }
+    }
+}
+</script>
 </body>
 </html>
 """
