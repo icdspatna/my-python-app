@@ -133,8 +133,49 @@ PAGES_BODY = """
 </select>
 
         <input type="text" name="order_no" placeholder="Order No." class="app-input" required>
-        <input type="text" name="budget_head" placeholder="Budget Head" class="app-input" required>
-        <input type="text" name="unit_code" placeholder="Unit Code" class="app-input" required>
+       <select name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+    <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
+    <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
+    <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
+    <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
+    <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
+    <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
+    <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
+    <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
+    <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
+    <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
+    <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
+    <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
+    <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
+    <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
+    <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
+    <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
+</select>
+
+       <select name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+    <option value="" disabled selected hidden>Unit Code (यूनिट कोड चुनें)</option>
+    <option value="01.01">01.01</option>
+    <option value="01.03">01.03</option>
+    <option value="01.04">01.04</option>
+    <option value="01.05">01.05</option>
+    <option value="01.06">01.06</option>
+    <option value="01.07">01.07</option>
+    <option value="02.01">02.01</option>
+    <option value="06.01">06.01</option>
+    <option value="11.01">11.01</option>
+    <option value="13.01">13.01</option>
+    <option value="13.10">13.10</option>
+    <option value="14.01">14.01</option>
+    <option value="16.01">16.01</option>
+    <option value="20.03">20.03</option>
+    <option value="21.01">21.01</option>
+    <option value="21.03">21.03</option>
+    <option value="26.01">26.01</option>
+    <option value="28.02">28.02</option>
+    <option value="31.06">31.06</option>
+    <option value="52.01">52.01</option>
+</select>
+
         <input type="number" name="amount" placeholder="Amount (राशि ₹)" class="app-input" required>
         <input type="text" name="remark" placeholder="Remark" class="app-input">
         <button type="submit" class="submit-btn" style="background: green; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">आवंटन डेटा सेव करें</button>
@@ -148,8 +189,48 @@ PAGES_BODY = """
         <input type="hidden" name="type" value="Expenditure">
         <input type="text" name="order_no" placeholder="Order No." class="app-input" required>
         <input type="date" name="date" class="app-input" required>
-        <input type="text" name="budget_head" placeholder="Budget Head" class="app-input" required>
-        <input type="text" name="unit_head" placeholder="Unit Head" class="app-input" required>
+        <select name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+    <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
+    <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
+    <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
+    <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
+    <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
+    <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
+    <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
+    <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
+    <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
+    <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
+    <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
+    <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
+    <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
+    <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
+    <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
+    <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
+</select>
+        <select name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+    <option value="" disabled selected hidden>Unit Code (यूनिट कोड चुनें)</option>
+    <option value="01.01">01.01</option>
+    <option value="01.03">01.03</option>
+    <option value="01.04">01.04</option>
+    <option value="01.05">01.05</option>
+    <option value="01.06">01.06</option>
+    <option value="01.07">01.07</option>
+    <option value="02.01">02.01</option>
+    <option value="06.01">06.01</option>
+    <option value="11.01">11.01</option>
+    <option value="13.01">13.01</option>
+    <option value="13.10">13.10</option>
+    <option value="14.01">14.01</option>
+    <option value="16.01">16.01</option>
+    <option value="20.03">20.03</option>
+    <option value="21.01">21.01</option>
+    <option value="21.03">21.03</option>
+    <option value="26.01">26.01</option>
+    <option value="28.02">28.02</option>
+    <option value="31.06">31.06</option>
+    <option value="52.01">52.01</option>
+</select>
+
         <input type="number" name="amount" placeholder="Amount (व्यय राशि ₹)" class="app-input" required>
         <button type="submit" class="submit-btn" style="background: red; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">व्यय डेटा सेव करें</button>
     </form>
