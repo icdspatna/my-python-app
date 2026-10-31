@@ -336,21 +336,18 @@ PAGES_BODY = """
             <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
             <a href="https://wa.me" target="_blank" class="submit-btn" style="background:#25D366; text-decoration:none; display:block; text-align:center;"><i class="fa-brands fa-whatsapp me-2"></i>WhatsApp Chat</a>
         </div>
-
-        <div id="contact" class="app-page">
-            <h3 class="page-title">Contact Us</h3>
-            <form action="/submit" method="POST">
-                <input type="hidden" name="type" value="Contact">
-                <input type="text" name="name" placeholder="आपका नाम" class="app-input" required>
-                <input type="text" name="subject" placeholder="विषय (Subject)" class="app-input" required>
-                <textarea name="message" placeholder="यहाँ अपना सन्देश लिखें..." class="app-input" rows="4" style="height:auto;" required></textarea>
-                <button type="submit" class="submit-btn">डायरेक्ट मैसेज भेजें</button>
-            </form>
-        </div> dono me kya different hai
-
+    <div id="contact" class="app-page">
+    <h3 class="page-title">Contact Us</h3>
+    <!-- action में Formspree की लिंक और आपका ईमेल सेट है -->
+    <form action="https://formspree.io" method="POST">
+        <input type="hidden" name="type" value="Contact">
+        <input type="text" name="name" placeholder="आपका नाम" class="app-input" required>
+        <input type="text" name="subject" placeholder="विषय (Subject)" class="app-input" required>
+        <textarea name="message" placeholder="यहाँ अपना संदेश लिखें..." class="app-input" rows="4" style="height:auto;" required></textarea>
+        <button type="submit" class="submit-btn">डायरेक्ट मैसेज भेजें</button>
+    </form>
+</div>
 """
-
-
 # --- 3. APP LAYOUT END ---
 # --- 3. APP LAYOUT END ---
 LAYOUT_END = """
