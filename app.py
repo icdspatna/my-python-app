@@ -84,25 +84,25 @@ PAGES_BODY = """
                 <p style="font-size: 13px; opacity: 0.9;">Rudra Tech Pvt Ltd</p>
             </div>
             <div class="login-container">
-                <h2>क्विक लॉगिन</h2>
+                <h2>Log In</h2>
                 <div class="login-form">
-                    <div class="input-group"><i class="fa-solid fa-user"></i><input type="text" placeholder="यूजरनेम दर्ज करें"></div>
-                    <div class="input-group"><i class="fa-solid fa-lock"></i><input type="password" placeholder="पासवर्ड दर्ज करें"></div>
-                    <button class="login-btn" onclick="switchPage('service')">लॉगिन करें</button>
+                    <div class="input-group"><i class="fa-solid fa-user"></i><input type="text" placeholder="Enter User name"></div>
+                    <div class="input-group"><i class="fa-solid fa-lock"></i><input type="password" placeholder="Password"></div>
+                    <button class="login-btn" onclick="switchPage('service')">Login</button>
                 </div>
             </div>
         </div>
 
         <!-- 2. NOTICE SCREEN -->
         <div id="notice" class="app-page">
-            <h3 class="page-title"><i class="fa-solid fa-bullhorn me-2"></i>सूचना पट्ट</h3>
+            <h3 class="page-title"><i class="fa-solid fa-bullhorn me-2"></i>Notice Board </h3>
             <div class="notice-box"><strong>महत्वपूर्ण:</strong> व्यय प्रतिवेदन समय पर देना अनिवार्य है।</div>
-            <div class="notice-box" style="background:#e1f5fe; border-left-color:#0288d1; color:#01579b;"><strong>नया आवंटन:</strong> निदेशालय से मद 2235 में राशि ट्रांसफर हुई।</div>
+            <div class="notice-box" style="background:#e1f5fe; border-left-color:#0288d1; color:#01579b;"><strong>New Allotment:</strong> निदेशालय से मद 2235 में राशि ट्रांसफर हुई।</div>
         </div>
 
         <!-- 3. SERVICE SCREEN (4 Quick Jump Tabs) -->
         <div id="service" class="app-page">
-            <h3 class="page-title"><i class="fa-solid fa-gears me-2"></i>सेवाएं एवं एंट्री</h3>
+            <h3 class="page-title"><i class="fa-solid fa-gears me-2"></i>Entry Service</h3>
             
             <!-- 4 नैविगेशन बटन्स (Bari bari click karne par niche jump karega) -->
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
