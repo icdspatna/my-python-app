@@ -152,11 +152,12 @@ PAGES_BODY = """
             
             <!-- 4 नैविगेशन बटन्स -->
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
-    <button onclick="showSection('allotment-section')" style="cursor:pointer; padding:10px; background:#e2f0d9; color:#385723; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #a9d18e;">Allotment Entry</button>
-    <button onclick="showSection('expenditure-section')" style="cursor:pointer; padding:10px; background:#fce4d6; color:#c65911; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #f8cbad;">Expenditure Entry</button>
-    <button onclick="showSection('report-section')" style="cursor:pointer; padding:10px; background:#fff2cc; color:#7f6000; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #ffe599;">Expe Report</button>
-    <button onclick="showSection('balance-section')" style="cursor:pointer; padding:10px; background:#e8f4f8; color:#1f4e5b; text-align:center; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #b4d6e4;">Balance Sheet</button>
+    <button class="tab-btn" onclick="showTab(event, 'allotment-section')" style="cursor:pointer; padding:10px; background:#e2f0d9; color:#385723; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #a9d18e;">Allotment Entry</button>
+    <button class="tab-btn" onclick="showTab(event, 'expenditure-section')" style="cursor:pointer; padding:10px; background:#fce4d6; color:#c65911; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #f8cbad;">Expenditure Entry</button>
+    <button class="tab-btn" onclick="showTab(event, 'report-section')" style="cursor:pointer; padding:10px; background:#fff2cc; color:#7f6000; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #ffe599;">Expe Report</button>
+    <button class="tab-btn active" onclick="showTab(event, 'balance-section')" style="cursor:pointer; padding:10px; background:#e8f4f8; color:#1f4e5b; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #b4d6e4;">Balance Sheet</button>
 </div>
+
 <!-- TAB 1: Allotment Entry Form (डिफ़ॉल्ट रूप से छुपा रहेगा) -->
 <div id="allotment-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
     <h4><i class="fa-solid fa-circle-plus" style="color: green;"></i> 1. Allotment Entry</h4>
