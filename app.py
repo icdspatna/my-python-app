@@ -389,6 +389,98 @@ LAYOUT_END = """
         }
     }
     </script>
+<script>
+// स्क्रिप्ट की URL यहाँ पेस्ट करें
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyA3ZqLiKnxjfE3g9fo8vbwq4Cks43Ob-EEV5ZI0E3flWRp618kmgCceNFhGJ1h3C4L/exec";
+
+// ऑलॉटमेंट फॉर्म सबमिशन हैंडलर
+document.getElementById('altForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitToGoogleSheet(this, "आवंटन डेटा सेव करें");
+});
+
+// नोट: इसी तरह अपने Expenditure Form (जैसे id="expForm") पर भी यह इवेंट लगा लें
+// document.getElementById('expForm').addEventListener('submit', function(e) { ... });
+
+function submitToGoogleSheet(formElement, originalBtnText) {
+    const btn = formElement.querySelector('button[type="submit"]');
+    btn.innerText = "सेव किया जा रहा है...";
+    btn.disabled = true;
+
+    const formData = new FormData(formElement);
+    
+    // यदि फॉर्म में 'type' मैन्युअली सेट नहीं है, तो उसे यहाँ जोड़ें
+    // formData.append("type", "Allotment"); 
+
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(responseObj => {
+        if(responseObj.result === "success") {
+            alert("डेटा सफलतापूर्वक Google Sheet में सेव हो गया है!");
+            formElement.reset();
+            // लाइव रिपोर्ट और बैलेंस शीट को स्क्रीन पर अपडेट करें
+            updateUI(responseObj.data);
+        } else {
+            alert("त्रुटि: " + responseObj.error);
+        }
+    })
+    .catch(error => {
+        alert("कनेक्शन एरर! कृपया दोबारा प्रयास करें।");
+        console.error('Error:', error);
+    })
+    .finally(() => {
+        btn.innerText = originalBtnText;
+        btn.disabled = false;
+    });
+}
+
+// प्राप्त लाइव डेटा से UI (रिपोर्ट और बैलेंस शीट) अपडेट करने का फंक्शन
+function updateUI(data) {
+    // 1. बैलेंस शीट के टॉप कार्ड्स (totalStrip) को अपडेट करना
+    const totalStrip = document.getElementById('totalStrip');
+    if(totalStrip) {
+        totalStrip.innerHTML = `
+            <div style="background: #fff; padding: 12px; min-width: 140px; border-radius: 8px; border-left: 4px solid #1f4e5b; flex: 1;">
+                <p style="size: 11px; color:#777; margin:0;">TOTAL ALLOTMENT</p>
+                <p style="font-size:16px; color:#1f4e5b; margin:0; font-weight:bold;">₹${data.totalAllotment.toLocaleString('en-IN')}</p>
+            </div>
+            <div style="background: #fff; padding: 12px; min-width: 140px; border-radius: 8px; border-left: 4px solid #e74c3c; flex: 1;">
+                <p style="size: 11px; color:#777; margin:0;">TOTAL EXPENSE</p>
+                <p style="font-size:16px; color:#e74c3c; margin:0; font-weight:bold;">₹${data.totalExpenditure.toLocaleString('en-IN')}</p>
+            </div>
+            <div style="background: #fff; padding: 12px; min-width: 140px; border-radius: 8px; border-left: 4px solid #2ecc71; flex: 1;">
+                <p style="size: 11px; color:#777; margin:0;">NET BALANCE</p>
+                <p style="font-size:16px; color:#2ecc71; margin:0; font-weight:bold;">₹${data.netBalance.toLocaleString('en-IN')}</p>
+            </div>
+        `;
+    }
+
+    // 2. लाइव बैलेंस लिस्ट (balanceList) को अपडेट करना
+    const balanceList = document.getElementById('balanceList');
+    if(balanceList) {
+        balanceList.innerHTML = ""; // पुराना डेटा साफ़ करें
+        data.headWiseReport.forEach(item => {
+            balanceList.innerHTML += `
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f4f4f4; font-size: 12px;">
+                    <span style="color: #333; font-weight: 500;">Head: ${item.head}</span>
+                    <span style="color: ${item.remaining < 5000 ? '#e67e22' : '#2ecc71'}; font-weight: bold;">
+                        शेष: ₹${item.remaining.toLocaleString('en-IN')}
+                    </span>
+                </div>
+            `;
+        });
+    }
+
+    // 3. एक्सपेंडिचर रिपोर्ट टेबल (expBody) को अपडेट करना
+    const expBody = document.getElementById('expBody');
+    if(expBody) {
+        // नोट: यहाँ आप अपने आवश्यकतानुसार फ़ॉर्मेट में हेड-वाइज़ समरी रेंडर कर सकते हैं
+    }
+}
+</script>    
 </body>
 </html>
 """
