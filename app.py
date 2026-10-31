@@ -168,11 +168,12 @@ PAGES_BODY = """
                         <option value="CFMS">CFMS</option>
                         <option value="HRMS">HRMS</option>
                         <option value="PFMS">PFMS</option>
-                        <option value="OTHER">Other (अन्य)</option>
+                        <option value="OTHER">J.I.T</option>
+                        <option value="OTHER">N.I.C</option>
                     </select>
 
                     <input type="text" id="altOrd" name="order_no" placeholder="Order No." class="app-input" required>
-                    
+                    <input type="date" id="expDat" name="date" class="app-input" required>
                     <select id="altHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
                         <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
                         <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
@@ -274,7 +275,8 @@ PAGES_BODY = """
                         <option value="31.06">31.06</option>
                         <option value="52.01">52.01</option>
                     </select>
-
+                    <input type="number" id="altAmt" name="amount" placeholder="Amount (राशि ₹)" class="app-input" required>
+                    <input type="text" id="altRemark" name="remark" placeholder="Remark" class="app-input">
                     <input type="hidden" id="expSrc" value="OTHER">
                     <input type="hidden" id="expBill" value="000">
                     <input type="hidden" id="expPur" value="Office Expenses">
