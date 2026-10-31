@@ -260,6 +260,18 @@ LAYOUT_END = """
                     <button type="submit" class="submit-btn" style="background: green;">आवंटन डेटा सेव करें</button>
                 </form>
             </div>
+            <script>
+function showSection(sectionId) {
+    // पहले सभी फॉर्म्स को छुपाएं
+    var contents = document.getElementsByClassName('tab-content');
+    for (var i = 0; i < contents.length; i++) {
+        contents[i].style.display = 'none';
+    }
+    // सिर्फ क्लिक किए गए फॉर्म को दिखाएं
+    document.getElementById(sectionId).style.display = 'block';
+}
+</script>
+
 </body>
 </html>
 """
