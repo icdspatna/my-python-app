@@ -213,23 +213,39 @@ LAYOUT_END = """
         </div>
     </div>
     <script>
-        function switchPage(pageId) {
-            document.querySelectorAll('.app-page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            const pages = ['home', 'notice', 'service', 'about', 'contact'];
-            const index = pages.indexOf(pageId);
-            if(index !== -1) {
-                document.querySelectorAll('.nav-item')[index].classList.add('active');
-            }
-        }
-    </script>
-        <script>
+// 1. यह आपका पुराना फंक्शन है (इसे वैसे ही रहने दें ताकि मुख्य नेविगेशन काम करे)
+function switchPage(pageId) {
+    document.querySelectorAll('.app-page').forEach(page => {
+        page.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    const pages = ['home', 'notice', 'service', 'about', 'contact'];
+    const index = pages.indexOf(pageId);
+    if(index !== -1) {
+        document.querySelectorAll('.nav-item')[index].classList.add('active');
+    }
+}
+
+// 2. यह नया फंक्शन है जो आपके 4 नए फॉर्म्स (Allotment, Expenditure आदि) को स्विच करेगा
 function showSection(sectionId) {
+    // पहले चारों सब-फॉर्म्स को छुपाएं
+    var contents = document.getElementsByClassName('tab-content');
+    for (var i = 0; i < contents.length; i++) {
+        contents[i].style.display = 'none';
+    }
+    // सिर्फ उस फॉर्म को दिखाएं जिस पर क्लिक किया गया है
+    var target = document.getElementById(sectionId);
+    if(target) {
+        target.style.display = 'block';
+    }
+}
+</script>
+
+        <script>
+        function showSection(sectionId) {
     // पहले सभी फॉर्म्स को छुपाएं
     var contents = document.getElementsByClassName('tab-content');
     for (var i = 0; i < contents.length; i++) {
