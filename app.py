@@ -124,7 +124,14 @@ PAGES_BODY = """
     <h4><i class="fa-solid fa-circle-plus" style="color: green;"></i> 1. Allotment Entry</h4>
     <form action="/submit" method="POST">
         <input type="hidden" name="type" value="Allotment">
-        <input type="text" name="source" placeholder="Source (स्रोत)" class="app-input" required>
+        <select name="source" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+    <option value="" disabled selected hidden>Source (स्रोत चुनें)</option>
+    <option value="CFMS">CFMS</option>
+    <option value="HRMS">HRMS</option>
+    <option value="PFMS">PFMS</option>
+    <option value="OTHER">Other (अन्य)</option>
+</select>
+
         <input type="text" name="order_no" placeholder="Order No." class="app-input" required>
         <input type="text" name="budget_head" placeholder="Budget Head" class="app-input" required>
         <input type="text" name="unit_code" placeholder="Unit Code" class="app-input" required>
