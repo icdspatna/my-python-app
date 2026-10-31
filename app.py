@@ -155,12 +155,10 @@ PAGES_BODY = """
             
 </div>
 
-<div id="report-section" class="tab-content">
+<div id="report-section" class="tab-content"style="display: block;"style="scroll-margin-top: 10px; background:#fffdf4;">
     <!-- यहाँ अपना पुराना Report कोड रखें -->
-</div>
 
-<!-- Balance Sheet डिफ़ॉल्ट रूप से दिखेगी इसलिए style="display: block;" लगाया है -->
-<div id="balance-section" class="tab-content" style="display: block;"style="scroll-margin-top: 10px; background:#fffdf4;">
+    <!-- Balance Sheet डिफ़ॉल्ट रूप से दिखेगी इसलिए style="display: block;" लगाया है -->
     <!-- यहाँ अपना पुराना Balance Sheet कोड रखें -->
             <!-- TAB 3: Expenditure Report Section (All Bill & Code Wise) -->
                 <h4><i class="fa-solid fa-chart-line" style="color: #7f6000;"></i> 3. Expenditure Report</h4>
@@ -168,7 +166,7 @@ PAGES_BODY = """
                     <span style="font-size:13px; font-weight:bold; color:#333;">1. Expenditure Report ALL Bill</span>
                     <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">कुल खर्च किए गए सभी बिलों की विस्तृत सूची।</p>
                     <button class="btn-custom" style="padding:4px 10px; font-size:11px; background:#764ba2; color:#fff; border:none; border-radius:4px;">रिपोर्ट देखें</button>
-    </div>
+   </div>
                 <div style="padding:10px; background:#fff; border-radius:8px; border:1px solid #ddd;">
                     <span style="font-size:13px; font-weight:bold; color:#333;">2. Expenditure Budget Code wise</span>
                     <p style="font-size:11px; color:#666; margin:4px 0 8px 0;">बजट कोड के अनुसार कुल व्यय का विवरण।</p>
