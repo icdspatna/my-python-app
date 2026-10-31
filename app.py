@@ -246,21 +246,7 @@ LAYOUT_END = """
             }
         }
     </script>
-                <!-- TAB 1: Allotment Entry Form -->
-            <div id="allotment-section" class="form-card" style="scroll-margin-top: 10px;">
-                <h4><i class="fa-solid fa-circle-plus" style="color: green;"></i> 1. Allotment Entry</h4>
-                <form action="/submit" method="POST">
-                    <input type="hidden" name="type" value="Allotment">
-                    <input type="text" name="source" placeholder="Source (स्रोत)" class="app-input" required>
-                    <input type="text" name="order_no" placeholder="Order No." class="app-input" required>
-                    <input type="text" name="budget_head" placeholder="Budget Head" class="app-input" required>
-                    <input type="text" name="unit_code" placeholder="Unit Code" class="app-input" required>
-                    <input type="number" name="amount" placeholder="Amount (राशि ₹)" class="app-input" required>
-                    <input type="text" name="remark" placeholder="Remark" class="app-input">
-                    <button type="submit" class="submit-btn" style="background: green;">आवंटन डेटा सेव करें</button>
-                </form>
-            </div>
-            <script>
+        <script>
 function showSection(sectionId) {
     // पहले सभी फॉर्म्स को छुपाएं
     var contents = document.getElementsByClassName('tab-content');
@@ -271,6 +257,8 @@ function showSection(sectionId) {
     document.getElementById(sectionId).style.display = 'block';
 }
 </script>
+       
+            
 
 </body>
 </html>
