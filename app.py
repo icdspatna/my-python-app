@@ -355,9 +355,10 @@ PAGES_BODY = """
 
             </div>
         </div>
-<!-- 3. SERVICE SCREEN (4 Quick Jump Tabs) -->
-        <div id="service" class="app-page active">
+        <!-- 3. SERVICE SCREEN (शुरुआत में छुपाने के लिए active हटा दिया गया है) -->
+        <div id="service" class="app-page">
             <h3 class="page-title"><i class="fa-solid fa-gears me-2"></i>Entry Service</h3>
+
             
             <!-- 4 नैविगेशन बटन्स -->
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
