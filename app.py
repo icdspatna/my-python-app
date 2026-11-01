@@ -196,10 +196,10 @@ LAYOUT_START = """
         </button>
     </div>
 """
-    <!-- बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे... -->
+    <!--बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे...-->
      # --- 2. INNER PAGES BODY ---
 # इसे बिल्कुल बाईं तरफ सटाकर रखें, इसके पीछे एक भी खाली स्पेस या टैब नहीं होना चाहिए
-PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
+PAGES_BODY ="""<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
 <div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 25px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
     
     <!-- लाइव डिजिटल वॉच और लोकेशन विजेट -->
