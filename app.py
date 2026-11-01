@@ -220,13 +220,13 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
     </div>
 """
     <!-- ऐप लोगो और ब्रांडिंग -->
-    <div class="hero-section" style="text-align: center; margin-bottom: 25px;">
-        <div style="background: rgba(255, 255, 255, 0.15); width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.2);">
-            <i class="fa-solid fa-calculator" style="font-size: 36px; color: #fff;"></i>
-        </div>
-        <h1 style="font-size: 24px; font-weight: 700; margin: 0 0 4px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">ICDS बजट प्रबंधन</h1>
-        <p style="font-size: 11px; opacity: 0.75; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Rudra Tech Pvt Ltd</p>
-    </div>
+<div class="hero-section" style="text-align: center; margin-bottom: 25px;">
+<div style="background: rgba(255, 255, 255, 0.15); width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.2);">
+<i class="fa-solid fa-calculator" style="font-size: 36px; color: #fff;"></i>
+</div>
+<h1 style="font-size: 24px; font-weight: 700; margin: 0 0 4px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">ICDS बजट प्रबंधन</h1>
+<p style="font-size: 11px; opacity: 0.75; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Rudra Tech Pvt Ltd</p>
+</div>
 
     <!-- मुख्य फॉर्म कार्ड -->
     <div class="login-container" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 24px; padding: 25px 20px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.25); border: 1px solid rgba(255, 255, 255, 0.18); box-sizing: border-box;">
