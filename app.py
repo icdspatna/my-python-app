@@ -842,20 +842,34 @@ function validateLogin() {
     }
 }
 
-// ओटीपी सत्यापित होने के बाद का लॉजिक
-// ओटीपी सत्यापित होने के बाद का सुधरा हुआ लॉजिक
+// ओटीपी सत्यापित होने के बाद का बिल्कुल सुधरा हुआ और सटीक लॉजिक
 function validateOtp() {
     const otpVal = document.getElementById('inputOtp').value.trim();
     const defaultOtp = "789456";
 
     if (otpVal === defaultOtp) {
+        // 1. ओटीपी सही होने पर तुरंत थैंक यू स्टेज दिखाएं
         document.getElementById('otpStage').style.display = 'none';
         document.getElementById('successStage').style.display = 'block';
         
         setTimeout(function() {
+            // 2. थैंक यू स्टेज को बंद करें
             document.getElementById('successStage').style.display = 'none';
-            document.getElementById('loginStage').style.display = 'block'; 
+            
+            // 3. सबसे महत्वपूर्ण सुधार: लॉगिन फॉर्म वाले मुख्य कैनवास/कंटेनर को पूरी तरह छुपाएं 
+            // ताकि लॉगिन के बाद यह दोबारा स्क्रीन पर न दिखे
+            const loginBox = document.querySelector('.login-container');
+            if (loginBox) {
+                loginBox.style.display = 'none';
+            }
+            
+            // 4. हीरो सेक्शन (लोगो और नाम) को भी छुपाएं ताकि सर्विस पेज पर साफ़ जगह मिले
+            const heroBox = document.querySelector('.hero-section');
+            if (heroBox) {
+                heroBox.style.display = 'none';
+            }
 
+            // 5. लॉगिन करने वाले यूज़र का नाम ऊपरी हेडर में सेट करें
             const loggedInUser = document.getElementById('loginUser').value.trim() || "Admin";
             document.getElementById('userProfileName').innerText = loggedInUser;
             
@@ -864,45 +878,45 @@ function validateOtp() {
                 profilePicEl.innerText = loggedInUser.charAt(0).toUpperCase();
             }
 
-            // 1. नया टॉप प्रोफाइल हेडर शो करें
+            // 6. नया टॉप प्रोफाइल हेडर और आपका नया अट्रैक्टिव बॉटम नेविगेशन शो करें
             document.getElementById('appTopHeader').style.display = 'flex';
-
-            // 2. सुरक्षा सुधार: लॉगिन सफल होने पर ही बॉटम नेविगेशन बार को दिखाएं
             document.getElementById('appBottomNav').style.display = 'flex';
 
-            // 3. सीधे मुख्य 'Service' पेज पर ट्रांसफर करें
-            switchPage('service');
+            // 7. सीधे मुख्य 'Service' (डैशबोर्ड) पेज पर ट्रांसफर करें
+            window.switchPage('service');
             
-            const allTabBtns = document.querySelectorAll('.tab-btn');
-            allTabBtns.forEach(btn => {
-                if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('balance-section')) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            document.getElementById('loginUser').value = "";
-            document.getElementById('loginPass').value = "";
-            document.getElementById('inputOtp').value = "";
-        }, 2000);
+        }, 2000); // 2 सेकंड का सफल पॉप-अप टाइमर
         
     } else {
         alert("गलत OTP! कृपया '789456' दर्ज करें।");
     }
 }
 
-// नया लॉगआउट फंक्शन (सुरक्षा लॉक के साथ)
+// नया लॉगआउट फंक्शन जो लॉगिन फॉर्म को दोबारा रीसेट और विज़िबल करेगा
 function handleAppLogout() {
     if(confirm("क्या आप ऐप से लॉगआउट करना चाहते हैं?")) {
-        // 1. टॉप हेडर को वापस छुपाएं
+        // 1. टॉप हेडर और बॉटम नेव को वापस छुपाएं
         document.getElementById('appTopHeader').style.display = 'none';
-        
-        // 2. सुरक्षा सुधार: लॉगआउट होने पर बॉटम नेविगेशन मेनू को दोबारा लॉक/हाइड करें
         document.getElementById('appBottomNav').style.display = 'none';
         
-        // 3. वापस मुख्य लॉगिन (home) स्क्रीन पर भेजें
-        switchPage('home');
+        // 2. लॉगिन फॉर्म और हीरो सेक्शन को दोबारा विज़िबल (Block) करें
+        const loginBox = document.querySelector('.login-container');
+        if (loginBox) {
+            loginBox.style.display = 'block';
+            document.getElementById('loginStage').style.display = 'block'; // स्टेज A रीसेट
+        }
+        const heroBox = document.querySelector('.hero-section');
+        if (heroBox) {
+            heroBox.style.display = 'block';
+        }
+
+        // 3. फॉर्म इनपुट्स खाली करें
+        document.getElementById('loginUser').value = "";
+        document.getElementById('loginPass').value = "";
+        if(document.getElementById('inputOtp')) document.getElementById('inputOtp').value = "";
+        
+        // 4. वापस मुख्य लॉगिन (home) स्क्रीन पर भेजें
+        window.switchPage('home');
     }
 }
 
