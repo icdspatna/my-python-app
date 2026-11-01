@@ -701,14 +701,40 @@ ABOUT_CONTACT_BODY = """
 """
 # --- 10. APP LAYOUT END ---
 LAYOUT_END = """
-   <div class="bottom-nav">
-            <div class="nav-item active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i>Home</div>
-            <div class="nav-item" onclick="switchPage('notice')"><i class="fa-solid fa-bell"></i>Notice</div>
-            <div class="nav-item" onclick="switchPage('service')"><i class="fa-solid fa-gears"></i>Service</div>
-            <div class="nav-item" onclick="switchPage('about')"><i class="fa-solid fa-building"></i>About</div>
-            <div class="nav-item" onclick="switchPage('contact')"><i class="fa-solid fa-envelope"></i>Contact</div>
-        </div>
-    </div>
+  <!-- सुधार: डिफ़ॉल्ट रूप से बॉटम नेविगेशन को छुपा दिया गया है (display: none) -->
+<div class="bottom-nav" id="appBottomNav" style="display: none;">
+    <!-- 1. HOME BUTTON (Active State) -->
+<div class="nav-item active" onclick="switchPage('home')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #1e3c72; font-weight: 800; font-size: 12px; cursor: pointer; flex: 1;">
+    <i class="fa-solid fa-house" style="font-size: 22px; color: #ffb703; margin-bottom: 4px; font-weight: 900; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));"></i>
+    Home
+</div>
+
+<!-- 2. NOTICE BUTTON -->
+<div class="nav-item" onclick="switchPage('notice')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #4a5568; font-weight: 700; font-size: 12px; cursor: pointer; flex: 1;">
+    <i class="fa-solid fa-bell" style="font-size: 22px; color: #4a5568; margin-bottom: 4px; font-weight: 900;"></i>
+    Notice
+</div>
+
+<!-- 3. SERVICE BUTTON -->
+<div class="nav-item" onclick="switchPage('service')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #4a5568; font-weight: 700; font-size: 12px; cursor: pointer; flex: 1;">
+    <i class="fa-solid fa-gears" style="font-size: 22px; color: #4a5568; margin-bottom: 4px; font-weight: 900;"></i>
+    Service
+</div>
+
+<!-- 4. ABOUT BUTTON -->
+<div class="nav-item" onclick="switchPage('about')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #4a5568; font-weight: 700; font-size: 12px; cursor: pointer; flex: 1;">
+    <i class="fa-solid fa-building" style="font-size: 22px; color: #4a5568; margin-bottom: 4px; font-weight: 900;"></i>
+    About
+</div>
+
+<!-- 5. CONTACT BUTTON -->
+<div class="nav-item" onclick="switchPage('contact')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #4a5568; font-weight: 700; font-size: 12px; cursor: pointer; flex: 1;">
+    <i class="fa-solid fa-envelope" style="font-size: 22px; color: #4a5568; margin-bottom: 4px; font-weight: 900;"></i>
+    Contact
+</div>
+
+</div>
+
 
 </body>
 </html>
@@ -1343,40 +1369,68 @@ function updateDashboardUI(data) {
 def get_global_nav_script():
     return """
 <script>
-    // फंक्शंस को सीधे विंडो (Global) पर असाइन कर रहे हैं ताकि एरर का कोई चांस न रहे
-    window.switchPage = function(pageId) {
-        console.log("Switching to page: " + pageId); // ब्राउज़र कंसोल में चेक करने के लिए
+   // फंक्शंस को सीधे विंडो (Global) पर असाइन कर रहे हैं ताकि एरर का कोई चांस न रहे
+window.switchPage = function(pageId) {
+    console.log("Switching to page: " + pageId); // ब्राउज़र कंसोल में चेक करने के लिए
+    
+    // 1. सभी स्क्रीन्स को छुपाएं
+    var pages = document.querySelectorAll('.app-page');
+    pages.forEach(function(page) {
+        page.classList.remove('active');
+        page.style.display = 'none';
+    });
+    
+    // 2. केवल चुनी हुई स्क्रीन दिखाएं
+    var activePage = document.getElementById(pageId);
+    if(activePage) {
+        activePage.classList.add('active');
+        // होम स्क्रीन के फ्लेक्स लेआउट को ब्लॉक होने से सुरक्षित रखने के लिए कंडीशन चेक
+        if (pageId === 'home') {
+            activePage.style.display = 'flex';
+        } else {
+            activePage.style.display = 'block';
+        }
+    }
+    
+    // 3. बॉटम नेव बार एक्टिव कलर और बोल्डनेस लाइव बदलना
+    var navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(function(item) {
+        item.classList.remove('active');
         
-        // 1. सभी स्क्रीन्स को छुपाएं
-        var pages = document.querySelectorAll('.app-page');
-        pages.forEach(function(page) {
-            page.classList.remove('active');
-            page.style.display = 'none';
-        });
+        // A. डिफ़ॉल्ट रूप से नॉर्मल (ग्रे) बटन्स की स्टाइल सेट करें
+        item.style.color = '#4a5568';
+        item.style.fontWeight = '700'; // बोल्ड
         
-        // 2. केवल चुनी हुई स्क्रीन दिखाएं
-        var activePage = document.getElementById(pageId);
-        if(activePage) {
-            activePage.classList.add('active');
-            // होम स्क्रीन के फ्लेक्स लेआउट को ब्लॉक होने से सुरक्षित रखने के लिए कंडीशन चेक
-            if (pageId === 'home') {
-                activePage.style.display = 'flex';
-            } else {
-                activePage.style.display = 'block';
+        var icon = item.querySelector('i');
+        if(icon) {
+            icon.style.color = '#4a5568';
+            icon.style.filter = 'none';
+        }
+        
+        // B. यदि ऑनक्लिक एट्रिब्यूट में वो पेज आईडी शामिल है, तो उसे एक्टिव स्टाइल (ब्लू और गोल्ड) दें
+        if(item.getAttribute('onclick') && item.getAttribute('onclick').includes(pageId)) {
+            item.classList.add('active');
+            item.style.color = '#1e3c72'; // एक्टिव टेक्स्ट कलर (रॉयल ब्लू)
+            item.style.fontWeight = '800'; // एक्स्ट्रा बोल्ड
+            if(icon) {
+                icon.style.color = '#ffb703'; // एक्टिव गोल्डन आइकॉन
+                icon.style.filter = 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))'; // सॉफ्ट शैडो
             }
         }
-        
-        // 3. बॉटम नेव बार एक्टिव कलर बदलना
-        var navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(function(item) {
-            item.classList.remove('active');
+    });
+
+    // 4. जब बाहर से 'service' पेज पर ट्रांसफर किया जाए (जैसे लॉगिन के बाद), तब सब-टैब बटन को ऑटो-सिंक करें
+    if (pageId === 'service') {
+        var tabButtons = document.querySelectorAll('.tab-btn');
+        tabButtons.forEach(function(btn) {
+            if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('balance-section')) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
         });
-        
-        var pageList = ['home', 'notice', 'service', 'about', 'contact'];
-        var index = pageList.indexOf(pageId);
-        if(index !== -1 && navItems[index]) {
-            navItems[index].classList.add('active');
-        }
+    }
+};
 
         // जब बाहर से 'service' पेज पर ट्रांसफर किया जाए (जैसे लॉगिन के बाद), तब सब-टैब बटन को ऑटो-सिंक करें
         if (pageId === 'service') {
