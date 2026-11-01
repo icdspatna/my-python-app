@@ -218,8 +218,6 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
             <span id="liveLocation">Patna, Bihar, India</span>
         </div>
     </div>
-"""
-<!-- ऐप लोगो और ब्रांडिंग -->
 <div class="hero-section" style="text-align: center; margin-bottom: 25px;">
 <div style="background: rgba(255, 255, 255, 0o.15); width: 80opx; height: 80opx; border-radius: 50o%; display: flex; justify-content: center; align-items: center; margin: 0o auto 12px auto; box-shadow: 0o 8px 32px rgba(0o, 0o, 0o, 0o.2); border: 1px solid rgba(255, 255, 255, 0o.2);">
 <i class="fa-solid fa-calculator" style="font-size: 36px; color: #fff;"></i>
@@ -457,7 +455,6 @@ FORM_ELEMENTS_BODY = """
 <option value="31.06">31.06</option>
 <option value="52.01">52.01</option>
 </select>
-"""
                     <input type="number" id="altAmt" name="amount" placeholder="Amount (राशि )" class="app-input" required>
                     <input type="text" id="altRemark" name="remark" placeholder="Remark" class="app-input">
                     <input type="hidden" id="altLet" value="00000">
@@ -520,7 +517,6 @@ EXPENDITURE_SELECT_BODY = """
     <option value="31.06">31.06</option>
     <option value="52.01">52.01</option>
 </select>
-"""
 
                     <!-- सुधार 1: आईडी को altAmt से बदलकर expAmt किया गया -->
                     <input type="number" id="expAmt" name="amount" placeholder="Amount ₹" class="app-input" required>
@@ -558,7 +554,6 @@ EXPENDITURE_SELECT_BODY = """
             </div>
 
 <!-- सुधार 2: डेटा को लाइव टेबल में दिखाने के लिए यह स्क्रिप्ट रेंडरर जोड़ा गया है -->
-"""
 <script>
     // यह आपका लाइव डेटा ऐरे (Array) है, जिसे आपकी ऐप या बैकएंड से अपडेट किया जा सकता है
     const liveExpenditureData = [
@@ -714,7 +709,6 @@ ABOUT_CONTACT_BODY = """
                 <button type="submit" class="submit-btn">डायरेक्ट मैसेज भेजें</button>
             </form>
         </div>
-""" 
 
 # --- 3. APP LAYOUT END ---
 LAYOUT_END = """
