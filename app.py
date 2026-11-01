@@ -686,7 +686,6 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
 </script>
      # --- 2. ABOUT & CONTACT PAGES BODY ---
 # सुधार: HTML ब्लॉक को स्टोर करने के लिए यहाँ वैरिएबल नाम निश्चित किया गया है
-ABOUT_CONTACT_BODY = """
         <!-- 4. ABOUT SCREEN -->
         <div id="about" class="app-page" style="text-align: center;">
             <h3 class="page-title">About Me</h3>
