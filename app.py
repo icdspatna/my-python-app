@@ -331,7 +331,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
 
         <!-- टेबल 2: सामान्य कुपोषित बच्चे -->
         <div class="form-card" style="padding:10px; margin-bottom:12px; background:#fff; border: 1px solid #eee;">
-            <h5 style="margin:0 0 8px 0; color:#003366; font-size:12px; background:#e8f4f8; padding:5px 8px; border-left:3px solid #003366; border-radius:3px;">मद: 06 माह से 03 वर्ष सामान्य कुपोषित (THR)</h5>
+            <h5 style="margin:0 0 8px 0; color:#003366; font-size:12px; background:#e8f4f8; padding:5px 8px; border-left:3px solid #003366; border-radius:3px;">मद: 6 माह से 3 वर्ष सामान्य कुपोषित (THR)</h5>
             <table style="width:100%; font-size:11px; border-collapse:collapse; text-align: left;">
                 <thead>
                     <tr style="background:#f4f6f8; border-bottom: 1px solid #eee;">
@@ -347,7 +347,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
 
         <!-- टेबल 3: अतिकुपोषित बच्चे -->
         <div class="form-card" style="padding:10px; margin-bottom:12px; background:#fff; border: 1px solid #eee;">
-            <h5 style="margin:0 0 8px 0; color:#e74c3c; font-size:12px; background:#fce4d6; padding:5px 8px; border-left:3px solid #e74c3c; border-radius:3px;">मद: 06 माह से 03 वर्ष अतिकुपोषित बच्चे (THR)</h5>
+            <h5 style="margin:0 0 8px 0; color:#e74c3c; font-size:12px; background:#fce4d6; padding:5px 8px; border-left:3px solid #e74c3c; border-radius:3px;">मद: 6 माह से 3 वर्ष अतिकुपोषित बच्चे (THR)</h5>
             <table style="width:100%; font-size:11px; border-collapse:collapse; text-align: left;">
                 <thead>
                     <tr style="background:#f4f6f8; border-bottom: 1px solid #eee;">
@@ -363,7 +363,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
 
         <!-- टेबल 4: स्कूल पूर्व बच्चे गर्म भोजन -->
         <div class="form-card" style="padding:10px; margin-bottom:5px; background:#fff; border: 1px solid #eee;">
-            <h5 style="margin:0 0 8px 0; color:#2e7d32; font-size:12px; background:#e2f0d9; padding:5px 8px; border-left:3px solid #2e7d32; border-radius:3px;">मद: स्कूल पूर्व के बच्चों (03-06 वर्ष) गर्म भोजन (मासिक)</h5>
+            <h5 style="margin:0 0 8px 0; color:#2e7d32; font-size:12px; background:#e2f0d9; padding:5px 8px; border-left:3px solid #2e7d32; border-radius:3px;">मद: स्कूल पूर्व के बच्चों (3-6 वर्ष) गर्म भोजन (मासिक)</h5>
             <table style="width:100%; font-size:11px; border-collapse:collapse; text-align: left;">
                 <thead>
                     <tr style="background:#f4f6f8; border-bottom: 1px solid #eee;">
@@ -455,7 +455,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                         <option value="52.01">52.01</option>
                     </select>
 
-                    <input type="number" id="altAmt" name="amount" placeholder="Amount (राशि ₹)" class="app-input" required>
+                    <input type="number" id="altAmt" name="amount" placeholder="Amount (राशि )" class="app-input" required>
                     <input type="text" id="altRemark" name="remark" placeholder="Remark" class="app-input">
                     <input type="hidden" id="altLet" value="00000">
                     <input type="hidden" id="altDat" value="2026-04-01">
@@ -569,7 +569,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
 
         // यदि कोई डेटा न हो तो मैसेज दिखाएँ
         if (liveExpenditureData.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: #888;">कोई व्यय रिकॉर्ड उपलब्ध नहीं है।</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: #888;">कोई व्यय रिकॉर्ड उपलब्ध नहीं है.</td></tr>`;
             return;
         }
 
@@ -691,7 +691,7 @@ ABOUT_CONTACT_BODY = """
         <div id="about" class="app-page" style="text-align: center;">
             <h3 class="page-title">About Me</h3>
             <h4 style="color:#764ba2; margin-bottom: 5px;">Rudra Tech Pvt Ltd</h4>
-            <p style="font-size: 13px; color:#666;">हम कार्यालयों के लिए आधुनिक सॉफ्टवेयर का निर्माण करते हैं।</p>
+            <p style="font-size: 13px; color:#666;">हम कार्यालयों के लिए आधुनिक सॉफ्टवेयर का निर्माण करते हैं.</p>
             <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
             <a href="https://wa.me" target="_blank" class="submit-btn" style="background:#25D366; text-decoration:none; display:block; text-align:center;"><i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i>WhatsApp Chat</a>
         </div>
