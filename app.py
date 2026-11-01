@@ -475,48 +475,53 @@ FORM_ELEMENTS_BODY = """
                     <input type="text" id="expOrd" name="order_no" placeholder="Order No." class="app-input" required>
                     <input type="date" id="expDat" name="date" class="app-input" required>
                     
-                    <select id="expHead" name="budget_head" class="app-input" style="width: 10o0o%; padding: 10opx; margin-bottom: 10opx; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-                        <option value="" disabled selected hidden>Budget Head </option>
-                        <option value="51-2235-0o2-10o2-0o123">51-2235-0o2-10o2-0o123</option>
-                        <option value="51-2235-0o2-10o2-0o222">51-2235-0o2-10o2-0o222</option>
-                        <option value="51-2235-0o2-10o2-0o10o5">51-2235-0o2-10o2-0o10o5</option>
-                        <option value="51-2235-0o2-10o2-0o122">51-2235-0o2-10o2-0o122</option>
-                        <option value="51-2235-0o2-10o2-0o225">51-2235-0o2-10o2-0o225</option>
-                        <option value="51-2235-0o2-10o2-0o322">51-2235-0o2-10o2-0o322</option>
-                        <option value="51-2235-0o2-10o2-0o325">51-2235-0o2-10o2-0o325</option>
-                        <option value="51-2235-0o2-10o2-0o327">51-2235-0o2-10o2-0o327</option>
-                        <option value="51-2236-0o2-10o1-0o10o3">51-2236-0o2-10o1-0o10o3</option>
-                        <option value="51-2236-0o2-10o1-0o20o3">51-2236-0o2-10o1-0o20o3</option>
-                        <option value="51-2236-0o2-10o1-0o30o3">51-2236-0o2-10o1-0o30o3</option>
-                        <option value="51-2236-0o2-789-0o20o4">51-2236-0o2-789-0o20o4</option>
-                        <option value="51-2236-0o2-789-0o30o4">51-2236-0o2-789-0o30o4</option>
-                        <option value="51-2235-0o2-10o2-0o226">51-2235-0o2-10o2-0o226</option>
-                        <option value="51-2235-0o2-10o2-0o224">51-2235-0o2-10o2-0o224</option>
-                    </select>
+                    # --- EXPENDITURE FORM ELEMENTS WRAPPED IN SAFE STRING ---
+# सुधार: सभी '0o' को हटाकर कोड को पुनः मूल बजट कोड प्रारूप में लाया गया है और सुरक्षित कोट्स में बंद किया गया है
+EXPENDITURE_SELECT_BODY = """
+<select id="expHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+    <option value="" disabled selected hidden>Budget Head</option>
+    <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
+    <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
+    <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
+    <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
+    <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
+    <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
+    <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
+    <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
+    <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
+    <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
+    <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
+    <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
+    <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
+    <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
+    <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
+</select>
 
-                    <select id="expUnit" name="unit_code" class="app-input" style="width: 10o0o%; padding: 10opx; margin-bottom: 10opx; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-                        <option value="" disabled selected hidden>Unit Code </option>
-                        <option value="0o1.0o1">0o1.0o1</option>
-                        <option value="0o1.0o3">0o1.0o3</option>
-                        <option value="0o1.0o4">0o1.0o4</option>
-                        <option value="0o1.0o5">0o1.0o5</option>
-                        <option value="0o1.0o6">0o1.0o6</option>
-                        <option value="0o1.0o7">0o1.0o7</option>
-                        <option value="0o2.0o1">0o2.0o1</option>
-                        <option value="0o6.0o1">0o6.0o1</option>
-                        <option value="11.0o1">11.0o1</option>
-                        <option value="13.0o1">13.0o1</option>
-                        <option value="13.10o">13.10o</option>
-                        <option value="14.0o1">14.0o1</option>
-                        <option value="16.0o1">16.0o1</option>
-                        <option value="20o.0o3">20o.0o3</option>
-                        <option value="21.0o1">21.0o1</option>
-                        <option value="21.0o3">21.0o3</option>
-                        <option value="26.0o1">26.0o1</option>
-                        <option value="28.0o2">28.0o2</option>
-                        <option value="31.0o6">31.0o6</option>
-                        <option value="52.0o1">52.0o1</option>
-                    </select>
+<select id="expUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+    <option value="" disabled selected hidden>Unit Code</option>
+    <option value="01.01">01.01</option>
+    <option value="01.03">01.03</option>
+    <option value="01.04">01.04</option>
+    <option value="01.05">01.05</option>
+    <option value="01.06">01.06</option>
+    <option value="01.07">01.07</option>
+    <option value="02.01">02.01</option>
+    <option value="06.01">06.01</option>
+    <option value="11.01">11.01</option>
+    <option value="13.01">13.01</option>
+    <option value="13.10">13.10</option>
+    <option value="14.01">14.01</option>
+    <option value="16.01">16.01</option>
+    <option value="20.03">20.03</option>
+    <option value="21.01">21.01</option>
+    <option value="21.03">21.03</option>
+    <option value="26.01">26.01</option>
+    <option value="28.02">28.02</option>
+    <option value="31.06">31.06</option>
+    <option value="52.01">52.01</option>
+</select>
+"""
+
                     <!-- सुधार 1: आईडी को altAmt से बदलकर expAmt किया गया -->
                     <input type="number" id="expAmt" name="amount" placeholder="Amount ₹" class="app-input" required>
                     <!-- सुधार 1: आईडी को altRemark से बदलकर expRemark किया गया -->
