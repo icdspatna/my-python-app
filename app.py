@@ -1314,7 +1314,6 @@ function updateDashboardUI(data) {
     }
 }
 </script>
-</body>
 <!-- पूरी तरह से नया और अचूक स्क्रिप्ट ब्लॉक -->
 <script>
     // फंक्शंस को सीधे विंडो (Global) पर असाइन कर रहे हैं ताकि एरर का कोई चांस न रहे
@@ -1418,8 +1417,6 @@ function updateDashboardUI(data) {
         }
     });
 </script>
-
-</html>
 # --- 4. FLASK ROUTING ---
 @app.route('/')
 def main_app():
