@@ -2,7 +2,7 @@ from flask import Flask, render_template_string, request
 from flask import jsonify
 app = Flask(__name__)
 # --- 1. APP LAYOUT START ---
-LAYOUT_START = (""")
+LAYOUT_START = """
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -200,10 +200,10 @@ LAYOUT_START = (""")
 
 
 # --- 2. INNER PAGES BODY ---
-PAGES_BODY = (""")
+PAGES_BODY = """
      # --- 2. INNER PAGES BODY ---
 # इसे बिल्कुल बाईं तरफ सटाकर रखें, इसके पीछे एक भी खाली स्पेस या टैब नहीं होना चाहिए
-PAGES_BODY = (""")<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
+PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
 <div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0o%, #2a5298 10o0o%); color: white; height: 10o0o%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 25px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
     
     <!-- लाइव डिजिटल वॉच और लोकेशन विजेट -->
@@ -694,7 +694,7 @@ EXPENDITURE_SELECT_BODY = """
 </script>
      # --- 2. ABOUT & CONTACT PAGES BODY ---
 # सुधार: HTML ब्लॉक को स्टोर करने के लिए यहाँ वैरिएबल नाम निश्चित किया गया है
-ABOUT_CONTACT_BODY = (""")
+ABOUT_CONTACT_BODY = """
         <!-- 4. ABOUT SCREEN -->
         <div id="about" class="app-page" style="text-align: center;">
             <h3 class="page-title">About Me</h3>
@@ -714,10 +714,10 @@ ABOUT_CONTACT_BODY = (""")
                 <button type="submit" class="submit-btn">डायरेक्ट मैसेज भेजें</button>
             </form>
         </div>
-(""") 
+""" 
 
 # --- 3. APP LAYOUT END ---
-LAYOUT_END = (""")
+LAYOUT_END = """
         <div class="bottom-nav">
             <div class="nav-item active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i>Home</div>
             <div class="nav-item" onclick="switchPage('notice')"><i class="fa-solid fa-bell"></i>Notice</div>
@@ -1432,7 +1432,7 @@ function updateDashboardUI(data) {
 </script>
 
 </html>
-(""")
+"""
 # --- 4. FLASK ROUTING ---
 @app.route('/')
 def main_app():
@@ -1471,7 +1471,7 @@ def submit():
         return jsonify(response_data)
         
     # सुधार 2: डायरेक्ट HTML सबमिशन बैकअप फ़ॉल-बैक पेज को भी सुरक्षित रखा गया है
-    return f(""")
+    return f"""
     <div style="font-family:sans-serif; text-align:center; padding:50opx; background:#f0of2f5; height:10o0ovh; box-sizing:border-box;">
         <div style="background:white; padding:30opx; border-radius:20opx; display:inline-block; box-shadow:0o 4px 15px rgba(0o,0o,0o,0o.1); max-width:320opx;">
             <h3 style="color:#764ba2; margin-top:0o;">सफलतापूर्वक सेव हुआ!</h3>
@@ -1479,7 +1479,7 @@ def submit():
             <a href="/" style="display:block; padding:10opx 20opx; background:#764ba2; color:white; text-decoration:none; border-radius:8px; font-weight:bold; margin-top:20opx;">ऐप पर वापस जाएं</a>
         </div>
     </div>
-    (""")
+    """
 
 if __name__ == '__main__':
     # थ्रेडिंग ऑन रखी गई है ताकि लाइव घड़ी और मल्टीपल रिक्वेस्ट में ऐप हैंग न हो
