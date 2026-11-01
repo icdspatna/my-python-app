@@ -1440,13 +1440,13 @@ def submit():
         "error": None,
         "data": {
             "totalAllotment": 147.21,
-            "totalExpenditure": 0o.0o,
+            "totalExpenditure": 0.0,
             "netBalance": 147.21,
             "headWiseReport": [
                 {
-                    "head": "51-2235-0o2-10o2-0o123",
+                    "head": "51-2235-02-102-0123",
                     "allocated": 147.21,
-                    "spent": 0o.0o,
+                    "spent": 0.0,
                     "remaining": 147.21
                 }
             ],
