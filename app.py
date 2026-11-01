@@ -387,6 +387,8 @@ PAGES_BODY = """<body>
 
         # Fix: Strictly wrapped within triple-quotes and left-aligned to prevent Python syntax leakage
 
+           # Fix: Strictly wrapped within triple-quotes and left-aligned to prevent Python syntax leakage
+
             """<!-- TAB 1: Allotment Entry Form -->
             <div id="allotment-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
                 <!-- सुधार 3: आइकॉन में सही गैप के लिए margin-right जोड़ा गया -->
