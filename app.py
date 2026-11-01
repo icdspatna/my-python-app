@@ -447,7 +447,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 <script>
 // स्क्रिप्ट की URL यहाँ पेस्ट करें
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9r-WgL45vuwPp4lxwFyC7lnqfL8m9ihjh9-FZAV9wVbfibPsw1hKUhVW1MxdJkoY4/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEVd-HJ6MWluxu7lhRcG2uuoqF80ST_TtzSZbVhYuwRVSeUhD9DmV-4R5vzSh4feY/exec";
 
 // ऑलॉटमेंट फॉर्म सबमिशन हैंडलर
 document.getElementById('altForm').addEventListener('submit', function(e) {
@@ -541,7 +541,7 @@ function updateUI(data) {
 </script> 
 <script>
 // अपनी नई जेनरेटेड Google Web App URL यहाँ डालें
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9r-WgL45vuwPp4lxwFyC7lnqfL8m9ihjh9-FZAV9wVbfibPsw1hKUhVW1MxdJkoY4/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEVd-HJ6MWluxu7lhRcG2uuoqF80ST_TtzSZbVhYuwRVSeUhD9DmV-4R5vzSh4feY/exec";
 
 // 1. पेज लोड होते ही पुराना डेटा अपने आप लोड करें (Fetch Data on Load)
 document.addEventListener("DOMContentLoaded", function() {
