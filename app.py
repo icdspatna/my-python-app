@@ -195,7 +195,7 @@ LAYOUT_START = """
             <i class="fa-solid fa-right-from-bracket"></i> लॉगआउट
         </button>
     </div>
-
+"""
     <!-- बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे... -->
      # --- 2. INNER PAGES BODY ---
 # इसे बिल्कुल बाईं तरफ सटाकर रखें, इसके पीछे एक भी खाली स्पेस या टैब नहीं होना चाहिए
