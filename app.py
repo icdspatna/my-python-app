@@ -306,7 +306,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
     <!-- कुल खर्च समरी कार्ड -->
     <div style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); color: white; padding: 15px; border-radius: 12px; margin-top: 15px; text-align: center; box-shadow: 0 4px 12px rgba(118,75,162,0.2);">
         <p style="margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Grand Total Budget (कुल अनुमानित राशि)</p>
-        <h2 id="grandTotalDisplay" style="margin: 5px 0 0 0; font-size: 24px; font-weight: 700;">₹0.00</h2>
+        <h2 id="grandTotalDisplay" style="margin: 5px 0 0 0; font-size: 24px; font-weight: 700;">&#8377;0.00</h2>
     </div>
 
     <!-- डायनामिक कैलकुलेशन रिपोर्ट्स (स्क्रॉल कंटेनर) -->
@@ -322,7 +322,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                         <th style="padding: 4px;">सामग्री</th>
                         <th style="padding: 4px;">मात्रा (ग्राम)</th>
                         <th style="padding: 4px;">खर्च (ग्राम)</th>
-                        <th style="padding: 4px;">राशि (₹)</th>
+                        <th style="padding: 4px;">राशि </th>
                     </tr>
                 </thead>
                 <tbody id="tablePregnantBody"></tbody>
@@ -338,7 +338,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                         <th style="padding: 4px;">सामग्री</th>
                         <th style="padding: 4px;">मात्रा (ग्राम)</th>
                         <th style="padding: 4px;">खर्च (ग्राम)</th>
-                        <th style="padding: 4px;">राशि (₹)</th>
+                        <th style="padding: 4px;">राशि </th>
                     </tr>
                 </thead>
                 <tbody id="tableNormalBody"></tbody>
@@ -354,7 +354,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                         <th style="padding: 4px;">सामग्री</th>
                         <th style="padding: 4px;">मात्रा (ग्राम)</th>
                         <th style="padding: 4px;">खर्च (ग्राम)</th>
-                        <th style="padding: 4px;">राशि (₹)</th>
+                        <th style="padding: 4px;">राशि </th>
                     </tr>
                 </thead>
                 <tbody id="tableSevereBody"></tbody>
