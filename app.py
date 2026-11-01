@@ -280,10 +280,7 @@ PAGES_BODY = """
 </div>        
         <!-- 2. NOTICE SCREEN (एडवांस्ड श्रेणी-वार राशन एवं बजट कैलकुलेटर) -->
         <div id="notice" class="app-page">
-            <h3 class="page-title"><i class="fa-solid fa-bullhorn me-2"></i>Notice Board</h3>
-            
-            <div class="notice-box"><strong>महत्वपूर्ण:</strong> व्यय प्रतिवेदन समय पर देना अनिवार्य है।</div>
-            
+            <h3 class="page-title"><i class="fa-solid fa-bullhorn me-2"></i>Calc</h3>  
             <!-- इनपुट बॉक्स कंटेनर -->
             <div style="background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-top: 10px;">
                 <h4 style="margin: 0 0 12px 0; color: #764ba2; font-size: 14px;"><i class="fa-solid fa-users me-2"></i> लाभार्थी संख्या प्रविष्टि (कुल लाभार्थी: <span id="totalBeneficiaryDisplay">96</span>)</h4>
