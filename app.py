@@ -183,11 +183,11 @@ LAYOUT_START = """
 # --- 2. INNER PAGES BODY ---
 # बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे...
 
+# --- 2. INNER PAGES BODY ---
 def get_pages_body():
     return """<body>
     <div class="mobile-app-container">
-    
-<!-- नया टॉप प्रोफाइल हेडर (शुरुआत में style="display:none;" रहेगा) -->
+    <!-- नया टॉप प्रोफाइल हेडर (शुरुआत में style="display:none;" रहेगा) -->
     <div id="appTopHeader" class="app-top-header" style="display: none;">
         <div class="profile-info">
             <div class="profile-pic">A</div>
@@ -374,6 +374,9 @@ def get_pages_body():
 
     </div>
 </div>
+
+    </div>
+    </body>"""
 
         <!-- 3. SERVICE SCREEN (शुरुआत में छुपाने के लिए active हटा दिया गया है) -->
         <div id="service" class="app-page">
@@ -1414,7 +1417,7 @@ function updateDashboardUI(data) {
 def main_app():
     # ध्यान दें: यदि आपने पिछले ब्लॉक में ABOUT_CONTACT_BODY अलग वेरिएबल बनाया था, 
     # तो उसे भी यहाँ LAYOUT_START + PAGES_BODY + ABOUT_CONTACT_BODY + LAYOUT_END करके जोड़ लें।
-    full_html = LAYOUT_START + PAGES_BODY + ABOUT_CONTACT_BODY + LAYOUT_END
+   full_html = LAYOUT_START + get_pages_body() + ABOUT_CONTACT_BODY + LAYOUT_END
     return render_template_string(full_html)
 
 @app.route('/submit', methods=['POST'])
