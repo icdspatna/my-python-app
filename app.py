@@ -408,6 +408,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                     <input type="date" id="altDat_input" name="date" class="app-input" required>
                     
  # --- FORM ELEMENTS WRAPPED IN SAFE STRING ---
+ html_content = """
 # Fix: Strictly wrapped within triple-quotes and left-aligned to prevent Python syntax leakage
 <select id="altHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
 <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
@@ -451,6 +452,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
 <option value="31.06">31.06</option>
 <option value="52.01">52.01</option>
 </select>
+"""
                     <input type="number" id="altAmt" name="amount" placeholder="Amount (राशि )" class="app-input" required>
                     <input type="text" id="altRemark" name="remark" placeholder="Remark" class="app-input">
                     <input type="hidden" id="altLet" value="00000">
@@ -468,7 +470,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                     <input type="text" id="expOrd" name="order_no" placeholder="Order No." class="app-input" required>
                     <input type="date" id="expDat" name="date" class="app-input" required>
                     
-                   
+ html_content = """                  
 <select id="expHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
     <option value="" disabled selected hidden>Budget Head</option>
     <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
@@ -511,7 +513,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
     <option value="31.06">31.06</option>
     <option value="52.01">52.01</option>
 </select>
-
+"""  
                     <!-- सुधार 1: आईडी को altAmt से बदलकर expAmt किया गया -->
                     <input type="number" id="expAmt" name="amount" placeholder="Amount ₹" class="app-input" required>
                     <!-- सुधार 1: आईडी को altRemark से बदलकर expRemark किया गया -->
