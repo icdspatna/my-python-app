@@ -285,7 +285,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
         
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
             <div>
-                <label style="font-size: 11px; color: #555; font-weight: 600;">1. स्कूल पूर्व (03-06 वर्ष):</label>
+                <label style="font-size: 11px; color: #555; font-weight: 600;">1. स्कूल पूर्व (3-6 वर्ष):</label>
                 <input type="number" id="inputPreSchool" value="40" oninput="calculateAdvancedRation()" style="width:100%; padding:8px; border:1px solid #cbd5e0; border-radius:6px; font-weight:bold; color:#764ba2;">
             </div>
             <div>
