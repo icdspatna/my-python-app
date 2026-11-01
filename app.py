@@ -707,7 +707,6 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
         </div>
 
 # --- 3. APP LAYOUT END ---
-LAYOUT_END = """
         <div class="bottom-nav">
             <div class="nav-item active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i>Home</div>
             <div class="nav-item" onclick="switchPage('notice')"><i class="fa-solid fa-bell"></i>Notice</div>
@@ -718,7 +717,6 @@ LAYOUT_END = """
     </div>
 </body>
 </html>
-"""
 
     <script>
 // 1. मुख्य पेजों को बदलने के लिए फंक्शन (बॉटम नेव बार और लॉगिन के लिए)
