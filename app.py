@@ -183,7 +183,8 @@ LAYOUT_START = """
 # --- 2. INNER PAGES BODY ---
 # बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे...
 
-PAGES_BODY = """<body>
+def get_pages_body():
+    return """<body>
     <div class="mobile-app-container">
     
 <!-- नया टॉप प्रोफाइल हेडर (शुरुआत में style="display:none;" रहेगा) -->
@@ -198,7 +199,7 @@ PAGES_BODY = """<body>
         <button class="logout-btn-top" onclick="handleAppLogout()">
             <i class="fa-solid fa-right-from-bracket"></i> लॉगआउट
         </button>
-    </div>
+    </div>"""
 
 <!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
 <div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 25px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
