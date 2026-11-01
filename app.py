@@ -219,7 +219,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
         </div>
     </div>
 """
-    <!-- ऐप लोगो और ब्रांडिंग -->
+<!-- ऐप लोगो और ब्रांडिंग -->
 <div class="hero-section" style="text-align: center; margin-bottom: 25px;">
 <div style="background: rgba(255, 255, 255, 0.15); width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.2);">
 <i class="fa-solid fa-calculator" style="font-size: 36px; color: #fff;"></i>
