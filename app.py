@@ -266,7 +266,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                 <i class="fa-solid fa-check" style="font-size: 24px; color: white;"></i>
             </div>
             <h2 style="font-size: 20px; font-weight: 700; margin: 0 0 4px 0; color: #2ecc71;">Thank You!</h2>
-            <p style="font-size: 12px; color: #fff; margin: 0;">लॉगिन पूरी तरह सफल रहा। डैशबोर्ड सक्रिय किया जा रहा है...</p>
+            <p style="font-size: 12px; color: #fff; margin: 0;">लॉगिन पूरी तरह सफल रहा। डैशबोर्ड सक्रिय किया जा रहा है.</p>
         </div>
 
     </div>
