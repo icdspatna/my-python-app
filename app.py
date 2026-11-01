@@ -1,7 +1,6 @@
 from flask import Flask, render_template_string, request
 from flask import jsonify
 app = Flask(__name__)
-
 # --- 1. APP LAYOUT START ---
 LAYOUT_START = """
 <!DOCTYPE html>
