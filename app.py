@@ -114,11 +114,100 @@ LAYOUT_START = """
         .nav-item { display: flex; flex-direction: column; align-items: center; color: #888; cursor: pointer; font-size: 11px; }
         .nav-item i { font-size: 20px; margin-bottom: 2px; }
         .nav-item.active { color: #764ba2; font-weight: bold; }
+        /* मोबाइल कंटेनर की हाइट को फिक्स और परफेक्ट करना */
+.mobile-app-container {
+    width: 360px; 
+    height: 720px; /* हाइट थोड़ी कम करके परफेक्ट फिट की गई */
+    background: #f0f2f5; 
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden; 
+    position: relative;
+    display: flex; 
+    flex-direction: column;
+}
+
+/* नया डायनामिक टॉप प्रोफाइल हेडर */
+.app-top-header {
+    background: #1e3c72;
+    color: white;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.profile-pic {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+.logout-btn-top {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.2s;
+}
+.logout-btn-top:hover {
+    background: #c0392b;
+}
+
+/* पेजों की हाइट को हेडर और फुटर के बीच बांधना ताकि ओवरफ्लो न हो */
+.app-page {
+    display: none; 
+    flex: 1; 
+    padding: 15px;
+    overflow-y: auto; 
+    box-sizing: border-box;
+}
+.app-page.active { 
+    display: block; 
+}
+
     </style>
 </head>
 <body>
     <div class="mobile-app-container">
-"""
+<div class="mobile-app-container">
+    
+    <!-- नया टॉप प्रोफाइल हेडर (शुरुआत में style="display:none;" रहेगा) -->
+    <div id="appTopHeader" class="app-top-header" style="display: none;">
+        <div class="profile-info">
+            <div class="profile-pic">A</div>
+            <div>
+                <div style="font-size: 13px; font-weight: 600;" id="userProfileName">Admin</div>
+                <div style="font-size: 9px; opacity: 0.7;">ICDS लॉग-इन एक्टिव</div>
+            </div>
+        </div>
+        <button class="logout-btn-top" onclick="handleAppLogout()">
+            <i class="fa-solid fa-right-from-bracket"></i> लॉगआउट
+        </button>
+    </div>
+
+    <!-- बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे... -->
+
 
 # --- 2. INNER PAGES BODY ---
 PAGES_BODY = """
@@ -510,22 +599,32 @@ function validateLogin() {
     }
 }
 
-// ओटीपी सत्यापन फंक्शन
+// ओटीपी सत्यापित होने के बाद का लॉजिक
 function validateOtp() {
     const otpVal = document.getElementById('inputOtp').value.trim();
-    const defaultOtp = "789456"; // डिफ़ॉल्ट ओटीपी सेट
+    const defaultOtp = "789456";
 
     if (otpVal === defaultOtp) {
-        // ओटीपी सही होने पर थैंक यू मैसेज स्टेज दिखाएं
         document.getElementById('otpStage').style.display = 'none';
         document.getElementById('successStage').style.display = 'block';
         
-        // 2 सेकंड का सुंदर डिले दें ताकि थैंक यू मैसेज दिखे, फिर मुख्य सर्विस स्क्रीन पर जाएं
         setTimeout(function() {
-            switchPage('service');
-            // फॉर्म को वापस मूल स्थिति में लाएं ताकि लॉगआउट होने पर खाली मिले
+            // 1. थैंक यू स्टेज बंद करें और लॉगिन पेज (Home) को पूरी तरह हाइड करें
             document.getElementById('successStage').style.display = 'none';
-            document.getElementById('loginStage').style.display = 'block';
+            document.getElementById('loginStage').style.display = 'block'; // रीसेट फॉर फ्यूचर
+            
+            // 2. लॉगिन करने वाले यूज़र का नाम हेडर में सेट करें
+            const loggedInUser = document.getElementById('loginUser').value.trim() || "Admin";
+            document.getElementById('userProfileName').innerText = loggedInUser;
+            document.getElementById('appTopHeader').querySelector('.profile-pic').innerText = loggedInUser.charAt(0).toUpperCase();
+
+            // 3. नया टॉप प्रोफाइल हेडर शो करें
+            document.getElementById('appTopHeader').style.display = 'flex';
+            
+            // 4. सीधे मुख्य 'Service' पेज पर ट्रांसफर करें
+            switchPage('service');
+            
+            // फॉर्म इनपुट्स खाली करें
             document.getElementById('loginUser').value = "";
             document.getElementById('loginPass').value = "";
             document.getElementById('inputOtp').value = "";
@@ -535,6 +634,18 @@ function validateOtp() {
         alert("गलत OTP! कृपया '789456' दर्ज करें।");
     }
 }
+
+// नया लॉगआउट फंक्शन
+function handleAppLogout() {
+    if(confirm("क्या आप ऐप से लॉगआउट करना चाहते हैं?")) {
+        // 1. टॉप हेडर को वापस छुपाएं
+        document.getElementById('appTopHeader').style.display = 'none';
+        
+        // 2. वापस मुख्य लॉगिन (home) स्क्रीन पर भेजें
+        switchPage('home');
+    }
+}
+
 // लाइव डिजिटल वॉच और दिनांक फंक्शन
 function updateDigitalClock() {
     const now = new Date();
