@@ -277,7 +277,8 @@ PAGES_BODY = """
         </div>
 
     </div>
-</div>        <!-- 2. NOTICE SCREEN (एडवांस्ड श्रेणी-वार राशन एवं बजट कैलकुलेटर) -->
+</div>        
+<!-- 2. NOTICE SCREEN (एडवांस्ड श्रेणी-वार राशन एवं बजट कैलकुलेटर) -->
         <div id="notice" class="app-page">
             <h3 class="page-title"><i class="fa-solid fa-bullhorn me-2"></i>Notice Board</h3>
             
