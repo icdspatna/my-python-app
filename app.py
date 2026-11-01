@@ -388,10 +388,9 @@ PAGES_BODY = """<body>
         # Fix: Strictly wrapped within triple-quotes and left-aligned to prevent Python syntax leakage
 
            # Fix: Strictly wrapped within triple-quotes and left-aligned to prevent Python syntax leakage
-
-            """<!-- TAB 1: Allotment Entry Form -->
+def get_allotment_html():
+    return """<!-- TAB 1: Allotment Entry Form -->
             <div id="allotment-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
-                <!-- सुधार 3: आइकॉन में सही गैप के लिए margin-right जोड़ा गया -->
                 <h4><i class="fa-solid fa-circle-plus" style="color: green; margin-right: 8px;"></i> 1. Allotment Entry</h4>
                 <form id="altForm" method="POST">
                     <input type="hidden" name="type" value="Allotment">
@@ -400,13 +399,11 @@ PAGES_BODY = """<body>
                         <option value="CFMS">CFMS</option>
                         <option value="HRMS">HRMS</option>
                         <option value="PFMS">PFMS</option>
-                        <!-- सुधार 1: J.I.T और N.I.C की वैल्यू अलग-अलग की गई -->
                         <option value="JIT">J.I.T Portal </option>
                         <option value="NIC">N.I.C Portal</option>
                     </select>
 
                     <input type="text" id="altOrd" name="order_no" placeholder="Order No." class="app-input" required>
-                    <!-- सुधार 2: id को expDat से बदलकर altDat_input किया गया -->
                     <input type="date" id="altDat_input" name="date" class="app-input" required>
                     
                     <select id="altHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
@@ -459,59 +456,58 @@ PAGES_BODY = """<body>
                     <button type="submit" class="submit-btn" style="background: green; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Save</button>
                 </form> 
             </div>
-          <!-- TAB 2: Expenditure Entry Form -->
+                     """<!-- TAB 2: Expenditure Entry Form -->
             <div id="expenditure-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
-                <!-- सुधार 2: आइकॉन और टेक्स्ट के बीच सही स्पेस के लिए margin-right जोड़ा गया -->
+                <!-- सुधार 2: आइकॉन और टेक्स्ट के बीच सही变 के लिए margin-right जोड़ा गया -->
                 <h4><i class="fa-solid fa-file-invoice-dollar" style="color: red; margin-right: 8px;"></i> 2. Expenditure Entry</h4>
                 <form id="expForm" method="POST">
                     <input type="hidden" name="type" value="Expenditure">
                     <input type="text" id="expOrd" name="order_no" placeholder="Order No." class="app-input" required>
                     <input type="date" id="expDat" name="date" class="app-input" required>
-                    
- html_content = """                  
-<select id="expHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-    <option value="" disabled selected hidden>Budget Head</option>
-    <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
-    <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
-    <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
-    <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
-    <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
-    <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
-    <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
-    <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
-    <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
-    <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
-    <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
-    <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
-    <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
-    <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
-    <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
-</select>
+                                      
+                    <select id="expHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                        <option value="" disabled selected hidden>Budget Head</option>
+                        <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
+                        <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
+                        <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
+                        <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
+                        <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
+                        <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
+                        <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
+                        <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
+                        <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
+                        <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
+                        <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
+                        <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
+                        <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
+                        <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
+                        <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
+                    </select>
 
-<select id="expUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-    <option value="" disabled selected hidden>Unit Code</option>
-    <option value="01.01">01.01</option>
-    <option value="01.03">01.03</option>
-    <option value="01.04">01.04</option>
-    <option value="01.05">01.05</option>
-    <option value="01.06">01.06</option>
-    <option value="01.07">01.07</option>
-    <option value="02.01">02.01</option>
-    <option value="06.01">06.01</option>
-    <option value="11.01">11.01</option>
-    <option value="13.01">13.01</option>
-    <option value="13.10">13.10</option>
-    <option value="14.01">14.01</option>
-    <option value="16.01">16.01</option>
-    <option value="20.03">20.03</option>
-    <option value="21.01">21.01</option>
-    <option value="21.03">21.03</option>
-    <option value="26.01">26.01</option>
-    <option value="28.02">28.02</option>
-    <option value="31.06">31.06</option>
-    <option value="52.01">52.01</option>
-</select>
-"""  
+                    <select id="expUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                        <option value="" disabled selected hidden>Unit Code</option>
+                        <option value="01.01">01.01</option>
+                        <option value="01.03">01.03</option>
+                        <option value="01.04">01.04</option>
+                        <option value="01.05">01.05</option>
+                        <option value="01.06">01.06</option>
+                        <option value="01.07">01.07</option>
+                        <option value="02.01">02.01</option>
+                        <option value="06.01">06.01</option>
+                        <option value="11.01">11.01</option>
+                        <option value="13.01">13.01</option>
+                        <option value="13.10">13.10</option>
+                        <option value="14.01">14.01</option>
+                        <option value="16.01">16.01</option>
+                        <option value="20.03">20.03</option>
+                        <option value="21.01">21.01</option>
+                        <option value="21.03">21.03</option>
+                        <option value="26.01">26.01</option>
+                        <option value="28.02">28.02</option>
+                        <option value="31.06">31.06</option>
+                        <option value="52.01">52.01</option>
+                    </select>
+ 
                     <!-- सुधार 1: आईडी को altAmt से बदलकर expAmt किया गया -->
                     <input type="number" id="expAmt" name="amount" placeholder="Amount ₹" class="app-input" required>
                     <!-- सुधार 1: आईडी को altRemark से बदलकर expRemark किया गया -->
@@ -546,8 +542,7 @@ PAGES_BODY = """<body>
                     </div>
                 </div>
             </div>
-
-<!-- सुधार 2: डेटा को लाइव टेबल में दिखाने के लिए यह स्क्रिप्ट रेंडरर जोड़ा गया है -->
+            """<!-- सुधार 2: डेटा को लाइव टेबल में दिखाने के लिए यह स्क्रिप्ट रेंडरर जोड़ा गया है -->
 <script>
     // यह आपका लाइव डेटा ऐरे (Array) है, जिसे आपकी ऐप या बैकएंड से अपडेट किया जा सकता है
     const liveExpenditureData = [
@@ -566,7 +561,7 @@ PAGES_BODY = """<body>
 
         // यदि कोई डेटा न हो तो मैसेज दिखाएँ
         if (liveExpenditureData.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: #888;">कोई व्यय रिकॉर्ड उपलब्ध नहीं है.</td></tr>`;
+            tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px; color: #888;">कोई व्यय रिकॉर्ड उपलब्ध नहीं है.</td></tr>';
             return;
         }
 
@@ -580,13 +575,13 @@ PAGES_BODY = """<body>
             row.onmouseover = () => row.style.background = "#fcfcfc";
             row.onmouseout = () => row.style.background = "transparent";
 
-            row.innerHTML = `
-                <td style="padding: 12px 10px; font-weight: 600; color: #2d3748;">${item.bill_no}</td>
-                <td style="padding: 12px 10px; color: #4a5568;">${item.date}</td>
-                <td style="padding: 12px 10px; font-family: monospace; color: #1a202c; background: #edf2f7; border-radius: 4px; display: inline-block; margin: 4px 0;">${item.budget_head}</td>
-                <td style="padding: 12px 10px; font-weight: 700; color: #e53e3e;">₹${Number(item.amount).toLocaleString('en-IN')}</td>
-                <td style="padding: 12px 10px; color: #718096;">${item.purpose}</td>
-            `;
+            row.innerHTML = 
+                '<td style="padding: 12px 10px; font-weight: 600; color: #2d3748;">' + item.bill_no + '</td>' +
+                '<td style="padding: 12px 10px; color: #4a5568;">' + item.date + '</td>' +
+                '<td style="padding: 12px 10px; font-family: monospace; color: #1a202c; background: #edf2f7; border-radius: 4px; display: inline-block; margin: 4px 0;">' + item.budget_head + '</td>' +
+                '<td style="padding: 12px 10px; font-weight: 700; color: #e53e3e;">₹' + Number(item.amount).toLocaleString("en-IN") + '</td>' +
+                '<td style="padding: 12px 10px; color: #718096;">' + item.purpose + '</td>';
+            
             tableBody.appendChild(row);
         });
     }
@@ -594,6 +589,7 @@ PAGES_BODY = """<body>
     // जब पूरा पेज लोड हो जाए, तब इस फंक्शन को चलाएँ
     document.addEventListener("DOMContentLoaded", renderLiveExpenditureReport);
 </script>
+
           <!-- TAB 4: Balance Sheet Section -->
             <div id="balance-section" class="tab-content" style="display: block;">
                 <div style="background: #1f4e5b; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
@@ -613,9 +609,8 @@ PAGES_BODY = """<body>
                 </div>
             </div>
             
-        </div> <!-- यह id="service" स्क्रीन का मुख्य क्लोजिंग टैग है -->
-
-<!-- सुधार 2: आवंटन और खर्चों को आपस में कैलकुलेट करके लाइव डेटा दिखाने के लिए स्क्रिप्ट इंजन -->
+        </div> <!-- यह id="service" स्क्रीन का मुख्य क्लोजिंग टैग है -->"""
+            """<!-- सुधार 2: आवंटन और खर्चों को आपस में कैलकुलेट करके लाइव डेटा दिखाने के लिए स्क्रिप्ट इंजन -->
 <script>
     // 1. आपका लाइव आवंटन डेटा (Sample Database Data)
     const liveAllotments = [
@@ -658,32 +653,33 @@ PAGES_BODY = """<body>
             // A. टोटल अलॉटमेंट हेड कार्ड्स जनरेट करें (Horizontal Strip)
             const card = document.createElement("div");
             card.className = "total-card";
-            // हेड कोड के आख़िरी भाग को साफ़ दिखाने के लिए सबस्ट्रिंग किया है
-            card.innerHTML = `
-                <h5>HEAD: ${head.substring(11)}</h5>
-                <p>₹${allocatedAmount.toLocaleString('en-IN')}</p>
-            `;
+            
+            // जावास्क्रिप्ट कॉनकैटिनेशन द्वारा सुरक्षित स्ट्रिंग
+            card.innerHTML = 
+                '<h5>HEAD: ' + head.substring(11) + '</h5>' +
+                '<p>₹' + allocatedAmount.toLocaleString("en-IN") + '</p>';
             totalStrip.appendChild(card);
 
             // B. बची हुई राशि (Remaining Balance List) जनरेट करें
             const balItem = document.createElement("div");
             balItem.className = "bal-item";
-            balItem.innerHTML = `
-                <span>${head}</span>
-                <strong style="color: ${remainingAmount < 50000 ? '#e53e3e' : '#2e7d32'};">
-                    ₹${remainingAmount.toLocaleString('en-IN')}
-                </strong>
-            `;
+            
+            const textColor = remainingAmount < 50000 ? "#e53e3e" : "#2e7d32";
+            balItem.innerHTML = 
+                '<span>' + head + '</span>' +
+                '<strong style="color: ' + textColor + ';">' +
+                    '₹' + remainingAmount.toLocaleString("en-IN") +
+                '</strong>';
             balanceList.appendChild(balItem);
         });
     }
 
     // डोम लोड होते ही बैलेंस शीट को सिंक करें
     document.addEventListener("DOMContentLoaded", renderLiveBalanceSheet);
-</script>
-     # --- 2. ABOUT & CONTACT PAGES BODY ---
+</script>"""
+# --- 2. ABOUT & CONTACT PAGES BODY ---
 # सुधार: HTML ब्लॉक को स्टोर करने के लिए यहाँ वैरिएबल नाम निश्चित किया गया है
-        <!-- 4. ABOUT SCREEN -->
+ABOUT_CONTACT_BODY = """<!-- 4. ABOUT SCREEN -->
         <div id="about" class="app-page" style="text-align: center;">
             <h3 class="page-title">About Me</h3>
             <h4 style="color:#764ba2; margin-bottom: 5px;">Rudra Tech Pvt Ltd</h4>
@@ -701,10 +697,11 @@ PAGES_BODY = """<body>
                 <textarea name="message" placeholder="यहाँ अपना संदेश लिखें..." class="app-input" rows="4" style="height:auto;" required></textarea>
                 <button type="submit" class="submit-btn">डायरेक्ट मैसेज भेजें</button>
             </form>
-        </div>
+        </div>"""
 
 # --- 3. APP LAYOUT END ---
-        <div class="bottom-nav">
+# सुधार: LAYOUT_END को वैरिएबल में रैप किया गया है ताकि NameError न आए
+LAYOUT_END = """        <div class="bottom-nav">
             <div class="nav-item active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i>Home</div>
             <div class="nav-item" onclick="switchPage('notice')"><i class="fa-solid fa-bell"></i>Notice</div>
             <div class="nav-item" onclick="switchPage('service')"><i class="fa-solid fa-gears"></i>Service</div>
@@ -713,8 +710,7 @@ PAGES_BODY = """<body>
         </div>
     </div>
 </body>
-</html>
-
+</html>"""
     <script>
 // 1. मुख्य पेजों को बदलने के लिए फंक्शन (बॉटम नेव बार और लॉगिन के लिए)
 function switchPage(pageId) {
@@ -1419,7 +1415,7 @@ function updateDashboardUI(data) {
 def main_app():
     # ध्यान दें: यदि आपने पिछले ब्लॉक में ABOUT_CONTACT_BODY अलग वेरिएबल बनाया था, 
     # तो उसे भी यहाँ LAYOUT_START + PAGES_BODY + ABOUT_CONTACT_BODY + LAYOUT_END करके जोड़ लें।
-    full_html = LAYOUT_START + PAGES_BODY + LAYOUT_END
+    full_html = LAYOUT_START + PAGES_BODY + ABOUT_CONTACT_BODY + LAYOUT_END
     return render_template_string(full_html)
 
 @app.route('/submit', methods=['POST'])
