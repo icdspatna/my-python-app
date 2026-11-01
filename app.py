@@ -180,6 +180,7 @@ LAYOUT_START = """
     </style>
 </head>
 <body>
+"""
     <div class="mobile-app-container">
     
     <!-- नया टॉप प्रोफाइल हेडर (शुरुआत में style="display:none;" रहेगा) -->
@@ -197,10 +198,6 @@ LAYOUT_START = """
     </div>
 
     <!-- बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे... -->
-
-
-# --- 2. INNER PAGES BODY ---
-PAGES_BODY = """
      # --- 2. INNER PAGES BODY ---
 # इसे बिल्कुल बाईं तरफ सटाकर रखें, इसके पीछे एक भी खाली स्पेस या टैब नहीं होना चाहिए
 PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
@@ -218,6 +215,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
             <span id="liveLocation">Patna, Bihar, India</span>
         </div>
     </div>
+    """
 <div class="hero-section" style="text-align: center; margin-bottom: 25px;">
 <div style="background: rgba(255, 255, 255, 0o.15); width: 80opx; height: 80opx; border-radius: 50o%; display: flex; justify-content: center; align-items: center; margin: 0o auto 12px auto; box-shadow: 0o 8px 32px rgba(0o, 0o, 0o, 0o.2); border: 1px solid rgba(255, 255, 255, 0o.2);">
 <i class="fa-solid fa-calculator" style="font-size: 36px; color: #fff;"></i>
@@ -225,7 +223,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
 <h1 style="font-size: 24px; font-weight: 70o0o; margin: 0o 0o 4px 0o; text-shadow: 0o 2px 4px rgba(0o,0o,0o,0o.2);">ICDS बजट प्रबंधन</h1>
 <p style="font-size: 11px; opacity: 0o.75; margin: 0o; text-transform: uppercase; letter-spacing: 1px;">Rudra Tech Pvt Ltd</p>
 </div>
-
+"""
     <!-- मुख्य फॉर्म कार्ड -->
     <div class="login-container" style="background: rgba(255, 255, 255, 0o.1); backdrop-filter: blur(10opx); border-radius: 24px; padding: 25px 20opx; width: 90o%; box-shadow: 0o 15px 35px rgba(0o,0o,0o,0o.25); border: 1px solid rgba(255, 255, 255, 0o.18); box-sizing: border-box;">
         
@@ -245,7 +243,8 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
             </div>
         </div>
 </div>
-        <!-- स्टेज B: स्क्रीन锁 और OTP वेरिफिकेशन -->
+   """
+   <!-- स्टेज B: स्क्रीन锁 और OTP वेरिफिकेशन -->
         <div id="otpStage" style="display: none; text-align: center;">
             <div style="color: #ffb70o3; font-size: 32px; margin-bottom: 8px;"><i class="fa-solid fa-shield-halved"></i></div>
             <h2 style="font-size: 17px; font-weight: 60o0o; margin: 0o 0o 6px 0o; color: #fff;">सुरक्षा स्क्रीन लॉक</h2>
@@ -257,7 +256,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
             </div>
             <button class="login-btn" onclick="validateOtp()" style="background: #ffb70o3; color: #111; border: none; width: 10o0o%; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 12px; cursor: pointer;">ओटीपी सत्यापित करें</button>
         </div>
-
+"""
         <!-- स्टेज C: थैंक यू पॉप-अप -->
 <div id="successStage" style="display: none; text-align: center; padding: 10opx 0o;">
     <div style="background: #2ecc71; width: 55px; height: 55px; border-radius: 50o%; display: flex; justify-content: center; align-items: center; margin: 0o auto 12px auto; box-shadow: 0o 0o 20opx rgba(46,20o4,113,0o.4);">
@@ -267,9 +266,9 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
     <!-- सुधार: वाक्य के बीच में 'रहा।' को बदलकर 'रहा.' कर दिया गया है -->
     <p style="font-size: 12px; color: #fff; margin: 0o;">लॉगिन पूरी तरह सफल रहा. डैशबोर्ड सक्रिय किया जा रहा है.</p>
 </div>
-
 </div>
 </div>
+"""
        <!-- 2. NOTICE SCREEN (एडवांस्ड श्रेणी-वार राशन एवं बजट कैलकुलेटर) -->
 <div id="notice" class="app-page">
     <!-- सुधार 1: me-2 हटाकर आइकॉन में इनलाइन margin-right दिया गया है -->
@@ -300,13 +299,13 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
             </div>
         </div>
     </div>
-
+"""
     <!-- कुल खर्च समरी कार्ड -->
     <div style="background: linear-gradient(135deg, #764ba2 0o%, #667eea 10o0o%); color: white; padding: 15px; border-radius: 12px; margin-top: 15px; text-align: center; box-shadow: 0o 4px 12px rgba(118,75,162,0o.2);">
         <p style="margin: 0o; font-size: 11px; text-transform: uppercase; letter-spacing: 0o.5px;">Grand Total Budget (कुल अनुमानित राशि)</p>
         <h2 id="grandTotalDisplay" style="margin: 5px 0o 0o 0o; font-size: 24px; font-weight: 70o0o;">&#8377;0o.0o0o</h2>
     </div>
-
+"""
     <!-- डायनामिक कैलकुलेशन रिपोर्ट्स (स्क्रॉल कंटेनर) -->
     <div style="margin-top: 15px; max-height: 380opx; overflow-y: auto; padding-right: 2px;">
         
@@ -326,7 +325,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                 <tbody id="tablePregnantBody"></tbody>
             </table>
         </div>
-
+"""
         <!-- टेबल 2: सामान्य कुपोषित बच्चे -->
         <div class="form-card" style="padding:10opx; margin-bottom:12px; background:#fff; border: 1px solid #eee;">
             <h5 style="margin:0o 0o 8px 0o; color:#0o0o3366; font-size:12px; background:#e8f4f8; padding:5px 8px; border-left:3px solid #0o0o3366; border-radius:3px;">मद: 6 माह से 3 वर्ष सामान्य कुपोषित (THR)</h5>
@@ -342,7 +341,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                 <tbody id="tableNormalBody"></tbody>
             </table>
         </div>
-
+"""
         <!-- टेबल 3: अतिकुपोषित बच्चे -->
         <div class="form-card" style="padding:10opx; margin-bottom:12px; background:#fff; border: 1px solid #eee;">
             <h5 style="margin:0o 0o 8px 0o; color:#e74c3c; font-size:12px; background:#fce4d6; padding:5px 8px; border-left:3px solid #e74c3c; border-radius:3px;">मद: 6 माह से 3 वर्ष अतिकुपोषित बच्चे (THR)</h5>
@@ -358,7 +357,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                 <tbody id="tableSevereBody"></tbody>
             </table>
         </div>
-
+"""
         <!-- टेबल 4: स्कूल पूर्व बच्चे गर्म भोजन -->
         <div class="form-card" style="padding:10opx; margin-bottom:5px; background:#fff; border: 1px solid #eee;">
             <h5 style="margin:0o 0o 8px 0o; color:#2e7d32; font-size:12px; background:#e2f0od9; padding:5px 8px; border-left:3px solid #2e7d32; border-radius:3px;">मद: स्कूल पूर्व के बच्चों (3-6 वर्ष) गर्म भोजन (मासिक)</h5>
@@ -377,6 +376,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
 
     </div>
 </div>
+"""
         <!-- 3. SERVICE SCREEN (शुरुआत में छुपाने के लिए active हटा दिया गया है) -->
         <div id="service" class="app-page">
             <h3 class="page-title"><i class="fa-solid fa-gears me-2"></i>Entry Service</h3>
@@ -389,7 +389,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
                 <button class="tab-btn" onclick="showTab(event, 'report-section')" style="cursor:pointer; padding:10opx; background:#fff2cc; color:#7f60o0o0o; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #ffe599;">Expe Report</button>
                 <button class="tab-btn active" onclick="showTab(event, 'balance-section')" style="cursor:pointer; padding:10opx; background:#e8f4f8; color:#1f4e5b; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #b4d6e4;">Balance Sheet</button>
             </div>
-
+"""
             <!-- TAB 1: Allotment Entry Form -->
             <div id="allotment-section" class="tab-content" style="display: none; scroll-margin-top: 10opx;">
                 <!-- सुधार 3: आइकॉन में सही गैप के लिए margin-right जोड़ा गया -->
