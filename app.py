@@ -198,7 +198,8 @@ PAGES_BODY = """<body>
         <button class="logout-btn-top" onclick="handleAppLogout()">
             <i class="fa-solid fa-right-from-bracket"></i> लॉगआउट
         </button>
-    </div>"""  # <--- यहाँ PAGES_BODY की स्ट्रिंग को भी क्लोज कर दिया है।
+    </div>
+
 <!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
 <div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 25px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
     
@@ -221,7 +222,6 @@ PAGES_BODY = """<body>
 <h1 style="font-size: 24px; font-weight: 700; margin: 0 0 4px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">ICDS बजट प्रबंधन</h1>
 <p style="font-size: 11px; opacity: 0.75; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Rudra Tech Pvt Ltd</p>
 </div>
-
     <!-- मुख्य फॉर्म कार्ड -->
     <div class="login-container" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 24px; padding: 25px 20px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.25); border: 1px solid rgba(255, 255, 255, 0.18); box-sizing: border-box;">
         <!-- स्टेज A: मुख्य लॉगिन फॉर्म -->
