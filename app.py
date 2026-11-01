@@ -196,7 +196,8 @@ def get_pages_body():
     </div>
 
     <!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
-    <div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 25px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
+    <!-- सुधार: height को auto किया गया, पैडिंग कम की गई ताकि लॉगिन स्क्रीन की हाइट एकदम कम और परफेक्ट हो जाए -->
+<div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; height: auto; max-height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 12px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
         
         <!-- लाइव डिजिटल वॉच और लोकेशन विजेट -->
         <div style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); width: 90%; border-radius: 20px; padding: 15px; text-align: center; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); margin-bottom: 25px; box-sizing: border-box; animation: fadeIn 0.8s ease-in-out;">
@@ -700,14 +701,31 @@ ABOUT_CONTACT_BODY = """
 """
 # --- 10. APP LAYOUT END ---
 LAYOUT_END = """
-        <div class="bottom-nav" id="appBottomNav" style="display: none;">
-            <div class="nav-item active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i>Home</div>
-            <div class="nav-item" onclick="switchPage('notice')"><i class="fa-solid fa-bell"></i>Clc</div>
-            <div class="nav-item" onclick="switchPage('service')"><i class="fa-solid fa-gears"></i>Service</div>
-            <div class="nav-item" onclick="switchPage('about')"><i class="fa-solid fa-building"></i>About</div>
-            <div class="nav-item" onclick="switchPage('contact')"><i class="fa-solid fa-envelope"></i>Contact</div>
-        </div>
+        <!-- पूरी तरह से नया, बोल्ड और अट्रैक्टिव बॉटम नेविगेशन बार -->
+<div class="bottom-nav" id="appBottomNav" style="display: none; position: absolute; bottom: 0; width: 100%; height: 68px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid rgba(240, 240, 240, 0.7); box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06); box-sizing: border-box; border-radius: 20px 20px 0 0; padding: 0 10px; z-index: 999;">
+    
+    <div class="nav-item active" onclick="switchPage('home')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #1e3c72; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease; transform: scale(1.05); text-shadow: 0 1px 2px rgba(30,60,114,0.15);">
+        <i class="fa-solid fa-house" style="font-size: 22px; margin-bottom: 3px; filter: drop-shadow(0 2px 4px rgba(30,60,114,0.25)); font-weight: 900;"></i>Home
     </div>
+    
+    <div class="nav-item" onclick="switchPage('notice')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease;">
+        <i class="fa-solid fa-bell" style="font-size: 22px; margin-bottom: 3px; font-weight: 900;"></i>Clc
+    </div>
+    
+    <div class="nav-item" onclick="switchPage('service')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease;">
+        <i class="fa-solid fa-gears" style="font-size: 22px; margin-bottom: 3px; font-weight: 900;"></i>Service
+    </div>
+    
+    <div class="nav-item" onclick="switchPage('about')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease;">
+        <i class="fa-solid fa-building" style="font-size: 22px; margin-bottom: 3px; font-weight: 900;"></i>About
+    </div>
+    
+    <div class="nav-item" onclick="switchPage('contact')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease;">
+        <i class="fa-solid fa-envelope" style="font-size: 22px; margin-bottom: 3px; font-weight: 900;"></i>Contact
+    </div>
+
+</div>
+
 </body>
 </html>
 """
