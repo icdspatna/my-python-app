@@ -700,9 +700,9 @@ ABOUT_CONTACT_BODY = """
 """
 # --- 10. APP LAYOUT END ---
 LAYOUT_END = """
-        <div class="bottom-nav">
+        <div class="bottom-nav" id="appBottomNav" style="display: none;">
             <div class="nav-item active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i>Home</div>
-            <div class="nav-item" onclick="switchPage('notice')"><i class="fa-solid fa-bell"></i>Notice</div>
+            <div class="nav-item" onclick="switchPage('notice')"><i class="fa-solid fa-bell"></i>Clc</div>
             <div class="nav-item" onclick="switchPage('service')"><i class="fa-solid fa-gears"></i>Service</div>
             <div class="nav-item" onclick="switchPage('about')"><i class="fa-solid fa-building"></i>About</div>
             <div class="nav-item" onclick="switchPage('contact')"><i class="fa-solid fa-envelope"></i>Contact</div>
@@ -815,21 +815,19 @@ function validateLogin() {
 }
 
 // ओटीपी सत्यापित होने के बाद का लॉजिक
+// ओटीपी सत्यापित होने के बाद का सुधरा हुआ लॉजिक
 function validateOtp() {
     const otpVal = document.getElementById('inputOtp').value.trim();
     const defaultOtp = "789456";
 
     if (otpVal === defaultOtp) {
-        // ओटीपी सही होने पर थैंक यू स्टेज दिखाएं
         document.getElementById('otpStage').style.display = 'none';
         document.getElementById('successStage').style.display = 'block';
         
         setTimeout(function() {
-            // 1. थैंक यू स्टेज बंद करें और लॉगिन पेज को हाइड/रीसेट करें
             document.getElementById('successStage').style.display = 'none';
             document.getElementById('loginStage').style.display = 'block'; 
 
-            // 2. लॉगिन करने वाले यूज़र का नाम हेडर में सेट करें
             const loggedInUser = document.getElementById('loginUser').value.trim() || "Admin";
             document.getElementById('userProfileName').innerText = loggedInUser;
             
@@ -838,13 +836,15 @@ function validateOtp() {
                 profilePicEl.innerText = loggedInUser.charAt(0).toUpperCase();
             }
 
-            // 3. नया टॉप प्रोफाइल हेडर शो करें
+            // 1. नया टॉप प्रोफाइल हेडर शो करें
             document.getElementById('appTopHeader').style.display = 'flex';
 
-            // 4. सीधे मुख्य 'Service' पेज पर ट्रांसफर करें
+            // 2. सुरक्षा सुधार: लॉगिन सफल होने पर ही बॉटम नेविगेशन बार को दिखाएं
+            document.getElementById('appBottomNav').style.display = 'flex';
+
+            // 3. सीधे मुख्य 'Service' पेज पर ट्रांसफर करें
             switchPage('service');
             
-            // सर्विस स्क्रीन पर जाते ही 'Balance Sheet' बटन के एक्टिव क्लास को सिंक करें
             const allTabBtns = document.querySelectorAll('.tab-btn');
             allTabBtns.forEach(btn => {
                 if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('balance-section')) {
@@ -854,7 +854,6 @@ function validateOtp() {
                 }
             });
 
-            // फॉर्म इनपुट्स खाली करें
             document.getElementById('loginUser').value = "";
             document.getElementById('loginPass').value = "";
             document.getElementById('inputOtp').value = "";
@@ -865,16 +864,20 @@ function validateOtp() {
     }
 }
 
-// नया लॉगआउट फंक्शन
+// नया लॉगआउट फंक्शन (सुरक्षा लॉक के साथ)
 function handleAppLogout() {
     if(confirm("क्या आप ऐप से लॉगआउट करना चाहते हैं?")) {
         // 1. टॉप हेडर को वापस छुपाएं
         document.getElementById('appTopHeader').style.display = 'none';
         
-        // 2. वापस मुख्य लॉगिन (home) स्क्रीन पर भेजें
+        // 2. सुरक्षा सुधार: लॉगआउट होने पर बॉटम नेविगेशन मेनू को दोबारा लॉक/हाइड करें
+        document.getElementById('appBottomNav').style.display = 'none';
+        
+        // 3. वापस मुख्य लॉगिन (home) स्क्रीन पर भेजें
         switchPage('home');
     }
 }
+
 
 // लाइव डिजिटल वॉच और दिनांक फंक्शन
 function updateDigitalClock() {
@@ -1175,9 +1178,18 @@ def get_dashboard_fetch_script():
 // अपनी नई जेनरेटेड Google Web App URL यहाँ डालें
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEVd-HJ6MWluxu7lhRcG2uuoqF80ST_TtzSZbVhYuwRVSeUhD9DmV-4R5vzSh4feY/exec";
 
-// 1. पेज लोड होते ही पुराना डेटा अपने आप लोड करें (Fetch Data on Load)
+// सुरक्षा सुधार: पेज लोड होते ही आँख बंद करके डेटा लोड नहीं होगा, केवल लॉगिन के बाद ही लोड होगा
 document.addEventListener("DOMContentLoaded", function() {
-    fetchLiveData();
+    // चेक करें कि क्या टॉप हेडर दिख रहा है (यानी यूजर लॉग इन है)
+    const isHeaderVisible = document.getElementById('appTopHeader') && document.getElementById('appTopHeader').style.display === 'flex';
+    
+    if (isHeaderVisible) {
+        fetchLiveData();
+    } else {
+        // यदि लॉग इन नहीं है, तो टेबल में सिक्योरिटी अलर्ट दिखाएं
+        const expBody = document.getElementById('expBody');
+        if(expBody) expBody.innerHTML = '<tr><td colspan="5" style="padding:15px; text-align:center; color:red; font-weight:bold;"><i class="fa-solid fa-lock" style="margin-right:6px;"></i> कृपया डेटा देखने के लिए पहले लॉग इन करें।</td></tr>';
+    }
 });
 
 function fetchLiveData() {
