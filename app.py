@@ -701,27 +701,14 @@ ABOUT_CONTACT_BODY = """
 """
 # --- 10. APP LAYOUT END ---
 LAYOUT_END = """
-       window.addEventListener('DOMContentLoaded', function() {
-    // 1. सुरक्षा लॉक: पहले सभी पेजों को पूरी तरह छुपाएं
-    var pages = document.querySelectorAll('.app-page');
-    pages.forEach(function(page) {
-        page.classList.remove('active');
-        page.style.display = 'none';
-    });
-    
-    // 2. केवल लॉगिन (home) पेज को ही एक्टिव रखें
-    var homePage = document.getElementById('home');
-    if(homePage) {
-        homePage.classList.add('active');
-        homePage.style.display = 'flex';
-    }
-
-    // 3. सुरक्षा लॉक: सुनिश्चित करें कि लॉगिन से पहले बॉटम नेविगेशन पूरी तरह लॉक रहे
-    var bottomNav = document.getElementById('appBottomNav');
-    if(bottomNav) {
-        bottomNav.style.setProperty('display', 'none', 'important');
-    }
-});
+   <div class="bottom-nav">
+            <div class="nav-item active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i>Home</div>
+            <div class="nav-item" onclick="switchPage('notice')"><i class="fa-solid fa-bell"></i>Notice</div>
+            <div class="nav-item" onclick="switchPage('service')"><i class="fa-solid fa-gears"></i>Service</div>
+            <div class="nav-item" onclick="switchPage('about')"><i class="fa-solid fa-building"></i>About</div>
+            <div class="nav-item" onclick="switchPage('contact')"><i class="fa-solid fa-envelope"></i>Contact</div>
+        </div>
+    </div>
 
 </body>
 </html>
