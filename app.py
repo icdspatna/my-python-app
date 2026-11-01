@@ -164,12 +164,12 @@ PAGES_BODY = """
                 <form id="altForm" method="POST">
                     <input type="hidden" name="type" value="Allotment">
                     <select id="altSrc" name="source" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-                        <option value="" disabled selected hidden>Source (स्रोत चुनें)</option>
+                        <option value="" disabled selected hidden>Source </option>
                         <option value="CFMS">CFMS</option>
                         <option value="HRMS">HRMS</option>
                         <option value="PFMS">PFMS</option>
-                        <option value="OTHER">J.I.T</option>
-                        <option value="OTHER">N.I.C</option>
+                        <option value="OTHER">J.I.T Portal </option>
+                        <option value="OTHER">N.I.C Portal</option>
                     </select>
 
                     <input type="text" id="altOrd" name="order_no" placeholder="Order No." class="app-input" required>
@@ -221,7 +221,7 @@ PAGES_BODY = """
                     <input type="text" id="altRemark" name="remark" placeholder="Remark" class="app-input">
                     <input type="hidden" id="altLet" value="00000">
                     <input type="hidden" id="altDat" value="2026-04-01">
-                    <button type="submit" class="submit-btn" style="background: green; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">आवंटन डेटा सेव करें</button>
+                    <button type="submit" class="submit-btn" style="background: green; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Save</button>
                 </form> 
             </div>
 
@@ -234,7 +234,7 @@ PAGES_BODY = """
                     <input type="date" id="expDat" name="date" class="app-input" required>
                     
                     <select id="expHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-                        <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
+                        <option value="" disabled selected hidden>Budget Head </option>
                         <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
                         <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
                         <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
@@ -253,7 +253,7 @@ PAGES_BODY = """
                     </select>
 
                     <select id="expUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-                        <option value="" disabled selected hidden>Unit Code (यूनिट कोड चुनें)</option>
+                        <option value="" disabled selected hidden>Unit Code </option>
                         <option value="01.01">01.01</option>
                         <option value="01.03">01.03</option>
                         <option value="01.04">01.04</option>
@@ -275,7 +275,7 @@ PAGES_BODY = """
                         <option value="31.06">31.06</option>
                         <option value="52.01">52.01</option>
                     </select>
-                    <input type="number" id="altAmt" name="amount" placeholder="Amount (राशि ₹)" class="app-input" required>
+                    <input type="number" id="altAmt" name="amount" placeholder="Amount ₹" class="app-input" required>
                     <input type="text" id="altRemark" name="remark" placeholder="Remark" class="app-input">
                     <input type="hidden" id="expSrc" value="OTHER">
                     <input type="hidden" id="expBill" value="000">
@@ -350,7 +350,6 @@ PAGES_BODY = """
     </form>
 </div>
 """
-# --- 3. APP LAYOUT END ---
 # --- 3. APP LAYOUT END ---
 LAYOUT_END = """
         <div class="bottom-nav">
@@ -453,15 +452,17 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9r-WgL45vuw
 // ऑलॉटमेंट फॉर्म सबमिशन हैंडलर
 document.getElementById('altForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    submitToGoogleSheet(this, "आवंटन डेटा सेव करें");
+    submitToGoogleSheet(this, "Save Allotment");
 });
 
 // नोट: इसी तरह अपने Expenditure Form (जैसे id="expForm") पर भी यह इवेंट लगा लें
-// document.getElementById('expForm').addEventListener('submit', function(e) { ... });
+// document.getElementById('expForm').addEventListener('submit', function(e) { e.preventDefault();
+    submitToGoogleSheet(this, "Save Expenditure");
+});
 
 function submitToGoogleSheet(formElement, originalBtnText) {
     const btn = formElement.querySelector('button[type="submit"]');
-    btn.innerText = "सेव किया जा रहा है...";
+    btn.innerText = "Saving...";
     btn.disabled = true;
 
     const formData = new FormData(formElement);
