@@ -261,16 +261,17 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
         </div>
 
         <!-- स्टेज C: थैंक यू पॉप-अप -->
-        <div id="successStage" style="display: none; text-align: center; padding: 10px 0;">
-            <div style="background: #2ecc71; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 0 20px rgba(46,204,113,0.4);">
-                <i class="fa-solid fa-check" style="font-size: 24px; color: white;"></i>
-            </div>
-            <h2 style="font-size: 20px; font-weight: 700; margin: 0 0 4px 0; color: #2ecc71;">Thank You!</h2>
-            <p style="font-size: 12px; color: #fff; margin: 0;">लॉगिन पूरी तरह सफल रहा। डैशबोर्ड सक्रिय किया जा रहा है.</p>
-        </div>
-
+<div id="successStage" style="display: none; text-align: center; padding: 10px 0;">
+    <div style="background: #2ecc71; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 0 20px rgba(46,204,113,0.4);">
+        <i class="fa-solid fa-check" style="font-size: 24px; color: white;"></i>
     </div>
-</div>        
+    <h2 style="font-size: 20px; font-weight: 700; margin: 0 0 4px 0; color: #2ecc71;">Thank You!</h2>
+    <!-- सुधार: वाक्य के बीच में 'रहा।' को बदलकर 'रहा.' कर दिया गया है -->
+    <p style="font-size: 12px; color: #fff; margin: 0;">लॉगिन पूरी तरह सफल रहा. डैशबोर्ड सक्रिय किया जा रहा है.</p>
+</div>
+
+</div>
+</div>
        <!-- 2. NOTICE SCREEN (एडवांस्ड श्रेणी-वार राशन एवं बजट कैलकुलेटर) -->
 <div id="notice" class="app-page">
     <!-- सुधार 1: me-2 हटाकर आइकॉन में इनलाइन margin-right दिया गया है -->
