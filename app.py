@@ -701,30 +701,27 @@ ABOUT_CONTACT_BODY = """
 """
 # --- 10. APP LAYOUT END ---
 LAYOUT_END = """
-        <!-- पूरी तरह से नया, बोल्ड और अट्रैक्टिव बॉटम नेविगेशन बार -->
-<div class="bottom-nav" id="appBottomNav" style="display: none; position: absolute; bottom: 0; width: 100%; height: 68px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid rgba(240, 240, 240, 0.7); box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06); box-sizing: border-box; border-radius: 20px 20px 0 0; padding: 0 10px; z-index: 999;">
+       window.addEventListener('DOMContentLoaded', function() {
+    // 1. सुरक्षा लॉक: पहले सभी पेजों को पूरी तरह छुपाएं
+    var pages = document.querySelectorAll('.app-page');
+    pages.forEach(function(page) {
+        page.classList.remove('active');
+        page.style.display = 'none';
+    });
     
-    <div class="nav-item active" onclick="switchPage('home')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #1e3c72; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease; transform: scale(1.05); text-shadow: 0 1px 2px rgba(30,60,114,0.15);">
-        <i class="fa-solid fa-house" style="font-size: 22px; margin-bottom: 3px; filter: drop-shadow(0 2px 4px rgba(30,60,114,0.25)); font-weight: 900;"></i>Home
-    </div>
-    
-    <div class="nav-item" onclick="switchPage('notice')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease;">
-        <i class="fa-solid fa-bell" style="font-size: 22px; margin-bottom: 3px; font-weight: 900;"></i>Clc
-    </div>
-    
-    <div class="nav-item" onclick="switchPage('service')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease;">
-        <i class="fa-solid fa-gears" style="font-size: 22px; margin-bottom: 3px; font-weight: 900;"></i>Service
-    </div>
-    
-    <div class="nav-item" onclick="switchPage('about')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease;">
-        <i class="fa-solid fa-building" style="font-size: 22px; margin-bottom: 3px; font-weight: 900;"></i>About
-    </div>
-    
-    <div class="nav-item" onclick="switchPage('contact')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.3s ease;">
-        <i class="fa-solid fa-envelope" style="font-size: 22px; margin-bottom: 3px; font-weight: 900;"></i>Contact
-    </div>
+    // 2. केवल लॉगिन (home) पेज को ही एक्टिव रखें
+    var homePage = document.getElementById('home');
+    if(homePage) {
+        homePage.classList.add('active');
+        homePage.style.display = 'flex';
+    }
 
-</div>
+    // 3. सुरक्षा लॉक: सुनिश्चित करें कि लॉगिन से पहले बॉटम नेविगेशन पूरी तरह लॉक रहे
+    var bottomNav = document.getElementById('appBottomNav');
+    if(bottomNav) {
+        bottomNav.style.setProperty('display', 'none', 'important');
+    }
+});
 
 </body>
 </html>
