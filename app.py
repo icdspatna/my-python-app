@@ -251,7 +251,7 @@ PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Locatio
         <div id="otpStage" style="display: none; text-align: center;">
             <div style="color: #ffb703; font-size: 32px; margin-bottom: 8px;"><i class="fa-solid fa-shield-halved"></i></div>
             <h2 style="font-size: 17px; font-weight: 600; margin: 0 0 6px 0; color: #fff;">सुरक्षा स्क्रीन लॉक</h2>
-            <p style="font-size: 12px; color: #e2e8f0; margin: 0 0 18px 0;">आपके रजिस्टर्ड नंबर पर OTP भेजा गया है।</p>
+            <p style="font-size: 12px; color: #e2e8f0; margin: 0 0 18px 0;">आपके रजिस्टर्ड नंबर पर OTP भेजा गया है.</p>
             
             <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 18px; border-radius: 12px; display: flex; align-items: center;">
                 <i class="fa-solid fa-key" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
