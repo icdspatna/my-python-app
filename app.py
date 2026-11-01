@@ -190,7 +190,6 @@ LAYOUT_START = """
 </head>
 <body>
     <div class="mobile-app-container">
-<div class="mobile-app-container">
     
     <!-- नया टॉप प्रोफाइल हेडर (शुरुआत में style="display:none;" रहेगा) -->
     <div id="appTopHeader" class="app-top-header" style="display: none;">
@@ -281,12 +280,83 @@ PAGES_BODY = """
 </div>
 
 
-        <!-- 2. NOTICE SCREEN -->
-        <div id="notice" class="app-page">
-            <h3 class="page-title"><i class="fa-solid fa-bullhorn me-2"></i>Notice Board </h3>
-            <div class="notice-box"><strong>महत्वपूर्ण:</strong> व्यय प्रतिवेदन समय पर देना अनिवार्य है।</div>
-            <div class="notice-box" style="background:#e1f5fe; border-left-color:#0288d1; color:#01579b;"><strong>New Allotment:</strong> निदेशालय से मद 2235 में राशि ट्रांसफर हुई।</div>
+     <!-- 2. NOTICE SCREEN (एडवांस्ड श्रेणी-वार राशन एवं बजट कैलकुलेटर) -->
+<div id="notice" class="app-page">
+    <h3 class="page-title"><i class="fa-solid fa-bullhorn me-2"></i>Notice Board </h3>
+    
+    <div class="notice-box"><strong>महत्वपूर्ण:</strong> व्यय प्रतिवेदन समय पर देना अनिवार्य है।</div>
+    
+    <!-- इनपुट बॉक्स कंटेनर -->
+    <div style="background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-top: 10px;">
+        <h4 style="margin: 0 0 12px 0; color: #764ba2; font-size: 14px;"><i class="fa-solid fa-users me-2"></i> लाभार्थी संख्या प्रविष्टि (कुल लाभार्थी: <span id="totalBeneficiaryDisplay">96</span>)</h4>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+            <div>
+                <label style="font-size: 11px; color: #555; font-weight: 600;">1. स्कूल पूर्व (03-06 वर्ष):</label>
+                <input type="number" id="inputPreSchool" value="40" oninput="calculateAdvancedRation()" style="width:100%; padding:8px; border:1px solid #cbd5e0; border-radius:6px; font-weight:bold; color:#764ba2;">
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #555; font-weight: 600;">2. गर्भवती एवं धात्री:</label>
+                <input type="number" id="inputPregnant" value="16" oninput="calculateAdvancedRation()" style="width:100%; padding:8px; border:1px solid #cbd5e0; border-radius:6px; font-weight:bold; color:#764ba2;">
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #555; font-weight: 600;">3. सामान्य कुपोषित:</label>
+                <input type="number" id="inputNormalMal" value="39" oninput="calculateAdvancedRation()" style="width:100%; padding:8px; border:1px solid #cbd5e0; border-radius:6px; font-weight:bold; color:#764ba2;">
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #555; font-weight: 600;">4. अतिकुपोषित बच्चे:</label>
+                <input type="number" id="inputSevereMal" value="1" oninput="calculateAdvancedRation()" style="width:100%; padding:8px; border:1px solid #cbd5e0; border-radius:6px; font-weight:bold; color:#764ba2;">
+            </div>
         </div>
+    </div>
+
+    <!-- कुल खर्च समरी कार्ड -->
+    <div style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); color: white; padding: 15px; border-radius: 12px; margin-top: 15px; text-align: center; box-shadow: 0 4px 12px rgba(118,75,162,0.2);">
+        <p style="margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Grand Total Budget (कुल अनुमानित राशि)</p>
+        <h2 id="grandTotalDisplay" style="margin: 5px 0 0 0; font-size: 24px; font-weight: 700;">₹0.00</h2>
+    </div>
+
+    <!-- डायनामिक कैलकुलेशन रिपोर्ट्स (स्क्रॉल कंटेनर) -->
+    <div style="margin-top: 15px; max-height: 380px; overflow-y: auto; padding-right: 2px;">
+        
+        <!-- टेबल 1: गर्भवती एवं धात्री महिलाएँ -->
+        <div class="form-card" style="padding:10px; margin-bottom:12px; background:#fff;">
+            <h5 style="margin:0 0 8px 0; color:#c65911; font-size:12px; background:#fff2cc; padding:5px 8px; border-left:3px solid #c65911; border-radius:3px;">मद: गर्भवती एवं धात्री के लिए (THR 25 दिन)</h5>
+            <table style="width:100%; font-size:11px; border-collapse:collapse;" border="1" bordercolor="#eee">
+                <thead><tr style="background:#f4f6f8;"><th>सामग्री</th><th>मात्रा (ग्राम)</th><th>खर्च (ग्राम/किमी)</th><th>राशि (₹)</th></tr></thead>
+                <tbody id="tablePregnantBody"></tbody>
+            </table>
+        </div>
+
+        <!-- टेबल 2: सामान्य कुपोषित बच्चे -->
+        <div class="form-card" style="padding:10px; margin-bottom:12px; background:#fff;">
+            <h5 style="margin:0 0 8px 0; color:#003366; font-size:12px; background:#e8f4f8; padding:5px 8px; border-left:3px solid #003366; border-radius:3px;">मद: 06 माह से 03 वर्ष सामान्य कुपोषित (THR)</h5>
+            <table style="width:100%; font-size:11px; border-collapse:collapse;" border="1" bordercolor="#eee">
+                <thead><tr style="background:#f4f6f8;"><th>सामग्री</th><th>मात्रा (ग्राम)</th><th>खर्च (ग्राम/किमी)</th><th>राशि (₹)</th></tr></thead>
+                <tbody id="tableNormalBody"></tbody>
+            </table>
+        </div>
+
+        <!-- टेबल 3: अतिकुपोषित बच्चे -->
+        <div class="form-card" style="padding:10px; margin-bottom:12px; background:#fff;">
+            <h5 style="margin:0 0 8px 0; color:#e74c3c; font-size:12px; background:#fce4d6; padding:5px 8px; border-left:3px solid #e74c3c; border-radius:3px;">मद: 06 माह से 03 वर्ष अतिकुपोषित बच्चे (THR)</h5>
+            <table style="width:100%; font-size:11px; border-collapse:collapse;" border="1" bordercolor="#eee">
+                <thead><tr style="background:#f4f6f8;"><th>सामग्री</th><th>मात्रा (ग्राम)</th><th>खर्च (ग्राम/किमी)</th><th>राशि (₹)</th></tr></thead>
+                <tbody id="tableSevereBody"></tbody>
+            </table>
+        </div>
+
+        <!-- टेबल 4: स्कूल पूर्व बच्चे गर्म भोजन -->
+        <div class="form-card" style="padding:10px; margin-bottom:5px; background:#fff;">
+            <h5 style="margin:0 0 8px 0; color:#2e7d32; font-size:12px; background:#e2f0d9; padding:5px 8px; border-left:3px solid #2e7d32; border-radius:3px;">मद: स्कूल पूर्व के बच्चों (03-06 वर्ष) गर्म भोजन (मासिक)</h5>
+            <table style="width:100%; font-size:11px; border-collapse:collapse;" border="1" bordercolor="#eee">
+                <thead><tr style="background:#f4f6f8;"><th>सामग्री</th><th>मात्रा प्रति दिन</th><th>मात्रा प्रति माह</th></tr></thead>
+                <tbody id="tablePreSchoolBody"></tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
 
                 <!-- 3. SERVICE SCREEN (4 Quick Jump Tabs) -->
         <div id="service" class="app-page active">
@@ -600,18 +670,21 @@ function validateLogin() {
 }
 
 // ओटीपी सत्यापित होने के बाद का लॉजिक
+// ओटीपी सत्यापित होने के बाद का लॉजिक
 function validateOtp() {
     const otpVal = document.getElementById('inputOtp').value.trim();
     const defaultOtp = "789456";
 
     if (otpVal === defaultOtp) {
+        // ओटीपी सही होने पर थैंक यू स्टेज दिखाएं
         document.getElementById('otpStage').style.display = 'none';
         document.getElementById('successStage').style.display = 'block';
         
+        // 2 सेकंड का सुंदर डिले (2000ms यहाँ फिक्स किया गया है)
         setTimeout(function() {
             // 1. थैंक यू स्टेज बंद करें और लॉगिन पेज (Home) को पूरी तरह हाइड करें
             document.getElementById('successStage').style.display = 'none';
-            document.getElementById('loginStage').style.display = 'block'; // रीसेट फॉर फ्यूचर
+            document.getElementById('loginStage').style.display = 'block'; // यहाँ सिंगल कोट फिक्स किया गया है
             
             // 2. लॉगिन करने वाले यूज़र का नाम हेडर में सेट करें
             const loggedInUser = document.getElementById('loginUser').value.trim() || "Admin";
@@ -628,12 +701,13 @@ function validateOtp() {
             document.getElementById('loginUser').value = "";
             document.getElementById('loginPass').value = "";
             document.getElementById('inputOtp').value = "";
-        }, 2000);
+        }, 2000); // <-- यहाँ 2000 लिखना छूटा हुआ था, इसे जोड़ दिया गया है
         
     } else {
         alert("गलत OTP! कृपया '789456' दर्ज करें।");
     }
 }
+
 
 // नया लॉगआउट फंक्शन
 function handleAppLogout() {
@@ -706,6 +780,111 @@ function getLiveGPSLocation() {
 window.addEventListener('DOMContentLoaded', () => {
     updateDigitalClock();
     getLiveGPSLocation();
+});
+// मास्टर डेटा और सूत्र नियम (जैसा आपकी फोटो प्रतियों में दिया गया है)
+const pregnantFormula = [
+    { name: "चावल", qty: 90, rate: 26 },
+    { name: "मूंगदาล", qty: 40, rate: 80 },
+    { name: "मसाला मिक्स", qty: 0.5, rate: 242 },
+    { name: "सोयाबीन", qty: 15, rate: 90 },
+    { name: "नमक", qty: 2.5, rate: 20 },
+    { name: "सोयाबीन तेल", qty: 15, rate: 110 }
+];
+
+const normalFormula = [
+    { name: "चावल", qty: 75, rate: 26 },
+    { name: "मूंगदाल", qty: 30, rate: 80 },
+    { name: "मसाला मिक्स", qty: 0.5, rate: 242 },
+    { name: "सोयाबीन", qty: 20, rate: 90 },
+    { name: "नमक", qty: 2, rate: 20 },
+    { name: "सोयाबीन तेल", qty: 10, rate: 110 }
+];
+
+const severeFormula = [
+    { name: "चावल", qty: 117.7, rate: 26 },
+    { name: "मूंगदाल", qty: 53.5, rate: 80 },
+    { name: "मसाला मिक्स", qty: 1, rate: 242 },
+    { name: "सोयाबीन", qty: 20, rate: 90 },
+    { name: "नमक", qty: 3, rate: 20 },
+    { name: "सोयाबीन तेल", qty: 20, rate: 110 }
+];
+
+const preSchoolFormula = [
+    { name: "चावल", daily: 70, monthly: 1560 },
+    { name: "चना", daily: 20, monthly: 360 },
+    { name: "हरी सब्जी", daily: 25, monthly: 200 },
+    { name: "तेल", daily: 5, monthly: 80 },
+    { name: "मूँगफली", daily: 15, monthly: 120 },
+    { name: "आलू", daily: 60, monthly: 240 },
+    { name: "फल", daily: 1, monthly: 16 },
+    { name: "सोयाबीन सब्जी", daily: 20, monthly: 80 },
+    { name: "पायज टमाटर", daily: 25, monthly: 100 },
+    { name: "गुड़", daily: 20, monthly: 200 },
+    { name: "दाल", daily: 25, monthly: 180 },
+    { name: "कद्दू", daily: 100, monthly: 40 }
+];
+
+function calculateAdvancedRation() {
+    // इनपुट्स प्राप्त करें
+    const countPre = parseFloat(document.getElementById('inputPreSchool').value) || 0;
+    const countPreg = parseFloat(document.getElementById('inputPregnant').value) || 0;
+    const countNorm = parseFloat(document.getElementById('inputNormalMal').value) || 0;
+    const countSev = parseFloat(document.getElementById('inputSevereMal').value) || 0;
+
+    // कुल लाभार्थी अपडेट करें
+    document.getElementById('totalBeneficiaryDisplay').innerText = countPre + countPreg + countNorm + countSev;
+
+    let overallGrandTotal = 0;
+
+    // 1. गर्भवती एवं धात्री तालिका कैलकुलेशन (THR 25 दिन आधारित)
+    let htmlPreg = "";
+    pregnantFormula.forEach(item => {
+        let totalGram = item.qty * countPreg * 25; // मात्रा * लाभार्थी * 25 दिन
+        let totalCost = (totalGram / 1000) * item.rate; // किलोग्राम में बदलकर दर से गुणा
+        overallGrandTotal += totalCost;
+        htmlPreg += `<tr><td>${item.name}</td><td>${item.qty}</td><td>${totalGram} ग्राम</td><td>₹${totalCost.toFixed(2)}</td></tr>`;
+    });
+    document.getElementById('tablePregnantBody').innerHTML = htmlPreg;
+
+    // 2. सामान्य कुपोषित तालिका कैलकुलेशन (THR 25 दिन आधारित)
+    let htmlNorm = "";
+    normalFormula.forEach(item => {
+        let totalGram = item.qty * countNorm * 25;
+        let totalCost = (totalGram / 1000) * item.rate;
+        overallGrandTotal += totalCost;
+        htmlNorm += `<tr><td>${item.name}</td><td>${item.qty}</td><td>${totalGram} ग्राम</td><td>₹${totalCost.toFixed(2)}</td></tr>`;
+    });
+    document.getElementById('tableNormalBody').innerHTML = htmlNorm;
+
+    // 3. अतिकुपोषित तालिका कैलकुलेशन (THR 25 दिन आधारित)
+    let htmlSev = "";
+    severeFormula.forEach(item => {
+        let totalGram = item.qty * countSev * 25;
+        let totalCost = (totalGram / 1000) * item.rate;
+        overallGrandTotal += totalCost;
+        htmlSev += `<tr><td>${item.name}</td><td>${item.qty}</td><td>${totalGram.toFixed(1)} ग्राम</td><td>₹${totalCost.toFixed(2)}</td></tr>`;
+    });
+    document.getElementById('tableSevereBody').innerHTML = htmlSev;
+
+    // 4. स्कूल पूर्व तालिका कैलकुलेशन (मासिक उपभोग ग्राम आधारित)
+    let htmlPre = "";
+    preSchoolFormula.forEach(item => {
+        let calculatedMonthly = item.monthly * countPre; // प्रति बच्चा मासिक कोटा * कुल बच्चे
+        htmlPre += `<tr><td>${item.name}</td><td>${item.daily} ग्राम</td><td>${(calculatedMonthly / 1000).toFixed(2)} किग्रा</td></tr>`;
+    });
+    // अतिरिक्त गर्म भोजन नियत नाश्ता दर भी योग में जोड़ें (4.99 प्रति बच्चा उदाहरणार्थ मानकर)
+    overallGrandTotal += (countPre * 4.99 * 25); 
+    document.getElementById('tablePreSchoolBody').innerHTML = htmlPre;
+
+    // फाइनल ग्रैंड टोटल डिस्प्ले अपडेट करें
+    document.getElementById('grandTotalDisplay').innerText = `₹${overallGrandTotal.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+}
+
+// लोडिंग पर डिफ़ॉल्ट ट्रिगर करें
+window.addEventListener('DOMContentLoaded', () => {
+    if(document.getElementById('inputPreSchool')) {
+        calculateAdvancedRation();
+    }
 });
 
 </script>
