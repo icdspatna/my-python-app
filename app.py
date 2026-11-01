@@ -201,7 +201,9 @@ LAYOUT_START = """
 
 # --- 2. INNER PAGES BODY ---
 PAGES_BODY = """
-      <!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
+     # --- 2. INNER PAGES BODY ---
+# इसे बिल्कुल बाईं तरफ सटाकर रखें, इसके पीछे एक भी खाली स्पेस या टैब नहीं होना चाहिए
+PAGES_BODY = """<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
 <div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 25px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
     
     <!-- लाइव डिजिटल वॉच और लोकेशन विजेट -->
@@ -216,7 +218,7 @@ PAGES_BODY = """
             <span id="liveLocation">Patna, Bihar, India</span>
         </div>
     </div>
-
+"""
     <!-- ऐप लोगो और ब्रांडिंग -->
     <div class="hero-section" style="text-align: center; margin-bottom: 25px;">
         <div style="background: rgba(255, 255, 255, 0.15); width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.2);">
