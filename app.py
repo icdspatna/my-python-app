@@ -385,7 +385,9 @@ PAGES_BODY = """<body>
                 <button class="tab-btn active" onclick="showTab(event, 'balance-section')" style="cursor:pointer; padding:10px; background:#e8f4f8; color:#1f4e5b; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #b4d6e4;">Balance Sheet</button>
             </div>
 
-            <!-- TAB 1: Allotment Entry Form -->
+        # Fix: Strictly wrapped within triple-quotes and left-aligned to prevent Python syntax leakage
+
+            """<!-- TAB 1: Allotment Entry Form -->
             <div id="allotment-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
                 <!-- सुधार 3: आइकॉन में सही गैप के लिए margin-right जोड़ा गया -->
                 <h4><i class="fa-solid fa-circle-plus" style="color: green; margin-right: 8px;"></i> 1. Allotment Entry</h4>
@@ -405,52 +407,49 @@ PAGES_BODY = """<body>
                     <!-- सुधार 2: id को expDat से बदलकर altDat_input किया गया -->
                     <input type="date" id="altDat_input" name="date" class="app-input" required>
                     
- # --- FORM ELEMENTS WRAPPED IN SAFE STRING ---
- html_content = """
-# Fix: Strictly wrapped within triple-quotes and left-aligned to prevent Python syntax leakage
-<select id="altHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-<option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
-<option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
-<option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
-<option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
-<option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
-<option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
-<option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
-<option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
-<option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
-<option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
-<option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
-<option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
-<option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
-<option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
-<option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
-<option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
-</select>
+                    <select id="altHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                        <option value="" disabled selected hidden>Budget Head (बजट कोड चुनें)</option>
+                        <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
+                        <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
+                        <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
+                        <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
+                        <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
+                        <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
+                        <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
+                        <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
+                        <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
+                        <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
+                        <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
+                        <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
+                        <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
+                        <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
+                        <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
+                    </select>
 
-<select id="altUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-<option value="" disabled selected hidden>Unit Code (यूनिट कोड चुनें)</option>
-<option value="01.01">01.01</option>
-<option value="01.03">01.03</option>
-<option value="01.04">01.04</option>
-<option value="01.05">01.05</option>
-<option value="01.06">01.06</option>
-<option value="01.07">01.07</option>
-<option value="02.01">02.01</option>
-<option value="06.01">06.01</option>
-<option value="11.01">11.01</option>
-<option value="13.01">13.01</option>
-<option value="13.10">13.10</option>
-<option value="14.01">14.01</option>
-<option value="16.01">16.01</option>
-<option value="20.03">20.03</option>
-<option value="21.01">21.01</option>
-<option value="21.03">21.03</option>
-<option value="26.01">26.01</option>
-<option value="28.02">28.02</option>
-<option value="31.06">31.06</option>
-<option value="52.01">52.01</option>
-</select>
-"""
+                    <select id="altUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                        <option value="" disabled selected hidden>Unit Code (यूनिट कोड चुनें)</option>
+                        <option value="01.01">01.01</option>
+                        <option value="01.03">01.03</option>
+                        <option value="01.04">01.04</option>
+                        <option value="01.05">01.05</option>
+                        <option value="01.06">01.06</option>
+                        <option value="01.07">01.07</option>
+                        <option value="02.01">02.01</option>
+                        <option value="06.01">06.01</option>
+                        <option value="11.01">11.01</option>
+                        <option value="13.01">13.01</option>
+                        <option value="13.10">13.10</option>
+                        <option value="14.01">14.01</option>
+                        <option value="16.01">16.01</option>
+                        <option value="20.03">20.03</option>
+                        <option value="21.01">21.01</option>
+                        <option value="21.03">21.03</option>
+                        <option value="26.01">26.01</option>
+                        <option value="28.02">28.02</option>
+                        <option value="31.06">31.06</option>
+                        <option value="52.01">52.01</option>
+                    </select>
+
                     <input type="number" id="altAmt" name="amount" placeholder="Amount (राशि )" class="app-input" required>
                     <input type="text" id="altRemark" name="remark" placeholder="Remark" class="app-input">
                     <input type="hidden" id="altLet" value="00000">
@@ -458,7 +457,6 @@ PAGES_BODY = """<body>
                     <button type="submit" class="submit-btn" style="background: green; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Save</button>
                 </form> 
             </div>
-
           <!-- TAB 2: Expenditure Entry Form -->
             <div id="expenditure-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
                 <!-- सुधार 2: आइकॉन और टेक्स्ट के बीच सही स्पेस के लिए margin-right जोड़ा गया -->
