@@ -165,8 +165,7 @@ LAYOUT_START = """
         .logout-btn-top:hover {
             background: #c0392b;
         }
-
-        /* पेजों की हाइट को हेडर और फुटर के बीच बांधना ताकि ओवरफ्लो न हो */
+/* पेजों की हाइट को हेडर और फुटर के बीच बांधना ताकि ओवरफ्लो न हो */
         .app-page {
             display: none; 
             flex: 1; 
@@ -179,11 +178,10 @@ LAYOUT_START = """
         }
     </style>
 </head>
+"""  # <--- यहाँ LAYOUT_START का ट्रिपल कोट बंद होना छूट गया था, इसे मैंने जोड़ दिया है।
+
 # --- 2. INNER PAGES BODY ---
 # बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे...
-
-# नोट: अगर <body> और container टैग पहले ही बंद हो चुके हैं, तो इन्हें यहाँ से हटा भी सकते हैं।
-# लेकिन स्ट्रिंग के अंदर रखने से अब कोई एरर नहीं आएगा।
 
 PAGES_BODY = """<body>
     <div class="mobile-app-container">
@@ -200,8 +198,7 @@ PAGES_BODY = """<body>
         <button class="logout-btn-top" onclick="handleAppLogout()">
             <i class="fa-solid fa-right-from-bracket"></i> लॉगआउट
         </button>
-    </div>
-
+    </div>"""  # <--- यहाँ PAGES_BODY की स्ट्रिंग को भी क्लोज कर दिया है।
 <!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
 <div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 25px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
     
