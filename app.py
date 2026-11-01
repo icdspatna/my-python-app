@@ -182,7 +182,10 @@ LAYOUT_START = """
 <body>
     <div class="mobile-app-container">
     
-    <!-- नया टॉप प्रोफाइल हेडर (शुरुआत में style="display:none;" रहेगा) -->
+   # --- 2. INNER PAGES BODY ---
+# बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे...
+
+PAGES_BODY = """<!-- नया टॉप प्रोफाइल हेडर (शुरुआत में style="display:none;" रहेगा) -->
     <div id="appTopHeader" class="app-top-header" style="display: none;">
         <div class="profile-info">
             <div class="profile-pic">A</div>
@@ -195,11 +198,8 @@ LAYOUT_START = """
             <i class="fa-solid fa-right-from-bracket"></i> लॉगआउट
         </button>
     </div>
-"""
-    <!--बाकी के पेजेस (जैसे #home, #notice, #service आदि) इसके नीचे रहेंगे...-->
-     # --- 2. INNER PAGES BODY ---
-# इसे बिल्कुल बाईं तरफ सटाकर रखें, इसके पीछे एक भी खाली स्पेस या टैब नहीं होना चाहिए
-PAGES_BODY ="""<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
+
+<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
 <div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 25px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
     
     <!-- लाइव डिजिटल वॉच और लोकेशन विजेट -->
@@ -221,9 +221,24 @@ PAGES_BODY ="""<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location
 <h1 style="font-size: 24px; font-weight: 700; margin: 0 0 4px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">ICDS बजट प्रबंधन</h1>
 <p style="font-size: 11px; opacity: 0.75; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Rudra Tech Pvt Ltd</p>
 </div>
-    <!-- मुख्य फॉर्म कार्ड -->
+        # मुख्य फॉर्म कार्ड 
     <div class="login-container" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 24px; padding: 25px 20px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.25); border: 1px solid rgba(255, 255, 255, 0.18); box-sizing: border-box;">
-        
+        <!-- स्टेज A: मुख्य लॉगिन फॉर्म -->
+        <div id="loginStage">
+            <h2 style="font-size: 18px; font-weight: 600; margin: 0 0 18px 0; text-align: center; color: #fff;">खाते में लॉग इन करें</h2>
+            <div class="login-form">
+                <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 12px; border-radius: 12px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-user" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
+                    <input type="text" id="loginUser" placeholder="यूज़र नाम दर्ज करें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 14px;" autocomplete="off">
+                </div>
+                <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 18px; border-radius: 12px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-lock" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
+                    <input type="password" id="loginPass" placeholder="पासवर्ड दर्ज करें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 14px;">
+                </div>
+                <button class="login-btn" onclick="validateLogin()" style="background: #fff; color: #1e3c72; border: none; width: 100%; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(255,255,255,0.1);">सत्यापित करें और आगे बढ़ें</button>
+            </div>
+        </div>
+    </div>
         <!-- स्टेज A: मुख्य लॉगिन फॉर्म -->
         <div id="loginStage">
             <h2 style="font-size: 18px; font-weight: 600; margin: 0 0 18px 0; text-align: center; color: #fff;">खाते में लॉग इन करें</h2>
@@ -377,8 +392,6 @@ PAGES_BODY ="""<!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location
         <!-- 3. SERVICE SCREEN (शुरुआत में छुपाने के लिए active हटा दिया गया है) -->
         <div id="service" class="app-page">
             <h3 class="page-title"><i class="fa-solid fa-gears me-2"></i>Entry Service</h3>
-
-            
             <!-- 4 नैविगेशन बटन्स -->
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
                 <button class="tab-btn" onclick="showTab(event, 'allotment-section')" style="cursor:pointer; padding:10px; background:#e2f0d9; color:#385723; font-size:12px; font-weight:bold; border-radius:8px; border:1px solid #a9d18e;">Allotment Entry</button>
