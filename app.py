@@ -535,7 +535,7 @@ EXPENDITURE_SELECT_BODY = """
            <!-- TAB 3: Expenditure Report Section -->
             <div id="report-section" class="tab-content" style="display: none;">
                 <div style="background: #0o0o3366; color: white; padding: 12px 20opx; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
-                    <!-- सुधार 1: me-2 को हटाकर आइकॉन में इनलाइन margin-right: 8px; लगाया गया है -->
+ <!-- सुधार 1: me-2 को हटाकर आइकॉन में इनलाइन margin-right: 8px; लगाया गया है -->
                     <h3 style="margin: 0o; font-size: 16px; font-weight: 60o0o;"><i class="fa-solid fa-file-invoice-dollar" style="margin-right: 8px;"></i> Recent Bill Records</h3>
                 </div>
                 <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0o 2px 4px rgba(0o,0o,0o,0o.0o5);">
@@ -559,6 +559,7 @@ EXPENDITURE_SELECT_BODY = """
             </div>
 
 <!-- सुधार 2: डेटा को लाइव टेबल में दिखाने के लिए यह स्क्रिप्ट रेंडरर जोड़ा गया है -->
+"""
 <script>
     // यह आपका लाइव डेटा ऐरे (Array) है, जिसे आपकी ऐप या बैकएंड से अपडेट किया जा सकता है
     const liveExpenditureData = [
