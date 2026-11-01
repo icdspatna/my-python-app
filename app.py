@@ -122,22 +122,75 @@ LAYOUT_START = """
 
 # --- 2. INNER PAGES BODY ---
 PAGES_BODY = """
-        <!-- 1. HOME SCREEN -->
-        <div id="home" class="app-page active">
-            <div class="hero-section">
-                <i class="fa-solid fa-calculator" style="font-size: 50px; margin-bottom: 10px;"></i>
-                <h1>ICDS बजट प्रबंधन</h1>
-                <p style="font-size: 13px; opacity: 0.9;">Rudra Tech Pvt Ltd</p>
-            </div>
-            <div class="login-container">
-                <h2>Log In</h2>
-                <div class="login-form">
-                    <div class="input-group"><i class="fa-solid fa-user"></i><input type="text" placeholder="Enter User name"></div>
-                    <div class="input-group"><i class="fa-solid fa-lock"></i><input type="password" placeholder="Password"></div>
-                    <button class="login-btn" onclick="switchPage('service')">Login</button>
+      <!-- 1. HOME SCREEN (Modern Style + Live Digital Watch & Location) -->
+<div id="home" class="app-page active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 25px 15px; font-family: 'Segoe UI', sans-serif; overflow-y: auto;">
+    
+    <!-- लाइव डिजिटल वॉच और लोकेशन विजेट -->
+    <div style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); width: 90%; border-radius: 20px; padding: 15px; text-align: center; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); margin-bottom: 25px; box-sizing: border-box; animation: fadeIn 0.8s ease-in-out;">
+        <!-- समय -->
+        <div id="digitalClock" style="font-size: 32px; font-weight: 700; color: #fff; letter-spacing: 1px; text-shadow: 0 2px 5px rgba(0,0,0,0.2);">00:00:00 AM</div>
+        <!-- तारीख और साल -->
+        <div id="digitalDate" style="font-size: 13px; color: #e2e8f0; font-weight: 500; margin-top: 4px; letter-spacing: 0.5px;">Loading Date...</div>
+        <!-- लाइव लोकेशन -->
+        <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; font-size: 11px; color: #ffb703; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">
+            <i class="fa-solid fa-location-dot me-1" style="animation: pulse 2s infinite;"></i>
+            <span id="liveLocation">Patna, Bihar, India</span>
+        </div>
+    </div>
+
+    <!-- ऐप लोगो और ब्रांडिंग -->
+    <div class="hero-section" style="text-align: center; margin-bottom: 25px;">
+        <div style="background: rgba(255, 255, 255, 0.15); width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.2);">
+            <i class="fa-solid fa-calculator" style="font-size: 36px; color: #fff;"></i>
+        </div>
+        <h1 style="font-size: 24px; font-weight: 700; margin: 0 0 4px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">ICDS बजट प्रबंधन</h1>
+        <p style="font-size: 11px; opacity: 0.75; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Rudra Tech Pvt Ltd</p>
+    </div>
+
+    <!-- मुख्य फॉर्म कार्ड -->
+    <div class="login-container" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 24px; padding: 25px 20px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.25); border: 1px solid rgba(255, 255, 255, 0.18); box-sizing: border-box;">
+        
+        <!-- स्टेज A: मुख्य लॉगिन फॉर्म -->
+        <div id="loginStage">
+            <h2 style="font-size: 18px; font-weight: 600; margin: 0 0 18px 0; text-align: center; color: #fff;">खाते में लॉग इन करें</h2>
+            <div class="login-form">
+                <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 12px; border-radius: 12px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-user" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
+                    <input type="text" id="loginUser" placeholder="यूज़र नाम दर्ज करें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 14px;" autocomplete="off">
                 </div>
+                <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 18px; border-radius: 12px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-lock" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
+                    <input type="password" id="loginPass" placeholder="पासवर्ड दर्ज करें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 14px;">
+                </div>
+                <button class="login-btn" onclick="validateLogin()" style="background: #fff; color: #1e3c72; border: none; width: 100%; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(255,255,255,0.1);">सत्यापित करें और आगे बढ़ें</button>
             </div>
         </div>
+
+        <!-- स्टेज B: स्क्रीन锁 और OTP वेरिफिकेशन -->
+        <div id="otpStage" style="display: none; text-align: center;">
+            <div style="color: #ffb703; font-size: 32px; margin-bottom: 8px;"><i class="fa-solid fa-shield-halved"></i></div>
+            <h2 style="font-size: 17px; font-weight: 600; margin: 0 0 6px 0; color: #fff;">सुरक्षा स्क्रीन लॉक</h2>
+            <p style="font-size: 12px; color: #e2e8f0; margin: 0 0 18px 0;">आपके रजिस्टर्ड नंबर पर OTP भेजा गया है।</p>
+            
+            <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 18px; border-radius: 12px; display: flex; align-items: center;">
+                <i class="fa-solid fa-key" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
+                <input type="number" id="inputOtp" placeholder="6-अंकों का OTP डालें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 15px; text-align: center; letter-spacing: 2px;">
+            </div>
+            <button class="login-btn" onclick="validateOtp()" style="background: #ffb703; color: #111; border: none; width: 100%; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 12px; cursor: pointer;">ओटीपी सत्यापित करें</button>
+        </div>
+
+        <!-- स्टेज C: थैंक यू पॉप-अप -->
+        <div id="successStage" style="display: none; text-align: center; padding: 10px 0;">
+            <div style="background: #2ecc71; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 0 20px rgba(46,204,113,0.4);">
+                <i class="fa-solid fa-check" style="font-size: 24px; color: white;"></i>
+            </div>
+            <h2 style="font-size: 20px; font-weight: 700; margin: 0 0 4px 0; color: #2ecc71;">Thank You!</h2>
+            <p style="font-size: 12px; color: #fff; margin: 0;">लॉगिन पूरी तरह सफल रहा। डैशबोर्ड सक्रिय किया जा रहा है...</p>
+        </div>
+
+    </div>
+</div>
+
 
         <!-- 2. NOTICE SCREEN -->
         <div id="notice" class="app-page">
@@ -362,7 +415,6 @@ LAYOUT_END = """
     </div>
     
     <script>
-    <script>
 // 1. मुख्य पेजों को बदलने के लिए फंक्शन (बॉटम नेव बार और लॉगिन के लिए)
 function switchPage(pageId) {
     // सभी स्क्रीन्स को छिपाएं
@@ -443,6 +495,108 @@ window.addEventListener('DOMContentLoaded', () => {
         defaultTab.classList.add('active');
     }
 });
+// लॉगिन सत्यापन फंक्शन
+function validateLogin() {
+    const userVal = document.getElementById('loginUser').value.trim();
+    const passVal = document.getElementById('loginPass').value.trim();
+
+    // सही क्रेडेंशियल्स की जांच
+    if (userVal === "admin" && passVal === "1234") {
+        // स्क्रीन लॉक करें और ओटीपी स्टेज चालू करें
+        document.getElementById('loginStage').style.display = 'none';
+        document.getElementById('otpStage').style.display = 'block';
+    } else {
+        alert("गलत यूज़र आईडी या पासवर्ड! (सही: admin / 1234 डालें)");
+    }
+}
+
+// ओटीपी सत्यापन फंक्शन
+function validateOtp() {
+    const otpVal = document.getElementById('inputOtp').value.trim();
+    const defaultOtp = "789456"; // डिफ़ॉल्ट ओटीपी सेट
+
+    if (otpVal === defaultOtp) {
+        // ओटीपी सही होने पर थैंक यू मैसेज स्टेज दिखाएं
+        document.getElementById('otpStage').style.display = 'none';
+        document.getElementById('successStage').style.display = 'block';
+        
+        // 2 सेकंड का सुंदर डिले दें ताकि थैंक यू मैसेज दिखे, फिर मुख्य सर्विस स्क्रीन पर जाएं
+        setTimeout(function() {
+            switchPage('service');
+            // फॉर्म को वापस मूल स्थिति में लाएं ताकि लॉगआउट होने पर खाली मिले
+            document.getElementById('successStage').style.display = 'none';
+            document.getElementById('loginStage').style.display = 'block';
+            document.getElementById('loginUser').value = "";
+            document.getElementById('loginPass').value = "";
+            document.getElementById('inputOtp').value = "";
+        }, 2000);
+        
+    } else {
+        alert("गलत OTP! कृपया '789456' दर्ज करें।");
+    }
+}
+// लाइव डिजिटल वॉच और दिनांक फंक्शन
+function updateDigitalClock() {
+    const now = new Date();
+    
+    // समय फॉर्मेटिंग (HH:MM:SS AM/PM)
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0 को 12 बनाएं
+    const timeString = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
+    
+    // तारीख फॉर्मेटिंग (Day, DD MMM YYYY)
+    const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+    const dateString = now.toLocaleDateString('hi-IN', options); // हिंदी फॉर्मेट के लिए 'hi-IN'
+
+    // HTML में पुश करें
+    if(document.getElementById('digitalClock')) {
+        document.getElementById('digitalClock').innerText = timeString;
+    }
+    if(document.getElementById('digitalDate')) {
+        document.getElementById('digitalDate').innerText = dateString;
+    }
+}
+
+// हर 1 सेकंड में घड़ी को अपडेट करें
+setInterval(updateDigitalClock, 1000);
+
+// ब्राउज़र जीपीएस से वास्तविक लोकेशन ढूंढना
+function getLiveGPSLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            
+            // ओपन-सोर्स जियोकोडिंग एपीआई से शहर का नाम ढूंढना
+            fetch(`https://openstreetmap.org{lat}&lon=${lon}`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.address) {
+                    const city = data.address.city || data.address.town || data.address.state_district || "Patna";
+                    const state = data.address.state || "Bihar";
+                    document.getElementById('liveLocation').innerText = `${city}, ${state}, India`;
+                }
+            })
+            .catch(() => {
+                // फेल होने पर डिफॉल्ट सेट रहेगा
+                document.getElementById('liveLocation').innerText = "Patna, Bihar, India";
+            });
+        }, function() {
+            console.log("Geolocation permission denied.");
+        });
+    }
+}
+
+// पेज लोड होते ही रन करें
+window.addEventListener('DOMContentLoaded', () => {
+    updateDigitalClock();
+    getLiveGPSLocation();
+});
+
 </script>
 
 <script>
