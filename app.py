@@ -456,59 +456,57 @@ def get_allotment_html():
                     <input type="hidden" id="altDat" value="2026-04-01">
                     <button type="submit" class="submit-btn" style="background: green; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Save</button>
                 </form> 
-            </div>
-                     """<!-- TAB 2: Expenditure Entry Form -->
-            <div id="expenditure-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
-                <!-- सुधार 2: आइकॉन और टेक्स्ट के बीच सही变 के लिए margin-right जोड़ा गया -->
-                <h4><i class="fa-solid fa-file-invoice-dollar" style="color: red; margin-right: 8px;"></i> 2. Expenditure Entry</h4>
-                <form id="expForm" method="POST">
-                    <input type="hidden" name="type" value="Expenditure">
-                    <input type="text" id="expOrd" name="order_no" placeholder="Order No." class="app-input" required>
-                    <input type="date" id="expDat" name="date" class="app-input" required>
-                                      
-                    <select id="expHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-                        <option value="" disabled selected hidden>Budget Head</option>
-                        <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
-                        <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
-                        <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
-                        <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
-                        <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
-                        <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
-                        <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
-                        <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
-                        <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
-                        <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
-                        <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
-                        <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
-                        <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
-                        <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
-                        <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
-                    </select>
+           <!-- TAB 2: Expenditure Entry Form -->
+    <div id="expenditure-section" class="tab-content" style="display: none; scroll-margin-top: 10px;">
+        <!-- सुधार 2: आइकॉन और टेक्स्ट के बीच सही स्पेस के लिए margin-right जोड़ा गया -->
+        <h4><i class="fa-solid fa-file-invoice-dollar" style="color: red; margin-right: 8px;"></i> 2. Expenditure Entry</h4>
+        <form id="expForm" method="POST">
+            <input type="hidden" name="type" value="Expenditure">
+            <input type="text" id="expOrd" name="order_no" placeholder="Order No." class="app-input" required>
+            <input type="date" id="expDat" name="date" class="app-input" required>
+                              
+            <select id="expHead" name="budget_head" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                <option value="" disabled selected hidden>Budget Head</option>
+                <option value="51-2235-02-102-0123">51-2235-02-102-0123</option>
+                <option value="51-2235-02-102-0222">51-2235-02-102-0222</option>
+                <option value="51-2235-02-102-0105">51-2235-02-102-0105</option>
+                <option value="51-2235-02-102-0122">51-2235-02-102-0122</option>
+                <option value="51-2235-02-102-0225">51-2235-02-102-0225</option>
+                <option value="51-2235-02-102-0322">51-2235-02-102-0322</option>
+                <option value="51-2235-02-102-0325">51-2235-02-102-0325</option>
+                <option value="51-2235-02-102-0327">51-2235-02-102-0327</option>
+                <option value="51-2236-02-101-0103">51-2236-02-101-0103</option>
+                <option value="51-2236-02-101-0203">51-2236-02-101-0203</option>
+                <option value="51-2236-02-101-0303">51-2236-02-101-0303</option>
+                <option value="51-2236-02-789-0204">51-2236-02-789-0204</option>
+                <option value="51-2236-02-789-0304">51-2236-02-789-0304</option>
+                <option value="51-2235-02-102-0226">51-2235-02-102-0226</option>
+                <option value="51-2235-02-102-0224">51-2235-02-102-0224</option>
+            </select>
 
-                    <select id="expUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
-                        <option value="" disabled selected hidden>Unit Code</option>
-                        <option value="01.01">01.01</option>
-                        <option value="01.03">01.03</option>
-                        <option value="01.04">01.04</option>
-                        <option value="01.05">01.05</option>
-                        <option value="01.06">01.06</option>
-                        <option value="01.07">01.07</option>
-                        <option value="02.01">02.01</option>
-                        <option value="06.01">06.01</option>
-                        <option value="11.01">11.01</option>
-                        <option value="13.01">13.01</option>
-                        <option value="13.10">13.10</option>
-                        <option value="14.01">14.01</option>
-                        <option value="16.01">16.01</option>
-                        <option value="20.03">20.03</option>
-                        <option value="21.01">21.01</option>
-                        <option value="21.03">21.03</option>
-                        <option value="26.01">26.01</option>
-                        <option value="28.02">28.02</option>
-                        <option value="31.06">31.06</option>
-                        <option value="52.01">52.01</option>
-                    </select>
- 
+            <select id="expUnit" name="unit_code" class="app-input" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: white;" required>
+                <option value="" disabled selected hidden>Unit Code</option>
+                <option value="01.01">01.01</option>
+                <option value="01.03">01.03</option>
+                <option value="01.04">01.04</option>
+                <option value="01.05">01.05</option>
+                <option value="01.06">01.06</option>
+                <option value="01.07">01.07</option>
+                <option value="02.01">02.01</option>
+                <option value="06.01">06.01</option>
+                <option value="11.01">11.01</option>
+                <option value="13.01">13.01</option>
+                <option value="13.10">13.10</option>
+                <option value="14.01">14.01</option>
+                <option value="16.01">16.01</option>
+                <option value="20.03">20.03</option>
+                <option value="21.01">21.01</option>
+                <option value="21.03">21.03</option>
+                <option value="26.01">26.01</option>
+                <option value="28.02">28.02</option>
+                <option value="31.06">31.06</option>
+                <option value="52.01">52.01</option>
+            </select> 
                     <!-- सुधार 1: आईडी को altAmt से बदलकर expAmt किया गया -->
                     <input type="number" id="expAmt" name="amount" placeholder="Amount ₹" class="app-input" required>
                     <!-- सुधार 1: आईडी को altRemark से बदलकर expRemark किया गया -->
@@ -518,7 +516,7 @@ def get_allotment_html():
                     <input type="hidden" id="expPur" value="Office Expenses">
                     <button type="submit" class="submit-btn" style="background: red; width: 100%; padding: 10px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">व्यय डेटा सेव करें</button>
                 </form>
-            </div>
+            </div>"""
            <!-- TAB 3: Expenditure Report Section -->
             <div id="report-section" class="tab-content" style="display: none;">
                 <div style="background: #003366; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
