@@ -359,6 +359,7 @@ NOTICE_SCREEN = """
                         <th style="padding: 4px;">सामग्री</th>
                         <th style="padding: 4px;">मात्रा प्रति दिन</th>
                         <th style="padding: 4px;">मात्रा प्रति माह</th>
+                        <th style="padding: 4px;">राशि </th>
                     </tr>
                 </thead>
                 <tbody id="tablePreSchoolBody"></tbody>
