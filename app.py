@@ -1038,7 +1038,7 @@ const preSchoolFormula = [
     { name: "पायज टमाटर", daily: 25, monthly: 100 ,rate:20},
     { name: "गुड़", daily: 20, monthly: 200 ,rate:45},
     { name: "दाल", daily: 25, monthly: 180 ,rate:69},
-    { name: "कद्दू", daily: 100, monthly: 40 rate:20}
+    { name: "कद्दू", daily: 100, monthly: 40, rate:20}
 ];
 
 function calculateAdvancedRation() {
