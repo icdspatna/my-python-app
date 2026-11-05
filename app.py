@@ -1038,7 +1038,7 @@ const preSchoolFormula = [
     { name: "पायज टमाटर", daily: 25, monthly: 100 ,rate:20},
     { name: "गुड़", daily: 20, monthly: 200 ,rate:45},
     { name: "दाल", daily: 25, monthly: 180 ,rate:69},
-    { name: "कद्दू", daily: 100, monthly: 40, rate:20}
+    { name: "कद्दू", daily: 100, monthly: 400, rate: 20 }
 ];
 
 function calculateAdvancedRation() {
@@ -1111,7 +1111,19 @@ function calculateAdvancedRation() {
         }
     });
     
-    overallGrandTotal += (countPre * 4.99 * 25); 
+   // 1. सभी राशन सामग्रियों की कुल लागत निकालें
+let rationItemsTotal = 0;
+preSchoolFormula.forEach(item => {
+    let calculatedMonthly = item.monthly * countPre;
+    let qtyInKgOrUnit = (item.name === "फल") ? calculatedMonthly : (calculatedMonthly / 1000);
+    rationItemsTotal += (qtyInKgOrUnit * item.rate);
+});
+
+// 2. सरकारी शीट के अनुसार अतिरिक्त फिक्स चार्ज (पपीता ₹16 + पूरी सब्जी ₹4.99) जोड़ें
+let extraCharges = (16 + 4.99) * countPre;
+
+// 3. फाइनल ग्रैंड टोटल जो दोनों को मिलाकर बनेगा (130.86 + 20.99 = 151.85)
+overallGrandTotal = rationItemsTotal + extraCharges; 
     document.getElementById('tablePreSchoolBody').innerHTML = htmlPre;
 
     // फाइनल ग्रैंड टोटल डिस्प्ले अपडेट करें
