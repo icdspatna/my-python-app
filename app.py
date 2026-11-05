@@ -1027,18 +1027,18 @@ const severeFormula = [
 ];
 
 const preSchoolFormula = [
-    { name: "चावल", daily: 70, monthly: 1560 },
-    { name: "चना", daily: 20, monthly: 360 },
-    { name: "हरी सब्जी", daily: 25, monthly: 200 },
-    { name: "तेल", daily: 5, monthly: 80 },
-    { name: "मूँगफली", daily: 15, monthly: 120 },
-    { name: "आलू", daily: 60, monthly: 240 },
-    { name: "फल", daily: 1, monthly: 16 },
-    { name: "सोयाबीन सब्जी", daily: 20, monthly: 80 },
-    { name: "पायज टमाटर", daily: 25, monthly: 100 },
-    { name: "गुड़", daily: 20, monthly: 200 },
-    { name: "दाल", daily: 25, monthly: 180 },
-    { name: "कद्दू", daily: 100, monthly: 40 }
+    { name: "चावल", daily: 70, monthly: 1560 ,rate:26},
+    { name: "चना", daily: 20, monthly: 360 ,rate:70},
+    { name: "हरी सब्जी", daily: 25, monthly: 200 ,rate:20},
+    { name: "तेल", daily: 5, monthly: 80 ,rate:110},
+    { name: "मूँगफली", daily: 15, monthly: 120,rate:100 },
+    { name: "आलू", daily: 60, monthly: 240 ,rate:7},
+    { name: "फल", daily: 1, monthly: 16,rate:1 },
+    { name: "सोयाबीन सब्जी", daily: 20, monthly: 80,rate:90 },
+    { name: "पायज टमाटर", daily: 25, monthly: 100 ,rate:20},
+    { name: "गुड़", daily: 20, monthly: 200 ,rate:45},
+    { name: "दाल", daily: 25, monthly: 180 ,rate:69},
+    { name: "कद्दू", daily: 100, monthly: 40 rate:20}
 ];
 
 function calculateAdvancedRation() {
