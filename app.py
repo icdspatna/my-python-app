@@ -1083,17 +1083,34 @@ function calculateAdvancedRation() {
     });
     document.getElementById('tableSevereBody').innerHTML = htmlSev;
 
-    // 4. स्कूल पूर्व तालिका कैलकुलेशन (मासिक उपभोग ग्राम आधारित)
+    // 4. स्कूल पूर्व तालिका कैलकुलेशन (मासिक उपभोग ग्राम आधारित) - संशोधित और ठीक किया गया
     let htmlPre = "";
     preSchoolFormula.forEach(item => {
         let calculatedMonthly = item.monthly * countPre;
         
+        // किलोग्राम या पीस में कुल मात्रा निकालें
+        let qtyInKgOrUnit = (item.name === "फल") ? calculatedMonthly : (calculatedMonthly / 1000);
+        
+        // सामग्री की दर (rate) के अनुसार उसकी कुल राशि निकालें
+        let itemCost = qtyInKgOrUnit * item.rate;
+        
         if (item.name === "फल") {
-            htmlPre += `<tr><td style="padding:5px;">${item.name}</td><td style="padding:5px;">${item.daily} पीस</td><td style="padding:5px;">${calculatedMonthly} पीस</td></tr>`;
+            htmlPre += `<tr>
+                <td style="padding:5px;">${item.name}</td>
+                <td style="padding:5px; text-align:center;">${item.daily} पीस</td>
+                <td style="padding:5px; text-align:right;">${calculatedMonthly} पीस</td>
+                <td style="padding:5px; text-align:right; font-weight:bold;">₹${itemCost.toFixed(2)}</td>
+            </tr>`;
         } else {
-            htmlPre += `<tr><td style="padding:5px;">${item.name}</td><td style="padding:5px;">${item.daily} ग्राम</td><td style="padding:5px;">${(calculatedMonthly / 1000).toFixed(2)} किग्रा</td></tr>`;
+            htmlPre += `<tr>
+                <td style="padding:5px;">${item.name}</td>
+                <td style="padding:5px; text-align:center;">${item.daily} ग्राम</td>
+                <td style="padding:5px; text-align:right;">${qtyInKgOrUnit.toFixed(2)} किग्रा</td>
+                <td style="padding:5px; text-align:right; font-weight:bold;">₹${itemCost.toFixed(2)}</td>
+            </tr>`;
         }
     });
+    
     overallGrandTotal += (countPre * 4.99 * 25); 
     document.getElementById('tablePreSchoolBody').innerHTML = htmlPre;
 
@@ -1107,6 +1124,7 @@ window.addEventListener('DOMContentLoaded', () => {
         calculateAdvancedRation();
     }
 });
+
 </script>
 """
 def get_google_sheets_script():
