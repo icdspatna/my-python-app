@@ -6,3 +6,6 @@ click==8.1.7
 blinker==1.8.2
 requests==2.32.3
 gunicorn==23.0.0
+flask
+authlib
+requests
