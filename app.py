@@ -222,37 +222,38 @@ def get_pages_body():
             <p style="font-size: 11px; opacity: 0.75; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Rudra Tech Pvt Ltd</p>
         </div>
 
-        <!-- मुख्य फॉर्म कार्ड -->
-        <div class="login-container" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 24px; padding: 25px 20px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.25); border: 1px solid rgba(255, 255, 255, 0.18); box-sizing: border-box;">
-            <!-- स्टेज A: मुख्य लॉगिन फॉर्म -->
-            <div id="loginStage">
-                <h2 style="font-size: 18px; font-weight: 600; margin: 0 0 18px 0; text-align: center; color: #fff;">खाते में लॉग इन करें</h2>
-                <div class="login-form">
-                    <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 12px; border-radius: 12px; display: flex; align-items: center;">
-                        <i class="fa-solid fa-user" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
-                        <input type="text" id="loginUser" placeholder="यूज़र नाम दर्ज करें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 14px;" autocomplete="off">
-                    </div>
-                    <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 18px; border-radius: 12px; display: flex; align-items: center;">
-                        <i class="fa-solid fa-lock" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
-                        <input type="password" id="loginPass" placeholder="पासवर्ड दर्ज करें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 14px;">
-                    </div>
-                    <button class="login-btn" onclick="validateLogin()" style="background: #fff; color: #1e3c72; border: none; width: 100%; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(255,255,255,0.1);">सत्यापित करें और आगे बढ़ें</button>
-                </div>
+      <div class="login-container" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 24px; padding: 25px 20px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.25); border: 1px solid rgba(255, 255, 255, 0.18); box-sizing: border-box;">
+    
+    <!-- स्टेज A: मुख्य लॉगिन फॉर्म (यूजरनेम और पासवर्ड) -->
+    <div id="loginStage">
+        <h2 style="font-size: 18px; font-weight: 600; margin: 0 0 18px 0; text-align: center; color: #fff;">खाते में लॉग इन करें</h2>
+        <div class="login-form">
+            <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 12px; border-radius: 12px; display: flex; align-items: center;">
+                <i class="fa-solid fa-user" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
+                <input type="text" id="loginUser" placeholder="यूज़र नाम दर्ज करें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 14px;" autocomplete="off">
             </div>
-
-            <!-- स्टेज B: स्क्रीन लॉक और OTP वेरिफिकेशन -->
-            <div id="otpStage" style="display: none; text-align: center;">
-                <div style="color: #ffb703; font-size: 32px; margin-bottom: 8px;"><i class="fa-solid fa-shield-halved"></i></div>
-                <h2 style="font-size: 17px; font-weight: 600; margin: 0 0 6px 0; color: #fff;">सुरक्षा स्क्रीन लॉक</h2>
-                <p style="font-size: 12px; color: #e2e8f0; margin: 0 0 18px 0;">आपके रजिस्टर्ड नंबर पर OTP भेजा गया है.</p>
-                
-                <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 18px; border-radius: 12px; display: flex; align-items: center;">
-                    <i class="fa-solid fa-key" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
-                    <input type="number" id="inputOtp" placeholder="6-अंकों का OTP डालें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 15px; text-align: center; letter-spacing: 2px;">
-                </div>
-                <button class="login-btn" onclick="validateOtp()" style="background: #ffb703; color: #111; border: none; width: 100%; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 12px; cursor: pointer;">ओटीपी सत्यापित करें</button>
+            <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 18px; border-radius: 12px; display: flex; align-items: center;">
+                <i class="fa-solid fa-lock" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
+                <input type="password" id="loginPass" placeholder="पासवर्ड दर्ज करें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 14px;">
             </div>
+            <button class="login-btn" onclick="requestOTP()" style="background: #fff; color: #1e3c72; border: none; width: 100%; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(255,255,255,0.1);">OTP भेजें</button>
+        </div>
+    </div>
 
+    <!-- स्टेज B: ओटीपी सत्यापन फॉर्म (शुरुआत में छुपा रहेगा) -->
+    <div id="otpStage" style="display: none;">
+        <h2 style="font-size: 18px; font-weight: 600; margin: 0 0 10px 0; text-align: center; color: #fff;">सुरक्षा सत्यापन</h2>
+        <p id="otpMessage" style="font-size: 12px; color: #e2e8f0; text-align: center; margin: 0 0 18px 0;"></p>
+        <div class="login-form">
+            <div class="input-group" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); padding: 12px 15px; margin-bottom: 18px; border-radius: 12px; display: flex; align-items: center;">
+                <i class="fa-solid fa-key" style="margin-right: 12px; color: #cbd5e1; width: 16px;"></i>
+                <input type="number" id="loginOTP" placeholder="4 अंकों का OTP दर्ज करें" style="background: none; border: none; outline: none; color: white; width: 100%; font-size: 14px;" oninput="if(this.value.length > 4) this.value = this.value.slice(0,4);">
+            </div>
+            <button class="login-btn" onclick="verifyOTP()" style="background: #fff; color: #1e3c72; border: none; width: 100%; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(255,255,255,0.1);">लॉगिन सत्यापित करें</button>
+            <button class="login-btn" onclick="backToLogin()" style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); width: 100%; padding: 10px; font-size: 13px; font-weight: normal; border-radius: 12px; cursor: pointer; margin-top: 10px;">पीछे जाएँ</button>
+        </div>
+    </div>
+</div>
             <!-- स्टेज C: थैंक यू पॉप-अप -->
             <div id="successStage" style="display: none; text-align: center; padding: 10px 0;">
                 <div style="background: #2ecc71; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 0 20px rgba(46,204,113,0.4);">
@@ -1546,6 +1547,89 @@ window.switchPage = function(pageId) {
     });
 </script>
 """
+    <script>
+// स्क्रिप्ट भाग: यह सर्वर के ब्लूप्रिंट API के साथ तालमेल बिठाएगा
+
+// 1. स्टेज A: सर्वर को क्रेडेंशियल भेजना और OTP मांगना
+function requestOTP() {
+    const user = document.getElementById('loginUser').value.trim();
+    const pass = document.getElementById('loginPass').value.trim();
+
+    if (!user || !pass) {
+        alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
+        return;
+    }
+
+    fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, password: pass })
+    })
+    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    .then(res => {
+        if (res.status === 200) {
+            // स्टेज A छुपाएं और स्टेज B दिखाएं
+            document.getElementById('loginStage').style.display = 'none';
+            document.getElementById('otpStage').style.display = 'block';
+            document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
+        } else {
+            alert(res.body.message || "लॉगिन विफल रहा।");
+        }
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        alert("सर्वर से कनेक्ट करने में त्रुटि हुई।");
+    });
+}
+
+// 2. स्टेज B: सर्वर पर OTP सत्यापित करवाना
+function verifyOTP() {
+    const user = document.getElementById('loginUser').value.trim();
+    const otpVal = document.getElementById('loginOTP').value.trim();
+
+    if (!otpVal || otpVal.length !== 4) {
+        alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
+        return;
+    }
+
+    fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, otp: otpVal })
+    })
+    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    .then(res => {
+        if (res.status === 200) {
+            alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
+            
+            // आपके पुराने कोड का हेडर और डैशबोर्ड लोड करने का लॉजिक यहाँ निष्पादित होगा
+            document.getElementById('appTopHeader').style.display = 'flex';
+            document.getElementById('userProfileName').innerText = res.body.user.name;
+            
+            // मान लेते हैं कि '#notice' या '#home' मुख्य डैशबोर्ड है (पुराने UI के अनुसार बदलें)
+            // उदाहरण: home स्क्रीन से लॉगिन कंटेनर को हटाकर मेनू दिखाना
+            document.querySelector('.login-container').style.display = 'none';
+            if(document.querySelector('.hero-section')) document.querySelector('.hero-section').style.display = 'none';
+            
+            // जो भी अगला वर्किंग पेज एक्टिव करना हो:
+            // document.getElementById('service').classList.add('active'); 
+        } else {
+            alert(res.body.message || "अमान्य ओटीपी।");
+        }
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        alert("सत्यापन के दौरान त्रुटि हुई।");
+    });
+}
+
+// 3. हेल्प फंक्शन: बैक बटन दबाने पर वापस लॉगिन पर जाना
+function backToLogin() {
+    document.getElementById('otpStage').style.display = 'none';
+    document.getElementById('loginStage').style.display = 'block';
+    document.getElementById('loginOTP').value = '';
+}
+</script>
 # --- 16. FLASK ROUTING ---
 
 @app.route('/')
