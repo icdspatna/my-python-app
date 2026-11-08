@@ -5,8 +5,8 @@ auth_bp = Blueprint('auth_bp', __name__)
 
 # 1. 10 प्री-रजिस्टर्ड यूजर्स का डेटाबेस (Hardcoded for security)
 REGISTERED_USERS = {
-    "user1": {"password": "passUser1", "mobile": "9876543210", "name": "अमित कुमार"},
-    "user2": {"password": "passUser2", "mobile": "9876543211", "name": "राहुल सिंह"},
+    "user1": {"password": "passUser1", "mobile": "7870590106", "name": "अमित कुमार"},
+    "user2": {"password": "passUser2", "mobile": "7870590106", "name": "राहुल सिंह"},
     "user3": {"password": "passUser3", "mobile": "9876543212", "name": "प्रिया शर्मा"},
     "user4": {"password": "passUser4", "mobile": "9876543213", "name": "मनोज तिवारी"},
     "user5": {"password": "passUser5", "mobile": "9876543214", "name": "दीपक वर्मा"},
@@ -14,7 +14,7 @@ REGISTERED_USERS = {
     "user7": {"password": "passUser7", "mobile": "9876543216", "name": "राजेश यादव"},
     "user8": {"password": "passUser8", "mobile": "9876543217", "name": "अनिल मिश्रा"},
     "user9": {"password": "passUser9", "mobile": "9876543218", "name": "विक्रम सिंह"},
-    "user10": {"password": "passUser10", "mobile": "9876543219", "name": "पूजा कुमारी"}
+    "user10": {"password": "passUser10", "mobile": "7870590106", "name": "पूजा कुमारी"}
 }
 
 # 2. लाइव जेनरेटेड OTP को अस्थायी रूप से स्टोर करने के लिए (Production में Redis या Session का उपयोग करें)
