@@ -739,103 +739,109 @@ LAYOUT_END = """
 
 </div>
  <script>
+    // 1. स्टेज A: सर्वर को क्रेडेंशियल भेजना और OTP मांगना
     function requestOTP() {
-    const user = document.getElementById('loginUser').value.trim();
-    const pass = document.getElementById('loginPass').value.trim();
+        // बटन क्लिक लॉक होने से बचाने के लिए ट्राई-कैच ब्लॉक
+        try {
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
 
-    if (!user || !pass) {
-        alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
-        return;
-    }
+            if (!user || !pass) {
+                alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
+                return;
+            }
 
-    fetch('/api/auth/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: user, password: pass })
-    })
-    .then(response => response.json().then(data => ({ status: response.status, body: data })))
-    .then(res => {
-        if (res.status === 200) {
-            // स्टेज A छुपाएं और स्टेज B दिखाएं
-            document.getElementById('loginStage').style.display = 'none';
-            document.getElementById('otpStage').style.display = 'block';
-            
-            // नया बदलाव: स्क्रीन पर अलर्ट बॉक्स में चालू OTP दिखाई देगा
-            alert("टेस्टिंग मोड एक्टिव! आपका OTP है: " + res.body.testing_otp);
-            
-            document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
-        } else {
-            alert(res.body.message || "लॉगिन विफल रहा।");
-        }
-    })
-    .catch(err => {
-        console.error("Error:", err);
-        alert("सर्वर से कनेक्ट करने में त्रुटि हुई।");
-    });
-}
-
-
-    function verifyOTP() {
-    const user = document.getElementById('loginUser').value.trim();
-    const otpVal = document.getElementById('loginOTP').value.trim();
-
-    if (!otpVal || otpVal.length !== 4) {
-        alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
-        return;
-    }
-
-    fetch('/api/auth/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: user, otp: otpVal })
-    })
-    .then(response => response.json().then(data => ({ status: response.status, body: data })))
-    .then(res => {
+            fetch('/api/auth/send-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: user, password: pass })
+            })
+            .then(response => response.json().then(data => ({ status: response.status, body: data })))
+            .then(res => {
                 if (res.status === 200) {
-            alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
-            
-            // 1. टॉप प्रोफ़ाइल हेडर को चालू करें
-            document.getElementById('appTopHeader').style.display = 'flex';
-            document.getElementById('userProfileName').innerText = res.body.user.name;
-            
-            // 2. लॉगिन कंटेनर और होम स्क्रीन के पुराने टेक्स्ट/विजेट्स को पूरी तरह छुपाएं
-            if(document.querySelector('.login-container')) {
-                document.querySelector('.login-container').style.display = 'none';
-            }
-            if(document.querySelector('.hero-section')) {
-                document.querySelector('.hero-section').style.display = 'none';
-            }
-            
-            // 3. सभी पेजों से पुरानी एक्टिव क्लास हटाएं (ताकि कोई पेज आपस में न टकराए)
-            document.querySelectorAll('.app-page').forEach(page => {
-                page.classList.remove('active');
-            });
-
-            // 4. बाई-डिफ़ॉल्ट सिर्फ '#notice' पेज को ऐप के साइज में एक्टिवेट करें
-            const defaultPage = document.getElementById('notice');
-            if (defaultPage) {
-                // होम पेज की जगह नोटिस पेज को कंटेनर के अंदर दिखाने के लिए एक्टिव क्लास दें
-                defaultPage.classList.add('active');
-            }
-
-            // 5. बॉटम नेविगेशन बार में 'Notice' वाले आइकॉन को एक्टिव (हाईलाइट) करें
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-                // आपके पुराने कोड के अनुसार नोटिस बटन को एक्टिव मार्क करें
-                if(item.getAttribute('onclick') && item.getAttribute('onclick').includes('notice')) {
-                    item.classList.add('active');
+                    document.getElementById('loginStage').style.display = 'none';
+                    document.getElementById('otpStage').style.display = 'block';
+                    
+                    alert("टेस्टिंग मोड एक्टिव! आपका OTP है: " + res.body.testing_otp);
+                    document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
+                } else {
+                    alert(res.body.message || "लॉगिन विफल रहा।");
                 }
+            })
+            .catch(err => {
+                console.error("Fetch Error:", err);
+                alert("सर्वर से कनेक्ट करने में त्रुटि हुई।");
             });
+        } catch(e) {
+            console.error("JS Error:", e);
         }
+    }
 
-    // 3. हेल्प फंक्शन: बैक बटन दबाने पर वापस लॉगिन पर जाना
+    // 2. स्टेज B: सर्वर पर OTP सत्यापित करवाना
+    function verifyOTP() {
+        try {
+            const user = document.getElementById('loginUser').value.trim();
+            const otpVal = document.getElementById('loginOTP').value.trim();
+
+            if (!otpVal || otpVal.length !== 4) {
+                alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
+                return;
+            }
+
+            fetch('/api/auth/verify-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: user, otp: otpVal })
+            })
+            .then(response => response.json().then(data => ({ status: response.status, body: data })))
+            .then(res => {
+                if (res.status === 200) {
+                    alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
+                    
+                    document.getElementById('appTopHeader').style.display = 'flex';
+                    document.getElementById('userProfileName').innerText = res.body.user.name;
+                    
+                    if(document.querySelector('.login-container')) {
+                        document.querySelector('.login-container').style.display = 'none';
+                    }
+                    if(document.querySelector('.hero-section')) {
+                        document.querySelector('.hero-section').style.display = 'none';
+                    }
+                    
+                    document.querySelectorAll('.app-page').forEach(page => {
+                        page.classList.remove('active');
+                    });
+
+                    const defaultPage = document.getElementById('notice');
+                    if (defaultPage) {
+                        defaultPage.classList.add('active');
+                    }
+
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                        if(item.getAttribute('onclick') && item.getAttribute('onclick').includes('notice')) {
+                            item.classList.add('active');
+                        }
+                    });
+                } else {
+                    alert(res.body.message || "अमान्य ओटीपी।");
+                }
+            })
+            .catch(err => {
+                console.error("Verify Error:", err);
+                alert("सत्यापन के दौरान त्रुटि हुई।");
+            });
+        } catch(e) {
+            console.error("JS Error:", e);
+        }
+    }
+
     function backToLogin() {
         document.getElementById('otpStage').style.display = 'none';
         document.getElementById('loginStage').style.display = 'block';
         document.getElementById('loginOTP').value = '';
     }
-    </script>
-    
+    </script>    
 </body>
 </html>
 """
