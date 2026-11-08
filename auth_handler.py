@@ -5,7 +5,7 @@ auth_bp = Blueprint('auth_bp', __name__)
 
 # 1. 10 प्री-रजिस्टर्ड यूजर्स का डेटाबेस (Hardcoded for security)
 REGISTERED_USERS = {
-    "user1": {"password": "passUser1", "mobile": "7870590106", "name": "अमित कुमार"},
+    "admin": {"password": "1234",     "mobile": "7870590106", "name": "अमित कुमार"},
     "user2": {"password": "passUser2", "mobile": "7870590106", "name": "राहुल सिंह"},
     "user3": {"password": "passUser3", "mobile": "9876543212", "name": "प्रिया शर्मा"},
     "user4": {"password": "passUser4", "mobile": "9876543213", "name": "मनोज तिवारी"},
