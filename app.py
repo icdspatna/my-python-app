@@ -748,15 +748,46 @@ LAYOUT_END = """
 </div>
 
 </div>
- <script>
-    // 1. स्टेज A: सर्वर को क्रेडेंशियल भेजना और OTP मांगना (ओटीपी बटन क्लिक फिक्स)
+     <!-- वैकल्पिक मानक सूचना बॉक्स (फ़ॉलबैक पॉप-अप) -->
+    <div id="customToast" style="display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 12px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 100000; width: 85%; max-width: 320px; text-align: center; border-left: 4px solid #0288d1;">
+        <span id="toastMessage">संदेश</span>
+    </div>
+
+    <script>
+    // सुरक्षित अलर्ट फ़ॉलबैक फ़ंक्शन
+    function triggerAlert(msg, isError) {
+        try {
+            var toast = document.getElementById('customToast');
+            var toastMsg = document.getElementById('toastMessage');
+            if (toast && toastMsg) {
+                toastMsg.innerText = msg;
+                toast.style.borderLeftColor = isError ? "#d32f2f" : "#2e7d32";
+                toast.style.display = 'block';
+                toast.style.opacity = '1';
+                setTimeout(function() { toast.style.display = 'none'; }, 4000);
+            } else {
+                alert(msg); // यदि एलिमेंट गायब हो तो डिफ़ॉल्ट सिस्टम अलर्ट
+            }
+        } catch(e) {
+            alert(msg);
+        }
+    }
+
+    // 1. स्टेज A: सर्वर से क्रेडेंशियल जांचना और OTP माँगना
     function requestOTP() {
         try {
-            const user = document.getElementById('loginUser').value.trim();
-            const pass = document.getElementById('loginPass').value.trim();
+            var userEl = document.getElementById('loginUser');
+            var passEl = document.getElementById('loginPass');
+            if (!userEl || !passEl) {
+                alert("HTML इनपुट फ़ील्ड्स नहीं मिले! कृपया आईडी जांचें।");
+                return;
+            }
+            
+            var user = userEl.value.trim();
+            var pass = passEl.value.trim();
 
             if (!user || !pass) {
-                showPopup("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।", "error");
+                triggerAlert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।", true);
                 return;
             }
 
@@ -765,36 +796,40 @@ LAYOUT_END = """
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: user, password: pass })
             })
-            .then(response => response.json().then(data => ({ status: response.status, body: data })))
-            .then(res => {
-                if (res.status === 200) {
-                    document.getElementById('loginStage').style.display = 'none';
-                    document.getElementById('otpStage').style.display = 'block';
-                    
-                    // सुंदर पॉप-अप में ओटीपी दिखाएं
-                    showPopup("टेस्टिंग मोड एक्टिव! आपका OTP है: " + res.body.testing_otp, "info");
-                    document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
-                } else {
-                    showPopup(res.body.message || "लॉगिन विफल रहा।", "error");
-                }
+            .then(function(response) {
+                return response.json().then(function(data) {
+                    if (response.status === 200) {
+                        document.getElementById('loginStage').style.display = 'none';
+                        document.getElementById('otpStage').style.display = 'block';
+                        
+                        // पूरी स्थिरता के लिए टेस्टिंग ओटीपी को सीधे सिस्टम अलर्ट बॉक्स में दिखाएं
+                        alert("टेस्टिंग मोड एक्टिव! आपका OTP है: " + data.testing_otp);
+                        
+                        if(document.getElementById('otpMessage')) {
+                            document.getElementById('otpMessage').innerText = data.message + " (" + data.masked_mobile + ")";
+                        }
+                    } else {
+                        triggerAlert(data.message || "लॉगिन विफल रहा।", true);
+                    }
+                });
             })
-            .catch(err => {
-                console.error("Fetch Error:", err);
-                showPopup("सर्वर से कनेक्ट करने में त्रुटि हुई।", "error");
+            .catch(function(err) {
+                console.error(err);
+                triggerAlert("सर्वर से कनेक्ट करने में त्रुटि हुई।", true);
             });
         } catch(e) {
-            console.error("JS Error inside requestOTP:", e);
+            alert("JS Error: " + e.message);
         }
     }
 
-    // 2. स्टेज B: सर्वर पर OTP सत्यापित करवाना
+    // 2. स्टेज B: सर्वर पर जाकर OTP का सत्यापन करवाना
     function verifyOTP() {
         try {
-            const user = document.getElementById('loginUser').value.trim();
-            const otpVal = document.getElementById('loginOTP').value.trim();
+            var user = document.getElementById('loginUser').value.trim();
+            var otpVal = document.getElementById('loginOTP').value.trim();
 
             if (!otpVal || otpVal.length !== 4) {
-                showPopup("कृपया 4 अंकों का वैध OTP दर्ज करें।", "error");
+                triggerAlert("कृपया 4 अंकों का वैध OTP दर्ज करें।", true);
                 return;
             }
 
@@ -803,46 +838,36 @@ LAYOUT_END = """
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: user, otp: otpVal })
             })
-            .then(response => response.json().then(data => ({ status: response.status, body: data })))
-            .then(res => {
-                if (res.status === 200) {
-                    showPopup("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name, "success");
-                    
-                    if (document.getElementById('otpStage')) {
+            .then(function(response) {
+                return response.json().then(function(data) {
+                    if (response.status === 200) {
+                        triggerAlert("सत्यापन सफल! आपका स्वागत है, " + data.user.name, false);
+                        
                         document.getElementById('otpStage').style.display = 'none';
-                    }
-                    
-                    const loginBox = document.querySelector('.login-container');
-                    if (loginBox) loginBox.style.display = 'none';
-                    
-                    const heroBox = document.querySelector('.hero-section');
-                    if (heroBox) heroBox.style.display = 'none';
+                        if(document.querySelector('.login-container')) document.querySelector('.login-container').style.display = 'none';
+                        if(document.querySelector('.hero-section')) document.querySelector('.hero-section').style.display = 'none';
 
-                    document.getElementById('userProfileName').innerText = res.body.user.name;
-                    const profilePicEl = document.getElementById('appTopHeader').querySelector('.profile-pic');
-                    if (profilePicEl) {
-                        profilePicEl.innerText = res.body.user.name.charAt(0).toUpperCase();
-                    }
+                        document.getElementById('userProfileName').innerText = data.user.name;
+                        
+                        document.getElementById('appTopHeader').style.display = 'flex';
+                        document.getElementById('appBottomNav').style.display = 'flex';
 
-                    document.getElementById('appTopHeader').style.display = 'flex';
-                    document.getElementById('appBottomNav').style.display = 'flex';
-
-                    // आपके पुराने ओरिजिनल फंक्शन को कॉल करें जो मोबाइल फ्रेम के अंदर 'notice' पेज खोलेगा
-                    if (typeof window.switchPage === 'function') {
-                        window.switchPage('notice');
-                    } else if (typeof switchPage === 'function') {
-                        switchPage('notice');
+                        if (typeof window.switchPage === 'function') {
+                            window.switchPage('notice');
+                        } else if (typeof switchPage === 'function') {
+                            switchPage('notice');
+                        }
+                    } else {
+                        triggerAlert(data.message || "अमान्य ओटीपी।", true);
                     }
-                } else {
-                    showPopup(res.body.message || "अमान्य ओटीपी।", "error");
-                }
+                });
             })
-            .catch(err => {
-                console.error("Verify Error:", err);
-                showPopup("सत्यापन के दौरान त्रुटि हुई।", "error");
+            .catch(function(err) {
+                console.error(err);
+                triggerAlert("सत्यापन के दौरान त्रुटि हुई।", true);
             });
         } catch(e) {
-            console.error("JS Error inside verifyOTP:", e);
+            alert("JS Error: " + e.message);
         }
     }
 
@@ -852,36 +877,7 @@ LAYOUT_END = """
         document.getElementById('loginOTP').value = '';
     }
     </script>
-
-    <!-- सुंदर कस्टम पॉप-अप (Toast Notification) का ढांचा -->
-    <div id="customToast" style="display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(8px); color: white; padding: 12px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 100000; width: 85%; max-width: 320px; text-align: center; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; opacity: 0;">
-        <span id="toastMessage">संदेश</span>
-    </div>
-
-<script>
-    // 0. कस्टम पॉप-अप अलर्ट फंक्शन (सिस्टम अलर्ट की जगह)
-    window.showPopup = function(message, type = 'info') {
-        try {
-            const toast = document.getElementById('customToast');
-            const toastMsg = document.getElementById('toastMessage');
-            if (!toast || !toastMsg) return;
-
-            toastMsg.innerText = message;
-            if (type === 'success') toast.style.borderLeft = "4px solid #2e7d32";
-            else if (type === 'error') toast.style.borderLeft = "4px solid #d32f2f";
-            else toast.style.borderLeft = "4px solid #0288d1";
-
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.opacity = '1'; }, 50);
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => { toast.style.display = 'none'; }, 300);
-            }, 3000);
-        } catch(e) { console.error(e); }
-    };
-
-
+   
 </body>
 </html>
 """
