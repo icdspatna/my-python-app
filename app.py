@@ -749,15 +749,13 @@ LAYOUT_END = """
 
 </div>
  <script>
-    // 1. स्टेज A: सर्वर को क्रेडेंशियल भेजना और OTP मांगना
+    // 1. स्टेज A: सर्वर को क्रेडेंशियल भेजना और OTP मांगना (ओटीपी बटन क्लिक फिक्स)
     function requestOTP() {
-        // बटन क्लिक लॉक होने से बचाने के लिए ट्राई-कैच ब्लॉक
         try {
             const user = document.getElementById('loginUser').value.trim();
             const pass = document.getElementById('loginPass').value.trim();
 
             if (!user || !pass) {
-               // alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
                 showPopup("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।", "error");
                 return;
             }
@@ -773,88 +771,80 @@ LAYOUT_END = """
                     document.getElementById('loginStage').style.display = 'none';
                     document.getElementById('otpStage').style.display = 'block';
                     
-                   // alert("टेस्टिंग मोड एक्टिव! आपका OTP है: " + res.body.testing_otp);
+                    // सुंदर पॉप-अप में ओटीपी दिखाएं
                     showPopup("टेस्टिंग मोड एक्टिव! आपका OTP है: " + res.body.testing_otp, "info");
                     document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
                 } else {
-                    showPopu(res.body.message || "लॉगिन विफल रहा।");
+                    showPopup(res.body.message || "लॉगिन विफल रहा।", "error");
                 }
             })
             .catch(err => {
                 console.error("Fetch Error:", err);
-                showPopu("सर्वर से कनेक्ट करने में त्रुटि हुई।");
+                showPopup("सर्वर से कनेक्ट करने में त्रुटि हुई।", "error");
             });
         } catch(e) {
-            console.error("JS Error:", e);
+            console.error("JS Error inside requestOTP:", e);
         }
     }
 
     // 2. स्टेज B: सर्वर पर OTP सत्यापित करवाना
     function verifyOTP() {
-    try {
-        const user = document.getElementById('loginUser').value.trim();
-        const otpVal = document.getElementById('loginOTP').value.trim();
+        try {
+            const user = document.getElementById('loginUser').value.trim();
+            const otpVal = document.getElementById('loginOTP').value.trim();
 
-        if (!otpVal || otpVal.length !== 4) {
-           showPopu("कृपया 4 अंकों का वैध OTP दर्ज करें।");
-            return;
+            if (!otpVal || otpVal.length !== 4) {
+                showPopup("कृपया 4 अंकों का वैध OTP दर्ज करें।", "error");
+                return;
+            }
+
+            fetch('/api/auth/verify-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: user, otp: otpVal })
+            })
+            .then(response => response.json().then(data => ({ status: response.status, body: data })))
+            .then(res => {
+                if (res.status === 200) {
+                    showPopup("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name, "success");
+                    
+                    if (document.getElementById('otpStage')) {
+                        document.getElementById('otpStage').style.display = 'none';
+                    }
+                    
+                    const loginBox = document.querySelector('.login-container');
+                    if (loginBox) loginBox.style.display = 'none';
+                    
+                    const heroBox = document.querySelector('.hero-section');
+                    if (heroBox) heroBox.style.display = 'none';
+
+                    document.getElementById('userProfileName').innerText = res.body.user.name;
+                    const profilePicEl = document.getElementById('appTopHeader').querySelector('.profile-pic');
+                    if (profilePicEl) {
+                        profilePicEl.innerText = res.body.user.name.charAt(0).toUpperCase();
+                    }
+
+                    document.getElementById('appTopHeader').style.display = 'flex';
+                    document.getElementById('appBottomNav').style.display = 'flex';
+
+                    // आपके पुराने ओरिजिनल फंक्शन को कॉल करें जो मोबाइल फ्रेम के अंदर 'notice' पेज खोलेगा
+                    if (typeof window.switchPage === 'function') {
+                        window.switchPage('notice');
+                    } else if (typeof switchPage === 'function') {
+                        switchPage('notice');
+                    }
+                } else {
+                    showPopup(res.body.message || "अमान्य ओटीपी।", "error");
+                }
+            })
+            .catch(err => {
+                console.error("Verify Error:", err);
+                showPopup("सत्यापन के दौरान त्रुटि हुई।", "error");
+            });
+        } catch(e) {
+            console.error("JS Error inside verifyOTP:", e);
         }
-
-        fetch('/api/auth/verify-otp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: user, otp: otpVal })
-        })
-        .then(response => response.json().then(data => ({ status: response.status, body: data })))
-        .then(res => {
-                   if (res.status === 200) {
-           showPopu("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
-            
-            // 1. केवल नए ओटीपी इनपुट बॉक्स (स्टेज B) को छुपाएं
-            if (document.getElementById('otpStage')) {
-                document.getElementById('otpStage').style.display = 'none';
-            }
-            
-            // 2. लॉगिन करने वाले यूज़र का नाम ऊपरी हेडर में सेट करें
-            document.getElementById('userProfileName').innerText = res.body.user.name;
-            const profilePicEl = document.getElementById('appTopHeader').querySelector('.profile-pic');
-            if (profilePicEl) {
-                profilePicEl.innerText = res.body.user.name.charAt(0).toUpperCase();
-            }
-
-            // 3. आपके पुराने कोड का हुक: जो काम मूल कोड में '789456' डालने पर होता था, ठीक वही करें
-            const loginBox = document.querySelector('.login-container');
-            if (loginBox) loginBox.style.display = 'none';
-            
-            const heroBox = document.querySelector('.hero-section');
-            if (heroBox) heroBox.style.display = 'none';
-
-            // 4. पुराना हेडर और पुराना बॉटम नेविगेशन बार शो करें (जैसा आपके ओरिजिनल कोड में था)
-            document.getElementById('appTopHeader').style.display = 'flex';
-            document.getElementById('appBottomNav').style.display = 'flex';
-
-            // 5. आपके पुराने ओरिजिनल फंक्शन को कॉल करें जो मोबाइल फ्रेम के अंदर 'notice' पेज खोलेगा
-            if (typeof window.switchPage === 'function') {
-                window.switchPage('notice');
-            } else if (typeof switchPage === 'function') {
-                switchPage('notice');
-            }
-        }
-
-
-            } else {
-                showPopu(res.body.message || "अमान्य ओटीपी।");
-            }
-        })
-        .catch(err => {
-            console.error("Verify Error:", err);
-           showPopu("सत्यापन के दौरान त्रुटि हुई।");
-        });
-    } catch(e) {
-        console.error("JS Error:", e);
     }
-}
-
 
     function backToLogin() {
         document.getElementById('otpStage').style.display = 'none';
@@ -862,63 +852,35 @@ LAYOUT_END = """
         document.getElementById('loginOTP').value = '';
     }
     </script>
+
     <!-- सुंदर कस्टम पॉप-अप (Toast Notification) का ढांचा -->
-<div id="customToast" style="
-    display: none; 
-    position: absolute; 
-    top: 20px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    background: rgba(30, 41, 59, 0.95); 
-    backdrop-filter: blur(8px);
-    color: white; 
-    padding: 12px 20px; 
-    border-radius: 12px; 
-    font-size: 14px; 
-    font-weight: 500;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
-    z-index: 100000; 
-    width: 85%; 
-    max-width: 320px;
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: all 0.3s ease;
-">
-    <span id="toastMessage">यहाँ संदेश दिखेगा</span>
-</div>
+    <div id="customToast" style="display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(8px); color: white; padding: 12px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 100000; width: 85%; max-width: 320px; text-align: center; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; opacity: 0;">
+        <span id="toastMessage">संदेश</span>
+    </div>
 
 <script>
-// सिस्टम alert() को हमारे सुंदर कस्टम पॉप-अप से बदलने का फंक्शन
-window.showPopup = function(message, type = 'info') {
-    const toast = document.getElementById('customToast');
-    const toastMsg = document.getElementById('toastMessage');
-    
-    if (!toast || !toastMsg) return;
+    // 0. कस्टम पॉप-अप अलर्ट फंक्शन (सिस्टम अलर्ट की जगह)
+    window.showPopup = function(message, type = 'info') {
+        try {
+            const toast = document.getElementById('customToast');
+            const toastMsg = document.getElementById('toastMessage');
+            if (!toast || !toastMsg) return;
 
-    toastMsg.innerText = message;
-    
-    // मैसेज के प्रकार के हिसाब से बॉर्डर या रंग बदलना (सफलता के लिए हरा, गलती के लिए लाल)
-    if (type === 'success') {
-        toast.style.borderLeft = "4px solid #2e7d32";
-    } else if (type === 'error') {
-        toast.style.borderLeft = "4px solid #d32f2f";
-    } else {
-        toast.style.borderLeft = "4px solid #0288d1";
-    }
+            toastMsg.innerText = message;
+            if (type === 'success') toast.style.borderLeft = "4px solid #2e7d32";
+            else if (type === 'error') toast.style.borderLeft = "4px solid #d32f2f";
+            else toast.style.borderLeft = "4px solid #0288d1";
 
-    // पॉप-अप दिखाएं (Fade In प्रभाव के साथ)
-    toast.style.display = 'block';
-    toast.style.opacity = '1';
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.opacity = '1'; }, 50);
 
-    // 3 सेकंड के बाद अपने आप गायब हो जाए
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => {
-            toast.style.display = 'none';
-        }, 300);
-    }, 3000);
-}
-</script>
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => { toast.style.display = 'none'; }, 300);
+            }, 3000);
+        } catch(e) { console.error(e); }
+    };
+
 
 </body>
 </html>
