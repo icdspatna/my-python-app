@@ -739,36 +739,41 @@ LAYOUT_END = """
 
 </div>
  <script>
-    // 1. स्टेज A: सर्वर को क्रेडेंशियल भेजना और OTP मांगना
     function requestOTP() {
-        const user = document.getElementById('loginUser').value.trim();
-        const pass = document.getElementById('loginPass').value.trim();
+    const user = document.getElementById('loginUser').value.trim();
+    const pass = document.getElementById('loginPass').value.trim();
 
-        if (!user || !pass) {
-            alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
-            return;
-        }
-
-        fetch('/api/auth/send-otp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: user, password: pass })
-        })
-        .then(response => response.json().then(data => ({ status: response.status, body: data })))
-        .then(res => {
-            if (res.status === 200) {
-                document.getElementById('loginStage').style.display = 'none';
-                document.getElementById('otpStage').style.display = 'block';
-                document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
-            } else {
-                alert(res.body.message || "लॉगिन विफल रहा।");
-            }
-        })
-        .catch(err => {
-            console.error("Error:", err);
-            alert("सर्वर से कनेक्ट करने में त्रुटि हुई।");
-        });
+    if (!user || !pass) {
+        alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
+        return;
     }
+
+    fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, password: pass })
+    })
+    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    .then(res => {
+        if (res.status === 200) {
+            // स्टेज A छुपाएं और स्टेज B दिखाएं
+            document.getElementById('loginStage').style.display = 'none';
+            document.getElementById('otpStage').style.display = 'block';
+            
+            // नया बदलाव: स्क्रीन पर अलर्ट बॉक्स में चालू OTP दिखाई देगा
+            alert("टेस्टिंग मोड एक्टिव! आपका OTP है: " + res.body.testing_otp);
+            
+            document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
+        } else {
+            alert(res.body.message || "लॉगिन विफल रहा।");
+        }
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        alert("सर्वर से कनेक्ट करने में त्रुटि हुई।");
+    });
+}
+
 
     // 2. स्टेज B: सर्ver पर OTP सत्यापित करवाना
     function verifyOTP() {
