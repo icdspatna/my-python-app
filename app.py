@@ -14,6 +14,16 @@ LAYOUT_START = """
     <!-- गलती 1 स्थाई सुधार: अमान्य क्लाउडफ्लेयर लिंक को हटाकर वास्तविक काम करने वाला Font Awesome CDN जोड़ा गया ताकि सभी आइकॉन काम करें -->
     <link rel="stylesheet" href="https://cloudflare.com">
    <style>
+   body {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex; 
+    justify-content: center; /* 🌟 कंप्यूटर स्क्रीन पर ऐप को बिल्कुल बीच में लाएगा */
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
         .tab-content {
             display: none;
             padding: 15px;
@@ -62,37 +72,43 @@ LAYOUT_START = """
         }
 
         /* 🌟 मोबाइल कंटेनर का आकार और डेस्कटॉप पर सेंटर अलाइनमेंट सुधार 🌟 */
-        .mobile-app-container {
-            width: 100%;
-            max-width: 480px; /* 🛠️ डेस्कटॉप पर ऐप को मोबाइल के साइज (480px) में लॉक कर देगा */
-            min-height: 100vh; /* 🛠️ कम से कम पूरी स्क्रीन की हाइट लेगा */
-            background: #f0f2f5; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            position: relative;
-            display: flex; 
-            flex-direction: column;
-            box-sizing: border-box;
-        }
+       .mobile-app-container {
+    width: 100%;
+    max-width: 420px; /* पूरे ऐप का साइज 420px मोबाइल फॉर्मेट में लॉक */
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
         
-        /* 🌟 पेजों की हाइट और स्क्रॉलिंग का परफेक्ट सुधार 🌟 */
-        .app-page {
-            display: none; 
-            flex: 1; 
-            padding: 15px;
-            width: 100%;
-            max-width: 100%;
-            overflow-y: auto; /* 🛠️ यह कंटेंट बड़ा होने पर अंदर ही वर्टिकल स्क्रॉल बार देगा */
-            overflow-x: hidden;
-            box-sizing: border-box;
-            padding-bottom: 90px; /* 🛠️ नीचे की तालिकाएं बॉटम नेव के पीछे न छिपें इसलिए एक्स्ट्रा पैडिंग */
-        }
+       
+    display: none; 
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    background-color: #f0f2f5; /* 🌟 बाकी पेजों को एक साफ बैकग्राउंड मिलेगा */
+    
+    /* 🌟 स्क्रॉल और साइज फिक्स करने के लिए मुख्य कोड 👇 */
+    height: calc(100vh - 120px); /* टॉप हेडर और बॉटम नेव की जगह छोड़कर */
+    overflow-y: auto;            /* कंटेंट बड़ा होने पर सिर्फ पेज के अंदर स्क्रॉल होगा */
+    overflow-x: hidden;
+    padding-bottom: 90px;        /* बॉटम मेनू बार के पीछे कंटेंट न छिपे */
+}
         .app-page.active { display: block; }
         
         #home {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; text-align: center; 
-            min-height: 100vh; /* 🛠️ login स्क्रीन पूरी दिखेगी */
-            box-sizing: border-box;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white; 
+    text-align: center; 
+    min-height: 100vh; 
+    height: 100vh; /* लॉगिन स्क्रीन को फुल हाइट पर लॉक रखेगा */
+    box-sizing: border-box;
+    display: none; /* शुरुआत में जावास्क्रिप्ट इसे चालू करेगी */
         }
         .hero-section { padding-top: 30%; }
         .hero-section h1 { font-size: 26px; margin-bottom: 10px; }
