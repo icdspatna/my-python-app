@@ -34,20 +34,19 @@ def send_otp():
         # 4 डिजिट का रैंडम OTP जेनरेट करना
         generated_otp = str(random.randint(1000, 9999))
         
-        # OTP को इस यूजर के मोबाइल नंबर के साथ मैप करके सेव करना
+                # OTP को इस यूजर के मोबाइल नंबर के साथ मैप करके सेव करना
         OTP_STORE[username] = generated_otp
         
-        # नोट: यहाँ आप अपना वास्तविक SMS API (जैसे Twilio या Fast2SMS) लगा सकते हैं
-        # अभी परीक्षण के लिए हम इसे कंसोल/रिस्पांस में प्रिंट कर रहे हैं
-        print(f"[SMS SIMULATION] Sending OTP {generated_otp} to {user_info['mobile']}")
-        
+        # बदलाव: हम सुरक्षात्मक मास्क के साथ-साथ टेस्टिंग के लिए OTP भी स्क्रीन पर भेज रहे हैं
         return jsonify({
             "status": "success", 
-            "message": "ओटीपी आपके रजिस्टर्ड मोबाइल नंबर पर भेज दिया गया है।",
-            "masked_mobile": f"******{user_info['mobile'][-4:]}" # सुरक्षा के लिए सिर्फ आखिरी 4 अंक दिखाएं
+            "message": "ओटीपी सफलतापूर्वक जनरेट हो गया है।",
+            "testing_otp": generated_otp,  # यह स्क्रीन पर OTP दिखाएगा
+            "masked_mobile": f"******{user_info['mobile'][-4:]}"
         }), 200
     else:
         return jsonify({"status": "error", "message": "गलत यूजरनेम या पासवर्ड।"}), 401
+
 
 # API 2: यूजर द्वारा डाले गए OTP का सत्यापन करना और लॉगिन पूरा करना
 @auth_bp.route('/api/auth/verify-otp', methods=['POST'])
