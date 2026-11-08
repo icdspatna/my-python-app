@@ -775,42 +775,66 @@ LAYOUT_END = """
 }
 
 
-    // 2. स्टेज B: सर्ver पर OTP सत्यापित करवाना
     function verifyOTP() {
-        const user = document.getElementById('loginUser').value.trim();
-        const otpVal = document.getElementById('loginOTP').value.trim();
+    const user = document.getElementById('loginUser').value.trim();
+    const otpVal = document.getElementById('loginOTP').value.trim();
 
-        if (!otpVal || otpVal.length !== 4) {
-            alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
-            return;
-        }
-
-        fetch('/api/auth/verify-otp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: user, otp: otpVal })
-        })
-        .then(response => response.json().then(data => ({ status: response.status, body: data })))
-        .then(res => {
-            if (res.status === 200) {
-                alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
-                
-                document.getElementById('appTopHeader').style.display = 'flex';
-                document.getElementById('userProfileName').innerText = res.body.user.name;
-                
-                document.querySelector('.login-container').style.display = 'none';
-                if(document.querySelector('.hero-section')) {
-                    document.querySelector('.hero-section').style.display = 'none';
-                }
-            } else {
-                alert(res.body.message || "अमान्य ओटीपी।");
-            }
-        })
-        .catch(err => {
-            console.error("Error:", err);
-            alert("सत्यापन के दौरान त्रुटि हुई।");
-        });
+    if (!otpVal || otpVal.length !== 4) {
+        alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
+        return;
     }
+
+    fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, otp: otpVal })
+    })
+    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    .then(res => {
+        if (res.status === 200) {
+            alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
+            
+            // 1. टॉप प्रोफ़ाइल हेडर को चालू करें
+            document.getElementById('appTopHeader').style.display = 'flex';
+            document.getElementById('userProfileName').innerText = res.body.user.name;
+            
+            // 2. लॉगिन कंटेनर और होम स्क्रीन के पुराने एलिमेंट्स को पूरी तरह छुपाएं
+            document.querySelector('.login-container').style.display = 'none';
+            if(document.querySelector('.hero-section')) {
+                document.querySelector('.hero-section').style.display = 'none';
+            }
+            
+            // 3. सभी पेजों से पुरानी एक्टिव क्लास हटाएं और होम स्क्रीन को डीएक्टिवेट करें
+            document.querySelectorAll('.app-page').forEach(page => {
+                page.classList.remove('active');
+                page.style.display = 'none'; // पुराने ओवरफ़्लो को रोकने के लिए
+            });
+
+            // 4. बाई-डिफ़ॉल्ट '#notice' पेज को स्क्रीन पर एक्टिवेट और शो करें
+            const defaultPage = document.getElementById('notice');
+            if (defaultPage) {
+                defaultPage.classList.add('active');
+                defaultPage.style.display = 'block';
+            }
+
+            // 5. बॉटम नेविगेशन बार में 'Notice' वाले आइकॉन को एक्टिव (हाईलाइट) करें
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                // यदि आपके नोटिस आइकॉन के ऑनक्लिक या आईडी में 'notice' लिखा है
+                if(item.getAttribute('onclick') && item.getAttribute('onclick').includes('notice')) {
+                    item.classList.add('active');
+                }
+            });
+
+        } else {
+            alert(res.body.message || "अमान्य ओटीपी।");
+        }
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        alert("सत्यापन के दौरान त्रुटि हुई।");
+    });
+}
 
     // 3. हेल्प फंक्शन: बैक बटन दबाने पर वापस लॉगिन पर जाना
     function backToLogin() {
