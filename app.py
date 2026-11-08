@@ -95,14 +95,52 @@ LAYOUT_START = """
         .app-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #cbd5e0; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
         .submit-btn { width: 100%; padding: 12px; background: #764ba2; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .notice-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; border-radius: 4px; font-size: 13px; margin-bottom: 10px; color: #856404; }
-        .bottom-nav {
-            position: absolute; bottom: 0; width: 100%; height: 65px;
-            background: #ffffff; display: flex; justify-content: space-around;
-            align-items: center; border-top: 1px solid #eee; box-sizing: border-box;
-        }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: #888; cursor: pointer; font-size: 11px; }
-        .nav-item i { font-size: 20px; margin-bottom: 2px; }
-        .nav-item.active { color: #764ba2; font-weight: bold; }
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+
+    /* 🌟 ग्लास और पिंक इफ़ेक्ट के लिए मुख्य कोड 🌟 */
+    background: rgba(255, 192, 203, 0.4); /* हल्का पिंक कलर और 40% ट्रांसपेरेंसी */
+    backdrop-filter: blur(10px); /* पीछे की चीजों को धुंधला (Glass Effect) करने के लिए */
+    -webkit-backdrop-filter: blur(10px); /* Safari ब्राउज़र के लिए */
+    
+    /* ग्लास को उभारने के लिए बॉर्डर और शैडो */
+    border-top: 1px solid rgba(255, 255, 255, 0.4); 
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05); 
+    
+    /* यदि आप कोनों को थोड़ा घुमावदार (Round) करना चाहते हैं (वैकल्पिक) */
+    border-radius: 15px 15px 0 0; 
+}
+
+
+       .nav-item { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    color: #555555; /* थोड़ा गहरा ग्रे ताकि पिंक ग्लास पर साफ दिखे */
+    cursor: pointer; 
+    font-size: 11px; 
+    text-decoration: none; /* अगर <a> टैग है तो अंडरलाइन हटाने के लिए */
+}
+
+.nav-item i { 
+    font-size: 20px; 
+    margin-bottom: 2px; 
+}
+
+.nav-item.active { 
+    color: #9c27b0; /* गहरा पिंक/पर्पल जो ग्लास इफ़ेक्ट पर बहुत सुंदर लगेगा */
+    font-weight: bold; 
+}
+
         
         /* मोबाइल कंटेनर की हाइट को फिक्स और परफेक्ट करना */
         .mobile-app-container {
@@ -116,6 +154,18 @@ LAYOUT_START = """
             display: flex; 
             flex-direction: column;
         }
+        @media (max-width: 768px) {
+    .bottom-nav {
+        max-width: 100%; /* मोबाइल पर पूरी चौड़ाई लेगा */
+        left: 0;
+        transform: none;
+    }
+    
+    .nav-item {
+        font-size: 11px; /* मोबाइल के लिए और छोटा साइज */
+    }
+}
+
 
         /* नया डायनामिक टॉप प्रोफाइल हेडर */
         .app-top-header {
