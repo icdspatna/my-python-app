@@ -120,7 +120,6 @@ LAYOUT_START = """
     border-radius: 15px 15px 0 0; 
 }
 
-
        .nav-item { 
     display: flex; 
     flex-direction: column; 
@@ -224,6 +223,31 @@ LAYOUT_START = """
         .app-page.active { 
             display: block; 
         }
+/* सुनिश्चित करें कि .app-page अपने मोबाइल कंटेनर से बाहर न फैले */
+.app-page {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* 🌟 टेबल्स को मोबाइल स्क्रीन के भीतर रखने के लिए सबसे महत्वपूर्ण फिक्स 🌟 */
+.app-page table {
+    width: 100% !important;
+    display: block; /* टेबल को ब्लॉक बनाएगा ताकि स्क्रॉल काम करे */
+    overflow-x: auto; /* मोबाइल साइज में टेबल को साइड-स्क्रॉल देगा ताकि स्क्रीन न फटे */
+    white-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+/* डेटा टेबल के अंदर के फॉन्ट थोड़े बारीक और स्पष्ट रखें ताकि मोबाइल में फिट आएं */
+.app-page th, .app-page td {
+    font-size: 12px !important;
+    padding: 8px 6px !important;
+}
+
+        
     </style>
 </head>
 """
