@@ -14,15 +14,28 @@ LAYOUT_START = """
     <!-- गलती 1 स्थाई सुधार: अमान्य क्लाउडफ्लेयर लिंक को हटाकर वास्तविक काम करने वाला Font Awesome CDN जोड़ा गया ताकि सभी आइकॉन काम करें -->
     <link rel="stylesheet" href="https://cloudflare.com">
    <style>
-  /* पूरे ब्राउज़र में ऐप को बीच में लाने के लिए */
-body {
-    margin: 0; padding: 0;
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center; /* डेस्कटॉप पर बीच में लाएगा */
-    align-items: center;
-    height: 100vh;
-}
+  /* 1. 🌟 पूरे बॉडी टैग को ही ज़बरदस्ती मोबाइल फ्रेम बना देना 🌟 */
+    body {
+        margin: 0 auto !important;
+        padding: 0 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #ffffff !important;
+        
+        /* डेस्कटॉप पर ऐप को 420px के मोबाइल बॉक्स में लॉक करने का मुख्य कोड */
+        width: 100% !important;
+        max-width: 420px !important; 
+        min-height: 100vh !important;
+        height: 100vh !important;
+        
+        display: flex !important;
+        flex-direction: column !important;
+        position: relative !important;
+        box-shadow: 0 0 30px rgba(0,0,0,0.15) !important;
+        overflow: hidden !important;
+    }
+     html {
+        background-color: #f0f2f5;
+    }
 
         .tab-content {
             display: none;
@@ -98,25 +111,23 @@ body {
             box-sizing: border-box;
         }
 
-        /* 3. नया डायनामिक टॉप प्रोफाइल हेडर */
-        .app-top-header {
-            background: #1e3c72;
-            color: white;
-            padding: 12px 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            z-index: 10;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .profile-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        /* 2. टॉप हेडर को स्क्रीन में परफेक्ट फिट करना */
+    .app-top-header {
+        background: #1e3c72;
+        color: white;
+        padding: 12px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100% !important;
+        box-sizing: border-box;
+        z-index: 1000;
+        flex-shrink: 0;
+    }
+    .profile-info { display: flex; align-items: center; gap: 8px; }
+    .profile-pic { width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+    .logout-btn-top { background: #e74c3c; color: white; border: none; padding: 6px 12px; font-size: 11px; font-weight: bold; border-radius: 6px; cursor: pointer; }
+
         .profile-pic {
             width: 32px;
             height: 32px;
@@ -157,32 +168,33 @@ body {
             box-sizing: border-box;
         }
 
-        /* 5. हर एक पेज का बुनियादी नियम */
-        .app-page {
-            display: none;
-            width: 100%;
-            max-width: 100%;
-            padding: 15px;
-            box-sizing: border-box;
-            padding-bottom: 80px; /* बॉटम मेनू बार के पीछे कंटेंट न छिपे */
-        }
-        .app-page.active {
-            display: block;
-        }
+       /* 3. 🌟 पेजों का साइज और परफेक्ट इनर स्क्रॉल (कंटेंट कटेगा नहीं) 🌟 */
+    .app-page {
+        display: none;
+        width: 100% !important;
+        flex: 1 !important;
+        overflow-y: auto !important; /* कंटेंट ज्यादा होने पर केवल अंदर स्क्रॉल होगा */
+        overflow-x: hidden !important;
+        padding: 15px !important;
+        box-sizing: border-box !important;
+        padding-bottom: 85px !important; /* बॉटम नेव बार के लिए नीचे जगह */
+        background-color: #f0f2f5 !important;
+    }
 
-        /* 6. लॉगिन पेज (#home) के लिए विशेष नियम */
-        #home {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            min-height: 100%;
-            box-sizing: border-box;
-        }
-        #home.active {
-            display: flex !important;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+    /* जब जावास्क्रिप्ट सक्रिय करे */
+    .app-page.active {
+        display: block !important;
+    }
+       #home {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
+        text-align: center !important;
+        height: 100% !important;
+    }
+    #home.active {
+        display: flex !important;
+        flex-direction: column !important;
+    }
         
         /* 7. लॉगिन फॉर्म और इनपुट्स */
         .hero-section { padding-top: 20%; }
