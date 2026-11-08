@@ -1,6 +1,8 @@
+from auth_handler import auth_bp
 from flask import Flask, render_template_string, request
 from flask import jsonify
 app = Flask(__name__)
+app.register_blueprint(auth_bp)
 # --- 1. APP LAYOUT START ---
 LAYOUT_START = """
 <!DOCTYPE html>
