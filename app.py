@@ -738,8 +738,83 @@ LAYOUT_END = """
 </div>
 
 </div>
+ <script>
+    // 1. स्टेज A: सर्वर को क्रेडेंशियल भेजना और OTP मांगना
+    function requestOTP() {
+        const user = document.getElementById('loginUser').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
 
+        if (!user || !pass) {
+            alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
+            return;
+        }
 
+        fetch('/api/auth/send-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user, password: pass })
+        })
+        .then(response => response.json().then(data => ({ status: response.status, body: data })))
+        .then(res => {
+            if (res.status === 200) {
+                document.getElementById('loginStage').style.display = 'none';
+                document.getElementById('otpStage').style.display = 'block';
+                document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
+            } else {
+                alert(res.body.message || "लॉगिन विफल रहा।");
+            }
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            alert("सर्वर से कनेक्ट करने में त्रुटि हुई।");
+        });
+    }
+
+    // 2. स्टेज B: सर्ver पर OTP सत्यापित करवाना
+    function verifyOTP() {
+        const user = document.getElementById('loginUser').value.trim();
+        const otpVal = document.getElementById('loginOTP').value.trim();
+
+        if (!otpVal || otpVal.length !== 4) {
+            alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
+            return;
+        }
+
+        fetch('/api/auth/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user, otp: otpVal })
+        })
+        .then(response => response.json().then(data => ({ status: response.status, body: data })))
+        .then(res => {
+            if (res.status === 200) {
+                alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
+                
+                document.getElementById('appTopHeader').style.display = 'flex';
+                document.getElementById('userProfileName').innerText = res.body.user.name;
+                
+                document.querySelector('.login-container').style.display = 'none';
+                if(document.querySelector('.hero-section')) {
+                    document.querySelector('.hero-section').style.display = 'none';
+                }
+            } else {
+                alert(res.body.message || "अमान्य ओटीपी।");
+            }
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            alert("सत्यापन के दौरान त्रुटि हुई।");
+        });
+    }
+
+    // 3. हेल्प फंक्शन: बैक बटन दबाने पर वापस लॉगिन पर जाना
+    function backToLogin() {
+        document.getElementById('otpStage').style.display = 'none';
+        document.getElementById('loginStage').style.display = 'block';
+        document.getElementById('loginOTP').value = '';
+    }
+    </script>
+    
 </body>
 </html>
 """
@@ -1547,89 +1622,6 @@ window.switchPage = function(pageId) {
     });
 </script>
 """
-    <script>
-// स्क्रिप्ट भाग: यह सर्वर के ब्लूप्रिंट API के साथ तालमेल बिठाएगा
-
-// 1. स्टेज A: सर्वर को क्रेडेंशियल भेजना और OTP मांगना
-function requestOTP() {
-    const user = document.getElementById('loginUser').value.trim();
-    const pass = document.getElementById('loginPass').value.trim();
-
-    if (!user || !pass) {
-        alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
-        return;
-    }
-
-    fetch('/api/auth/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: user, password: pass })
-    })
-    .then(response => response.json().then(data => ({ status: response.status, body: data })))
-    .then(res => {
-        if (res.status === 200) {
-            // स्टेज A छुपाएं और स्टेज B दिखाएं
-            document.getElementById('loginStage').style.display = 'none';
-            document.getElementById('otpStage').style.display = 'block';
-            document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
-        } else {
-            alert(res.body.message || "लॉगिन विफल रहा।");
-        }
-    })
-    .catch(err => {
-        console.error("Error:", err);
-        alert("सर्वर से कनेक्ट करने में त्रुटि हुई।");
-    });
-}
-
-// 2. स्टेज B: सर्वर पर OTP सत्यापित करवाना
-function verifyOTP() {
-    const user = document.getElementById('loginUser').value.trim();
-    const otpVal = document.getElementById('loginOTP').value.trim();
-
-    if (!otpVal || otpVal.length !== 4) {
-        alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
-        return;
-    }
-
-    fetch('/api/auth/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: user, otp: otpVal })
-    })
-    .then(response => response.json().then(data => ({ status: response.status, body: data })))
-    .then(res => {
-        if (res.status === 200) {
-            alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
-            
-            // आपके पुराने कोड का हेडर और डैशबोर्ड लोड करने का लॉजिक यहाँ निष्पादित होगा
-            document.getElementById('appTopHeader').style.display = 'flex';
-            document.getElementById('userProfileName').innerText = res.body.user.name;
-            
-            // मान लेते हैं कि '#notice' या '#home' मुख्य डैशबोर्ड है (पुराने UI के अनुसार बदलें)
-            // उदाहरण: home स्क्रीन से लॉगिन कंटेनर को हटाकर मेनू दिखाना
-            document.querySelector('.login-container').style.display = 'none';
-            if(document.querySelector('.hero-section')) document.querySelector('.hero-section').style.display = 'none';
-            
-            // जो भी अगला वर्किंग पेज एक्टिव करना हो:
-            // document.getElementById('service').classList.add('active'); 
-        } else {
-            alert(res.body.message || "अमान्य ओटीपी।");
-        }
-    })
-    .catch(err => {
-        console.error("Error:", err);
-        alert("सत्यापन के दौरान त्रुटि हुई।");
-    });
-}
-
-// 3. हेल्प फंक्शन: बैक बटन दबाने पर वापस लॉगिन पर जाना
-function backToLogin() {
-    document.getElementById('otpStage').style.display = 'none';
-    document.getElementById('loginStage').style.display = 'block';
-    document.getElementById('loginOTP').value = '';
-}
-</script>
 # --- 16. FLASK ROUTING ---
 
 @app.route('/')
