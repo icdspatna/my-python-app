@@ -791,50 +791,42 @@ LAYOUT_END = """
     })
     .then(response => response.json().then(data => ({ status: response.status, body: data })))
     .then(res => {
-        if (res.status === 200) {
+                if (res.status === 200) {
             alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
             
             // 1. टॉप प्रोफ़ाइल हेडर को चालू करें
             document.getElementById('appTopHeader').style.display = 'flex';
             document.getElementById('userProfileName').innerText = res.body.user.name;
             
-            // 2. लॉगिन कंटेनर और होम स्क्रीन के पुराने एलिमेंट्स को पूरी तरह छुपाएं
-            document.querySelector('.login-container').style.display = 'none';
+            // 2. लॉगिन कंटेनर और होम स्क्रीन के पुराने टेक्स्ट/विजेट्स को पूरी तरह छुपाएं
+            if(document.querySelector('.login-container')) {
+                document.querySelector('.login-container').style.display = 'none';
+            }
             if(document.querySelector('.hero-section')) {
                 document.querySelector('.hero-section').style.display = 'none';
             }
             
-            // 3. सभी पेजों से पुरानी एक्टिव क्लास हटाएं और होम स्क्रीन को डीएक्टिवेट करें
+            // 3. सभी पेजों से पुरानी एक्टिव क्लास हटाएं (ताकि कोई पेज आपस में न टकराए)
             document.querySelectorAll('.app-page').forEach(page => {
                 page.classList.remove('active');
-                page.style.display = 'none'; // पुराने ओवरफ़्लो को रोकने के लिए
             });
 
-            // 4. बाई-डिफ़ॉल्ट '#notice' पेज को स्क्रीन पर एक्टिवेट और शो करें
+            // 4. बाई-डिफ़ॉल्ट सिर्फ '#notice' पेज को ऐप के साइज में एक्टिवेट करें
             const defaultPage = document.getElementById('notice');
             if (defaultPage) {
+                // होम पेज की जगह नोटिस पेज को कंटेनर के अंदर दिखाने के लिए एक्टिव क्लास दें
                 defaultPage.classList.add('active');
-                defaultPage.style.display = 'block';
             }
 
             // 5. बॉटम नेविगेशन बार में 'Notice' वाले आइकॉन को एक्टिव (हाईलाइट) करें
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
-                // यदि आपके नोटिस आइकॉन के ऑनक्लिक या आईडी में 'notice' लिखा है
+                // आपके पुराने कोड के अनुसार नोटिस बटन को एक्टिव मार्क करें
                 if(item.getAttribute('onclick') && item.getAttribute('onclick').includes('notice')) {
                     item.classList.add('active');
                 }
             });
-
-        } else {
-            alert(res.body.message || "अमान्य ओटीपी।");
         }
-    })
-    .catch(err => {
-        console.error("Error:", err);
-        alert("सत्यापन के दौरान त्रुटि हुई।");
-    });
-}
 
     // 3. हेल्प फंक्शन: बैक बटन दबाने पर वापस लॉगिन पर जाना
     function backToLogin() {
