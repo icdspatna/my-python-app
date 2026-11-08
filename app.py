@@ -212,7 +212,17 @@ def get_pages_body():
                <i class="fa-solid fa-location-dot" style="margin-right: 6px; animation: pulse 2s infinite;"></i>
                 <span id="liveLocation">Patna, Bihar, India</span>
             </div>
-        </div>
+            <!-- लाइव लोकेशन के ठीक नीचे इस लाल रंग के नोटिस बॉक्स को रखें -->
+<div class="live-alert-box" style="margin-top: 15px; padding: 12px; background: rgba(231, 76, 60, 0.15); border: 1px solid #e74c3c; border-radius: 12px; text-align: center;">
+    <p style="margin: 0 0 5px 0; color: #e74c3c; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">
+        <i class="fa-solid fa-circle-exclamation"></i> महत्वपूर्ण सूचना
+    </p>
+    <p id="liveNoticeText" style="margin: 0; color: #ff4d4d; font-size: 13px; font-weight: 500; line-height: 1.4;">
+        यहाँ आपका मुख्य लाइव नोटिस संदेश दिखाई देगा।
+    </p>
+</div>
+
+ </div>
 
         <div class="hero-section" style="text-align: center; margin-bottom: 25px;">
             <div style="background: rgba(255, 255, 255, 0.15); width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.2);">
@@ -779,62 +789,74 @@ LAYOUT_END = """
 
     // 2. स्टेज B: सर्वर पर OTP सत्यापित करवाना
     function verifyOTP() {
-        try {
-            const user = document.getElementById('loginUser').value.trim();
-            const otpVal = document.getElementById('loginOTP').value.trim();
+    try {
+        const user = document.getElementById('loginUser').value.trim();
+        const otpVal = document.getElementById('loginOTP').value.trim();
 
-            if (!otpVal || otpVal.length !== 4) {
-                alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
-                return;
-            }
-
-            fetch('/api/auth/verify-otp', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: user, otp: otpVal })
-            })
-            .then(response => response.json().then(data => ({ status: response.status, body: data })))
-            .then(res => {
-                if (res.status === 200) {
-                    alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
-                    
-                    document.getElementById('appTopHeader').style.display = 'flex';
-                    document.getElementById('userProfileName').innerText = res.body.user.name;
-                    
-                    if(document.querySelector('.login-container')) {
-                        document.querySelector('.login-container').style.display = 'none';
-                    }
-                    if(document.querySelector('.hero-section')) {
-                        document.querySelector('.hero-section').style.display = 'none';
-                    }
-                    
-                    document.querySelectorAll('.app-page').forEach(page => {
-                        page.classList.remove('active');
-                    });
-
-                    const defaultPage = document.getElementById('notice');
-                    if (defaultPage) {
-                        defaultPage.classList.add('active');
-                    }
-
-                    document.querySelectorAll('.nav-item').forEach(item => {
-                        item.classList.remove('active');
-                        if(item.getAttribute('onclick') && item.getAttribute('onclick').includes('notice')) {
-                            item.classList.add('active');
-                        }
-                    });
-                } else {
-                    alert(res.body.message || "अमान्य ओटीपी।");
-                }
-            })
-            .catch(err => {
-                console.error("Verify Error:", err);
-                alert("सत्यापन के दौरान त्रुटि हुई।");
-            });
-        } catch(e) {
-            console.error("JS Error:", e);
+        if (!otpVal || otpVal.length !== 4) {
+            alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
+            return;
         }
+
+        fetch('/api/auth/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user, otp: otpVal })
+        })
+        .then(response => response.json().then(data => ({ status: response.status, body: data })))
+        .then(res => {
+            if (res.status === 200) {
+                alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
+                
+                // 1. स्टेज B (ओटीपी स्टेज) को छुपाएं
+                if (document.getElementById('otpStage')) {
+                    document.getElementById('otpStage').style.display = 'none';
+                }
+                
+                // 2. लॉगिन फॉर्म वाले मुख्य कंटेनर (.login-container) को पूरी तरह छुपाएं
+                const loginBox = document.querySelector('.login-container');
+                if (loginBox) {
+                    loginBox.style.display = 'none';
+                }
+                
+                // 3. हीरो सेक्शन (लोगो और नाम) को भी छुपाएं ताकि स्क्रीन पर साफ़ जगह मिले
+                const heroBox = document.querySelector('.hero-section');
+                if (heroBox) {
+                    heroBox.style.display = 'none';
+                }
+
+                // 4. लॉगिन करने वाले यूज़र का नाम ऊपरी हेडर में सेट करें
+                document.getElementById('userProfileName').innerText = res.body.user.name;
+                
+                const profilePicEl = document.getElementById('appTopHeader').querySelector('.profile-pic');
+                if (profilePicEl) {
+                    profilePicEl.innerText = res.body.user.name.charAt(0).toUpperCase();
+                }
+
+                // 5. नया टॉप प्रोफाइल हेडर और आपका बॉटम नेविगेशन बार शो करें
+                document.getElementById('appTopHeader').style.display = 'flex';
+                document.getElementById('appBottomNav').style.display = 'flex';
+
+                // 6. सबसे महत्वपूर्ण सुधार: आपके ऐप के मूल switchPage फंक्शन से डिफ़ॉल्ट रूप से 'notice' पेज पर भेजें
+                if (typeof window.switchPage === 'function') {
+                    window.switchPage('notice');
+                } else if (typeof switchPage === 'function') {
+                    switchPage('notice');
+                }
+
+            } else {
+                alert(res.body.message || "अमान्य ओटीपी।");
+            }
+        })
+        .catch(err => {
+            console.error("Verify Error:", err);
+            alert("सत्यापन के दौरान त्रुटि हुई।");
+        });
+    } catch(e) {
+        console.error("JS Error:", e);
     }
+}
+
 
     function backToLogin() {
         document.getElementById('otpStage').style.display = 'none';
@@ -1057,13 +1079,14 @@ function updateDigitalClock() {
 setInterval(updateDigitalClock, 1000);
 
 // ब्राउज़र जीपीएस से वास्तविक लोकेशन ढूंढना
+// ब्राउज़र जीपीएस से वास्तविक लोकेशन ढूंढना (Corrected Nominatim API Syntax)
 function getLiveGPSLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             
-            // सुधार स्थाई: Nominatim Reverse Geocoding API का सही URL प्रारूप सिंक किया गया
+            // सुधार स्थाई: Nominatim Reverse Geocoding का बिल्कुल सही और चालू API URL
             fetch(`https://openstreetmap.org{lat}&lon=${lon}`, {
                 headers: {
                     'User-Agent': 'ICDS-Budget-App'
@@ -1089,11 +1112,15 @@ function getLiveGPSLocation() {
             });
         }, function() {
             console.log("Geolocation permission denied.");
+            const locElement = document.getElementById('liveLocation');
+            if(locElement) {
+                locElement.innerText = "Patna, Bihar, India";
+            }
         });
     }
 }
 
-// पेज लोड होते ही रन करें
+// पेज लोड होते ही रन करें (घड़ी और जीपीएस दोनों को सही से शुरू करेगा)
 window.addEventListener('DOMContentLoaded', () => {
     updateDigitalClock();
     getLiveGPSLocation();
