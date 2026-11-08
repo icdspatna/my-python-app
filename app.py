@@ -14,14 +14,14 @@ LAYOUT_START = """
     <!-- गलती 1 स्थाई सुधार: अमान्य क्लाउडफ्लेयर लिंक को हटाकर वास्तविक काम करने वाला Font Awesome CDN जोड़ा गया ताकि सभी आइकॉन काम करें -->
     <link rel="stylesheet" href="https://cloudflare.com">
    <style>
-   body {
+  /* पूरे ब्राउज़र में ऐप को बीच में लाने के लिए */
+body {
     margin: 0; padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
-    display: flex; 
-    justify-content: center; /* 🌟 कंप्यूटर स्क्रीन पर ऐप को बिल्कुल बीच में लाएगा */
-    align-items: flex-start;
-    min-height: 100vh;
+    display: flex;
+    justify-content: center; /* डेस्कटॉप पर बीच में लाएगा */
+    align-items: center;
+    height: 100vh;
 }
 
         .tab-content {
@@ -71,122 +71,34 @@ LAYOUT_START = """
             min-height: 100vh;
         }
 
-        /* 🌟 मोबाइल कंटेनर का आकार और डेस्कटॉप पर सेंटर अलाइनमेंट सुधार 🌟 */
-       .mobile-app-container {
-    width: 100%;
-    max-width: 420px; /* पूरे ऐप का साइज 420px मोबाइल फॉर्मेट में लॉक */
-    height: 100vh;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-}
-
-        
-       
-    display: none; 
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    padding: 15px;
-    background-color: #f0f2f5; /* 🌟 बाकी पेजों को एक साफ बैकग्राउंड मिलेगा */
-    
-    /* 🌟 स्क्रॉल और साइज फिक्स करने के लिए मुख्य कोड 👇 */
-    height: calc(100vh - 120px); /* टॉप हेडर और बॉटम नेव की जगह छोड़कर */
-    overflow-y: auto;            /* कंटेंट बड़ा होने पर सिर्फ पेज के अंदर स्क्रॉल होगा */
-    overflow-x: hidden;
-    padding-bottom: 90px;        /* बॉटम मेनू बार के पीछे कंटेंट न छिपे */
-}
-        .app-page.active { display: block; }
-        
-        #home {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white; 
-    text-align: center; 
-    min-height: 100vh; 
-    height: 100vh; /* लॉगिन स्क्रीन को फुल हाइट पर लॉक रखेगा */
-    box-sizing: border-box;
-    display: none; /* शुरुआत में जावास्क्रिप्ट इसे चालू करेगी */
-        }
-        .hero-section { padding-top: 30%; }
-        .hero-section h1 { font-size: 26px; margin-bottom: 10px; }
-        .login-container { margin-top: 15%; text-align: center; padding: 0 10px; }
-        .login-container h2 { font-size: 22px; margin-bottom: 5px; }
-        .login-form { margin-top: 20px; }
-        .input-group {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 12px; margin-bottom: 15px; border-radius: 25px;
-            display: flex; align-items: center;
-        }
-        .input-group i { margin-right: 10px; color: #fff; }
-        .input-group input { background: none; border: none; outline: none; color: white; width: 100%; }
-        .input-group input::placeholder { color: #eee; }
-        .login-btn {
-            background: #fff; color: #764ba2; border: none; width: 100%;
-            padding: 12px; font-size: 16px; font-weight: bold;
-            border-radius: 25px; cursor: pointer; margin-top: 15px;
-        }
-        .page-title { color: #764ba2; border-bottom: 2px solid #764ba2; padding-bottom: 5px; margin-bottom: 15px; font-size: 20px; }
-        .form-card { background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 15px; padding: 15px; margin-bottom: 20px; }
-        .form-card h4 { color: #2d3748; margin-top: 0; font-size: 16px; margin-bottom: 12px; }
-        .app-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #cbd5e0; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
-        .submit-btn { width: 100%; padding: 12px; background: #764ba2; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .notice-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; border-radius: 4px; font-size: 13px; margin-bottom: 10px; color: #856404; }
-        
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px; /* 🛠️ इसे ऊपर कंटेनर की मैक्स-विड्थ से मैच किया ताकि डेस्कटॉप पर यह भी न फैले */
-            z-index: 1000;
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            background: rgba(255, 192, 203, 0.4); 
-            backdrop-filter: blur(10px); 
-            -webkit-backdrop-filter: blur(10px); 
-            border-top: 1px solid rgba(255, 255, 255, 0.4); 
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05); 
-            border-radius: 15px 15px 0 0; 
-        }
-
-        .nav-item { 
+    /* 1. बेसिक रिसेट और बॉडी अलाइनमेंट */
+        body {
+            margin: 0; 
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
             display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            color: #555555; 
-            cursor: pointer; 
-            font-size: 11px; 
-            text-decoration: none; 
+            justify-content: center; /* डेस्कटॉप पर ऐप को बीच में लाएगा */
+            align-items: center;
+            height: 100vh;
         }
 
-        .nav-item i { 
-            font-size: 20px; 
-            margin-bottom: 2px; 
+        /* 2. 🌟 मुख्य मोबाइल बॉक्स (कंटेनर) 🌟 */
+        .mobile-app-container {
+            width: 100%;
+            max-width: 420px; /* ऐप का साइज हमेशा मोबाइल जैसा रहेगा */
+            height: 95vh;     /* कंप्यूटर स्क्रीन पर परफेक्ट हाइट */
+            background: #ffffff;
+            border-radius: 20px; /* कोनों को थोड़ा घुमावदार लुक देने के लिए */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* कोई भी चीज़ इस मोबाइल बॉक्स से बाहर नहीं भागेगी */
+            position: relative;
+            box-sizing: border-box;
         }
 
-        .nav-item.active { 
-            color: #9c27b0; 
-            font-weight: bold; 
-        }
-
-        @media (max-width: 768px) {
-            .bottom-nav {
-                max-width: 100%; 
-                left: 0;
-                transform: none;
-            }
-            .nav-item {
-                font-size: 11px; 
-            }
-        }
-
-        /* नया डायनामिक टॉप प्रोफाइल हेडर */
+        /* 3. नया डायनामिक टॉप प्रोफाइल हेडर */
         .app-top-header {
             background: #1e3c72;
             color: white;
@@ -197,6 +109,8 @@ LAYOUT_START = """
             border-bottom: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             z-index: 10;
+            width: 100%;
+            box-sizing: border-box;
         }
         .profile-info {
             display: flex;
@@ -233,7 +147,113 @@ LAYOUT_START = """
             background: #c0392b;
         }
 
-        /* 🌟 टेबल्स को मोबाइल स्क्रीन और डेस्कटॉप कंटेनर के भीतर रखने के लिए 🌟 */
+        /* 4. 🌟 बीच का हिस्सा जहाँ सारे पेज बदलेंगे और स्क्रॉल होंगे 🌟 */
+        .main-content-wrapper {
+            flex: 1;
+            width: 100%;
+            overflow-y: auto; /* सिर्फ यह हिस्सा ऊपर-नीचे स्क्रॉल होगा, हेडर-फुटर स्थिर रहेंगे */
+            overflow-x: hidden;
+            background-color: #f0f2f5; /* बाकी पेजों को एक साफ बैकग्राउंड मिलेगा */
+            box-sizing: border-box;
+        }
+
+        /* 5. हर एक पेज का बुनियादी नियम */
+        .app-page {
+            display: none;
+            width: 100%;
+            max-width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            padding-bottom: 80px; /* बॉटम मेनू बार के पीछे कंटेंट न छिपे */
+        }
+        .app-page.active {
+            display: block;
+        }
+
+        /* 6. लॉगिन पेज (#home) के लिए विशेष नियम */
+        #home {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            min-height: 100%;
+            box-sizing: border-box;
+        }
+        #home.active {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        
+        /* 7. लॉगिन फॉर्म और इनपुट्स */
+        .hero-section { padding-top: 20%; }
+        .hero-section h1 { font-size: 26px; margin-bottom: 10px; }
+        .login-container { margin-top: 10%; text-align: center; padding: 0 10px; }
+        .login-container h2 { font-size: 22px; margin-bottom: 5px; }
+        .login-form { margin-top: 20px; }
+        .input-group {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 12px; margin-bottom: 15px; border-radius: 25px;
+            display: flex; align-items: center;
+        }
+        .input-group i { margin-right: 10px; color: #fff; }
+        .input-group input { background: none; border: none; outline: none; color: white; width: 100%; }
+        .input-group input::placeholder { color: #eee; }
+        .login-btn {
+            background: #fff; color: #764ba2; border: none; width: 100%;
+            padding: 12px; font-size: 16px; font-weight: bold;
+            border-radius: 25px; cursor: pointer; margin-top: 15px;
+        }
+
+        /* 8. सर्विस और अन्य इनर पेजों के कंपोनेंट्स */
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 10px;
+            background: #fff;
+        }
+        .tab-content.active {
+            display: block !important;
+        }
+        .page-title { color: #764ba2; border-bottom: 2px solid #764ba2; padding-bottom: 5px; margin-bottom: 15px; font-size: 20px; }
+        .form-card { background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 15px; padding: 15px; margin-bottom: 20px; }
+        .form-card h4 { color: #2d3748; margin-top: 0; font-size: 16px; margin-bottom: 12px; }
+        .app-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #cbd5e0; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
+        .submit-btn { width: 100%; padding: 12px; background: #764ba2; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .notice-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; border-radius: 4px; font-size: 13px; margin-bottom: 10px; color: #856404; }
+
+        /* लाइव टोटल आवंटन कार्ड्स के लिए स्टाइल */
+        .total-card {
+            min-width: 140px;
+            flex: 1;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-top: 4px solid #0288d1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: left;
+            display: inline-block;
+        }
+        .total-card h5 { margin: 0; font-size: 11px; color: #777; font-weight: bold; }
+        .total-card p { margin: 5px 0 0 0; font-size: 15px; font-weight: bold; color: #333; }
+        
+        /* लाइव Remaining Balance लिस्ट के लिए स्टाइल */
+        .bal-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background: #fafafa;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #eee;
+        }
+        .bal-item span { color: #333; font-weight: 500; }
+        .bal-item strong { font-weight: bold; color: #2e7d32; }
+
+        /* 9. 🌟 टेबल्स को मोबाइल स्क्रीन के भीतर रखने के लिए फिक्स 🌟 */
         .app-page table {
             width: 100% !important;
             display: block; 
@@ -243,11 +263,62 @@ LAYOUT_START = """
             margin-top: 10px;
             border-collapse: collapse;
         }
-
         .app-page th, 
         .app-page td {
             font-size: 12px !important;
             padding: 8px 6px !important;
+        }
+
+        /* 10. बॉटम बार को मोबाइल बॉक्स के नीचे चिपका कर रखने के लिए */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            background: rgba(255, 192, 203, 0.4); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            border-top: 1px solid rgba(255, 255, 255, 0.4); 
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05); 
+            border-radius: 15px 15px 0 0; 
+            box-sizing: border-box;
+        }
+        .nav-item { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            color: #555555; 
+            cursor: pointer; 
+            font-size: 11px; 
+            text-decoration: none; 
+        }
+        .nav-item i { 
+            font-size: 20px; 
+            margin-bottom: 2px; 
+        }
+        .nav-item.active { 
+            color: #9c27b0; 
+            font-weight: bold; 
+        }
+
+        /* 11. रिस्पॉन्सिव मीडिया क्वेरी */
+        @media (max-width: 768px) {
+            .mobile-app-container {
+                max-width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+            .bottom-nav {
+                max-width: 100%; 
+                left: 0;
+            }
+            .nav-item {
+                font-size: 11px; 
+            }
         }
 </style>
 
