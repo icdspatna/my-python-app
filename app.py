@@ -757,7 +757,8 @@ LAYOUT_END = """
             const pass = document.getElementById('loginPass').value.trim();
 
             if (!user || !pass) {
-                alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
+               // alert("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।");
+                showPopup("कृपया यूजरनाम और पासवर्ड दोनों दर्ज करें।", "error");
                 return;
             }
 
@@ -772,15 +773,16 @@ LAYOUT_END = """
                     document.getElementById('loginStage').style.display = 'none';
                     document.getElementById('otpStage').style.display = 'block';
                     
-                    alert("टेस्टिंग मोड एक्टिव! आपका OTP है: " + res.body.testing_otp);
+                   // alert("टेस्टिंग मोड एक्टिव! आपका OTP है: " + res.body.testing_otp);
+                    showPopup("टेस्टिंग मोड एक्टिव! आपका OTP है: " + res.body.testing_otp, "info");
                     document.getElementById('otpMessage').innerText = res.body.message + " (" + res.body.masked_mobile + ")";
                 } else {
-                    alert(res.body.message || "लॉगिन विफल रहा।");
+                    showPopu(res.body.message || "लॉगिन विफल रहा।");
                 }
             })
             .catch(err => {
                 console.error("Fetch Error:", err);
-                alert("सर्वर से कनेक्ट करने में त्रुटि हुई।");
+                showPopu("सर्वर से कनेक्ट करने में त्रुटि हुई।");
             });
         } catch(e) {
             console.error("JS Error:", e);
@@ -794,7 +796,7 @@ LAYOUT_END = """
         const otpVal = document.getElementById('loginOTP').value.trim();
 
         if (!otpVal || otpVal.length !== 4) {
-            alert("कृपया 4 अंकों का वैध OTP दर्ज करें।");
+           showPopu("कृपया 4 अंकों का वैध OTP दर्ज करें।");
             return;
         }
 
@@ -806,7 +808,7 @@ LAYOUT_END = """
         .then(response => response.json().then(data => ({ status: response.status, body: data })))
         .then(res => {
                    if (res.status === 200) {
-            alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
+           showPopu("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
             
             // 1. केवल नए ओटीपी इनपुट बॉक्स (स्टेज B) को छुपाएं
             if (document.getElementById('otpStage')) {
@@ -841,12 +843,12 @@ LAYOUT_END = """
 
 
             } else {
-                alert(res.body.message || "अमान्य ओटीपी।");
+                showPopu(res.body.message || "अमान्य ओटीपी।");
             }
         })
         .catch(err => {
             console.error("Verify Error:", err);
-            alert("सत्यापन के दौरान त्रुटि हुई।");
+           showPopu("सत्यापन के दौरान त्रुटि हुई।");
         });
     } catch(e) {
         console.error("JS Error:", e);
@@ -859,7 +861,65 @@ LAYOUT_END = """
         document.getElementById('loginStage').style.display = 'block';
         document.getElementById('loginOTP').value = '';
     }
-    </script>    
+    </script>
+    <!-- सुंदर कस्टम पॉप-अप (Toast Notification) का ढांचा -->
+<div id="customToast" style="
+    display: none; 
+    position: absolute; 
+    top: 20px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: rgba(30, 41, 59, 0.95); 
+    backdrop-filter: blur(8px);
+    color: white; 
+    padding: 12px 20px; 
+    border-radius: 12px; 
+    font-size: 14px; 
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+    z-index: 100000; 
+    width: 85%; 
+    max-width: 320px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+">
+    <span id="toastMessage">यहाँ संदेश दिखेगा</span>
+</div>
+
+<script>
+// सिस्टम alert() को हमारे सुंदर कस्टम पॉप-अप से बदलने का फंक्शन
+window.showPopup = function(message, type = 'info') {
+    const toast = document.getElementById('customToast');
+    const toastMsg = document.getElementById('toastMessage');
+    
+    if (!toast || !toastMsg) return;
+
+    toastMsg.innerText = message;
+    
+    // मैसेज के प्रकार के हिसाब से बॉर्डर या रंग बदलना (सफलता के लिए हरा, गलती के लिए लाल)
+    if (type === 'success') {
+        toast.style.borderLeft = "4px solid #2e7d32";
+    } else if (type === 'error') {
+        toast.style.borderLeft = "4px solid #d32f2f";
+    } else {
+        toast.style.borderLeft = "4px solid #0288d1";
+    }
+
+    // पॉप-अप दिखाएं (Fade In प्रभाव के साथ)
+    toast.style.display = 'block';
+    toast.style.opacity = '1';
+
+    // 3 सेकंड के बाद अपने आप गायब हो जाए
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 300);
+    }, 3000);
+}
+</script>
+
 </body>
 </html>
 """
@@ -962,7 +1022,7 @@ function validateLogin() {
         document.getElementById('loginStage').style.display = 'none';
         document.getElementById('otpStage').style.display = 'block';
     } else {
-        alert("गलत यूज़र आईडी या पासवर्ड! (सही: admin / 1234 डालें)");
+        showPopu("गलत यूज़र आईडी या पासवर्ड! (सही: admin / 1234 डालें)");
     }
 }
 
