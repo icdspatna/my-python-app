@@ -13,7 +13,7 @@ LAYOUT_START = """
     <title>ICDS App - Rudra Tech</title>
     <!-- गलती 1 स्थाई सुधार: अमान्य क्लाउडफ्लेयर लिंक को हटाकर वास्तविक काम करने वाला Font Awesome CDN जोड़ा गया ताकि सभी आइकॉन काम करें -->
     <link rel="stylesheet" href="https://cloudflare.com">
-    <style>
+   <style>
         .tab-content {
             display: none;
             padding: 15px;
@@ -57,20 +57,44 @@ LAYOUT_START = """
             margin: 0; padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f2f5;
-            display: flex; justify-content: center; align-items: center;
-            height: 100vh;
+            display: flex; justify-content: center; align-items: flex-start; /* 🛠️ केंद्र की जगह ऊपर से अलाइन किया ताकि डेस्कटॉप पर स्क्रॉल हो सके */
+            min-height: 100vh;
+        }
+
+        /* 🌟 मोबाइल कंटेनर का आकार और डेस्कटॉप पर सेंटर अलाइनमेंट सुधार 🌟 */
+        .mobile-app-container {
+            width: 100%;
+            max-width: 480px; /* 🛠️ डेस्कटॉप पर ऐप को मोबाइल के साइज (480px) में लॉक कर देगा */
+            min-height: 100vh; /* 🛠️ कम से कम पूरी स्क्रीन की हाइट लेगा */
+            background: #f0f2f5; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex; 
+            flex-direction: column;
+            box-sizing: border-box;
         }
         
+        /* 🌟 पेजों की हाइट और स्क्रॉलिंग का परफेक्ट सुधार 🌟 */
         .app-page {
-            display: none; flex: 1; padding: 20px;
-            overflow-y: auto; margin-bottom: 65px;
+            display: none; 
+            flex: 1; 
+            padding: 15px;
+            width: 100%;
+            max-width: 100%;
+            overflow-y: auto; /* 🛠️ यह कंटेंट बड़ा होने पर अंदर ही वर्टिकल स्क्रॉल बार देगा */
+            overflow-x: hidden;
+            box-sizing: border-box;
+            padding-bottom: 90px; /* 🛠️ नीचे की तालिकाएं बॉटम नेव के पीछे न छिपें इसलिए एक्स्ट्रा पैडिंग */
         }
         .app-page.active { display: block; }
+        
         #home {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; text-align: center; height: 100%; box-sizing: border-box;
+            color: white; text-align: center; 
+            min-height: 100vh; /* 🛠️ login स्क्रीन पूरी दिखेगी */
+            box-sizing: border-box;
         }
-        .hero-section { margin-top: 30%; }
+        .hero-section { padding-top: 30%; }
         .hero-section h1 { font-size: 26px; margin-bottom: 10px; }
         .login-container { margin-top: 15%; text-align: center; padding: 0 10px; }
         .login-container h2 { font-size: 22px; margin-bottom: 5px; }
@@ -95,76 +119,56 @@ LAYOUT_START = """
         .app-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #cbd5e0; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
         .submit-btn { width: 100%; padding: 12px; background: #764ba2; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .notice-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; border-radius: 4px; font-size: 13px; margin-bottom: 10px; color: #856404; }
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 480px;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-around;
-    padding: 12px 0;
-
-    /* 🌟 ग्लास और पिंक इफ़ेक्ट के लिए मुख्य कोड 🌟 */
-    background: rgba(255, 192, 203, 0.4); /* हल्का पिंक कलर और 40% ट्रांसपेरेंसी */
-    backdrop-filter: blur(10px); /* पीछे की चीजों को धुंधला (Glass Effect) करने के लिए */
-    -webkit-backdrop-filter: blur(10px); /* Safari ब्राउज़र के लिए */
-    
-    /* ग्लास को उभारने के लिए बॉर्डर और शैडो */
-    border-top: 1px solid rgba(255, 255, 255, 0.4); 
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05); 
-    
-    /* यदि आप कोनों को थोड़ा घुमावदार (Round) करना चाहते हैं (वैकल्पिक) */
-    border-radius: 15px 15px 0 0; 
-}
-
-       .nav-item { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    color: #555555; /* थोड़ा गहरा ग्रे ताकि पिंक ग्लास पर साफ दिखे */
-    cursor: pointer; 
-    font-size: 11px; 
-    text-decoration: none; /* अगर <a> टैग है तो अंडरलाइन हटाने के लिए */
-}
-
-.nav-item i { 
-    font-size: 20px; 
-    margin-bottom: 2px; 
-}
-
-.nav-item.active { 
-    color: #9c27b0; /* गहरा पिंक/पर्पल जो ग्लास इफ़ेक्ट पर बहुत सुंदर लगेगा */
-    font-weight: bold; 
-}
-
         
-        /* मोबाइल कंटेनर की हाइट को फिक्स और परफेक्ट करना */
-        .mobile-app-container {
-            width: 360px; 
-            height: 720px; 
-            background: #f0f2f5; 
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            overflow: hidden; 
-            position: relative;
-            display: flex; 
-            flex-direction: column;
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px; /* 🛠️ इसे ऊपर कंटेनर की मैक्स-विड्थ से मैच किया ताकि डेस्कटॉप पर यह भी न फैले */
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            background: rgba(255, 192, 203, 0.4); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            border-top: 1px solid rgba(255, 255, 255, 0.4); 
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05); 
+            border-radius: 15px 15px 0 0; 
         }
-        @media (max-width: 768px) {
-    .bottom-nav {
-        max-width: 100%; /* मोबाइल पर पूरी चौड़ाई लेगा */
-        left: 0;
-        transform: none;
-    }
-    
-    .nav-item {
-        font-size: 11px; /* मोबाइल के लिए और छोटा साइज */
-    }
-}
 
+        .nav-item { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            color: #555555; 
+            cursor: pointer; 
+            font-size: 11px; 
+            text-decoration: none; 
+        }
+
+        .nav-item i { 
+            font-size: 20px; 
+            margin-bottom: 2px; 
+        }
+
+        .nav-item.active { 
+            color: #9c27b0; 
+            font-weight: bold; 
+        }
+
+        @media (max-width: 768px) {
+            .bottom-nav {
+                max-width: 100%; 
+                left: 0;
+                transform: none;
+            }
+            .nav-item {
+                font-size: 11px; 
+            }
+        }
 
         /* नया डायनामिक टॉप प्रोफाइल हेडर */
         .app-top-header {
@@ -212,43 +216,25 @@ LAYOUT_START = """
         .logout-btn-top:hover {
             background: #c0392b;
         }
-        /* पेजों की हाइट को हेडर और फुटर के बीच बांधना ताकि ओवरफ्लो न हो */
-        .app-page {
-            display: none; 
-            flex: 1; 
-            padding: 15px;
-            overflow-y: auto; 
-            box-sizing: border-box;
-        }
-        .app-page.active { 
+
+        /* 🌟 टेबल्स को मोबाइल स्क्रीन और डेस्कटॉप कंटेनर के भीतर रखने के लिए 🌟 */
+        .app-page table {
+            width: 100% !important;
             display: block; 
+            overflow-x: auto; 
+            box-sizing: border-box; 
+            -webkit-overflow-scrolling: touch;
+            margin-top: 10px;
+            border-collapse: collapse;
         }
-/* सुनिश्चित करें कि .app-page अपने मोबाइल कंटेनर से बाहर न फैले */
-.app-page {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
 
-/* 🌟 टेबल्स को मोबाइल स्क्रीन के भीतर रखने के लिए सबसे महत्वपूर्ण फिक्स 🌟 */
-.app-page table {
-    width: 100% !important;
-    display: block; /* टेबल को ब्लॉक बनाएगा ताकि स्क्रॉल काम करे */
-    overflow-x: auto; /* मोबाइल साइज में टेबल को साइड-स्क्रॉल देगा ताकि स्क्रीन न फटे */
-    white-sizing: border-box;
-    -webkit-overflow-scrolling: touch;
-    margin-top: 10px;
-    border-collapse: collapse;
-}
+        .app-page th, 
+        .app-page td {
+            font-size: 12px !important;
+            padding: 8px 6px !important;
+        }
+</style>
 
-/* डेटा टेबल के अंदर के फॉन्ट थोड़े बारीक और स्पष्ट रखें ताकि मोबाइल में फिट आएं */
-.app-page th, .app-page td {
-    font-size: 12px !important;
-    padding: 8px 6px !important;
-}
-
-        
-    </style>
 </head>
 """
 # --- 2. INNER PAGES BODY ---
@@ -1043,70 +1029,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// लॉगिन सत्यापन फंक्शन
-function validateLogin() {
-    const userVal = document.getElementById('loginUser').value.trim();
-    const passVal = document.getElementById('loginPass').value.trim();
 
-    // सही क्रेडेंशियल्स की जांच
-    if (userVal === "admin" && passVal === "1234") {
-        // स्क्रीन लॉक करें और ओटीपी स्टेज चालू करें
-        document.getElementById('loginStage').style.display = 'none';
-        document.getElementById('otpStage').style.display = 'block';
-    } else {
-        showPopu("गलत यूज़र आईडी या पासवर्ड! (सही: admin / 1234 डालें)");
-    }
-}
-
-// ओटीपी सत्यापित होने के बाद का बिल्कुल सुधरा हुआ और सटीक लॉजिक
-function validateOtp() {
-    const otpVal = document.getElementById('inputOtp').value.trim();
-    const defaultOtp = "789456";
-
-    if (otpVal === defaultOtp) {
-        // 1. ओटीपी सही होने पर तुरंत थैंक यू स्टेज दिखाएं
-        document.getElementById('otpStage').style.display = 'none';
-        document.getElementById('successStage').style.display = 'block';
-        
-        setTimeout(function() {
-            // 2. थैंक यू स्टेज को बंद करें
-            document.getElementById('successStage').style.display = 'none';
-            
-            // 3. सबसे महत्वपूर्ण सुधार: लॉगिन फॉर्म वाले मुख्य कैनवास/कंटेनर को पूरी तरह छुपाएं 
-            // ताकि लॉगिन के बाद यह दोबारा स्क्रीन पर न दिखे
-            const loginBox = document.querySelector('.login-container');
-            if (loginBox) {
-                loginBox.style.display = 'none';
-            }
-            
-            // 4. हीरो सेक्शन (लोगो और नाम) को भी छुपाएं ताकि सर्विस पेज पर साफ़ जगह मिले
-            const heroBox = document.querySelector('.hero-section');
-            if (heroBox) {
-                heroBox.style.display = 'none';
-            }
-
-            // 5. लॉगिन करने वाले यूज़र का नाम ऊपरी हेडर में सेट करें
-            const loggedInUser = document.getElementById('loginUser').value.trim() || "Admin";
-            document.getElementById('userProfileName').innerText = loggedInUser;
-            
-            const profilePicEl = document.getElementById('appTopHeader').querySelector('.profile-pic');
-            if (profilePicEl) {
-                profilePicEl.innerText = loggedInUser.charAt(0).toUpperCase();
-            }
-
-            // 6. नया टॉप प्रोफाइल हेडर और आपका नया अट्रैक्टिव बॉटम नेविगेशन शो करें
-            document.getElementById('appTopHeader').style.display = 'flex';
-            document.getElementById('appBottomNav').style.display = 'flex';
-
-            // 7. सीधे मुख्य 'Service' (डैशबोर्ड) पेज पर ट्रांसफर करें
-            window.switchPage('service');
-            
-        }, 2000); // 2 सेकंड का सफल पॉप-अप टाइमर
-        
-    } else {
-        alert("गलत OTP! कृपया '789456' दर्ज करें।");
-    }
-}
 
 // नया लॉगआउट फंक्शन जो लॉगिन फॉर्म को दोबारा रीसेट और विज़िबल करेगा
 function handleAppLogout() {
