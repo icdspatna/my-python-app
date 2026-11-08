@@ -805,44 +805,40 @@ LAYOUT_END = """
         })
         .then(response => response.json().then(data => ({ status: response.status, body: data })))
         .then(res => {
-            if (res.status === 200) {
-                alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
-                
-                // 1. स्टेज B (ओटीपी स्टेज) को छुपाएं
-                if (document.getElementById('otpStage')) {
-                    document.getElementById('otpStage').style.display = 'none';
-                }
-                
-                // 2. लॉगिन फॉर्म वाले मुख्य कंटेनर (.login-container) को पूरी तरह छुपाएं
-                const loginBox = document.querySelector('.login-container');
-                if (loginBox) {
-                    loginBox.style.display = 'none';
-                }
-                
-                // 3. हीरो सेक्शन (लोगो और नाम) को भी छुपाएं ताकि स्क्रीन पर साफ़ जगह मिले
-                const heroBox = document.querySelector('.hero-section');
-                if (heroBox) {
-                    heroBox.style.display = 'none';
-                }
+                   if (res.status === 200) {
+            alert("सत्यापन सफल! आपका स्वागत है, " + res.body.user.name);
+            
+            // 1. केवल नए ओटीपी इनपुट बॉक्स (स्टेज B) को छुपाएं
+            if (document.getElementById('otpStage')) {
+                document.getElementById('otpStage').style.display = 'none';
+            }
+            
+            // 2. लॉगिन करने वाले यूज़र का नाम ऊपरी हेडर में सेट करें
+            document.getElementById('userProfileName').innerText = res.body.user.name;
+            const profilePicEl = document.getElementById('appTopHeader').querySelector('.profile-pic');
+            if (profilePicEl) {
+                profilePicEl.innerText = res.body.user.name.charAt(0).toUpperCase();
+            }
 
-                // 4. लॉगिन करने वाले यूज़र का नाम ऊपरी हेडर में सेट करें
-                document.getElementById('userProfileName').innerText = res.body.user.name;
-                
-                const profilePicEl = document.getElementById('appTopHeader').querySelector('.profile-pic');
-                if (profilePicEl) {
-                    profilePicEl.innerText = res.body.user.name.charAt(0).toUpperCase();
-                }
+            // 3. आपके पुराने कोड का हुक: जो काम मूल कोड में '789456' डालने पर होता था, ठीक वही करें
+            const loginBox = document.querySelector('.login-container');
+            if (loginBox) loginBox.style.display = 'none';
+            
+            const heroBox = document.querySelector('.hero-section');
+            if (heroBox) heroBox.style.display = 'none';
 
-                // 5. नया टॉप प्रोफाइल हेडर और आपका बॉटम नेविगेशन बार शो करें
-                document.getElementById('appTopHeader').style.display = 'flex';
-                document.getElementById('appBottomNav').style.display = 'flex';
+            // 4. पुराना हेडर और पुराना बॉटम नेविगेशन बार शो करें (जैसा आपके ओरिजिनल कोड में था)
+            document.getElementById('appTopHeader').style.display = 'flex';
+            document.getElementById('appBottomNav').style.display = 'flex';
 
-                // 6. सबसे महत्वपूर्ण सुधार: आपके ऐप के मूल switchPage फंक्शन से डिफ़ॉल्ट रूप से 'notice' पेज पर भेजें
-                if (typeof window.switchPage === 'function') {
-                    window.switchPage('notice');
-                } else if (typeof switchPage === 'function') {
-                    switchPage('notice');
-                }
+            // 5. आपके पुराने ओरिजिनल फंक्शन को कॉल करें जो मोबाइल फ्रेम के अंदर 'notice' पेज खोलेगा
+            if (typeof window.switchPage === 'function') {
+                window.switchPage('notice');
+            } else if (typeof switchPage === 'function') {
+                switchPage('notice');
+            }
+        }
+
 
             } else {
                 alert(res.body.message || "अमान्य ओटीपी।");
