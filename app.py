@@ -173,6 +173,9 @@ LAYOUT_START = """
         .bal-item span { color: #333; font-weight: 500; }
         .bal-item strong { font-weight: bold; color: #2e7d32; }
         
+       # --- सुधरा हुआ CSS ब्लॉक: अब यह पाइथन कंपाइलर को बिना किसी इंडेंटेशन एरर के सुरक्षित रेंडर करेगा ---
+
+LAYOUT_CSS_PART = """
         /* लॉगिन फॉर्म और इनपुट्स */
         .hero-section { padding-top: 20%; }
         .hero-section h1 { font-size: 26px; margin-bottom: 10px; }
@@ -193,10 +196,8 @@ LAYOUT_START = """
             padding: 12px; font-size: 16px; font-weight: bold;
             border-radius: 25px; cursor: pointer; margin-top: 15px;
         }
-"""
 
-
-               /* 8. सर्विस और अन्य इनर पेजों के कंपोनेंट्स */
+        /* 8. सर्विस और अन्य इनर पेजों के कंपोनेंट्स */
         .tab-content {
             display: none;
             padding: 15px;
@@ -215,6 +216,7 @@ LAYOUT_START = """
         .submit-btn { width: 100%; padding: 12px; background: #764ba2; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
         .submit-btn:hover { background: #5a3782; }
         .notice-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; border-radius: 4px; font-size: 13px; margin-bottom: 10px; color: #856404; }
+"""
 
         /* लाइव टोटल आवंटन कार्ड्स के लिए स्टाइल */
         .total-card {
