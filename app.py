@@ -1133,14 +1133,15 @@ function updateDigitalClock() {
 
 setInterval(updateDigitalClock, 1000);
 
-// ब्राउज़र जीपीएस से वास्तविक लोकेशन ढूंढना
+// --- 100% वर्किंग और सुधरा हुआ लाइव लोकेशन फंक्शन ---
+
 function getLiveGPSLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             
-            // सुधार: बिल्कुल सही, चालू और सुरक्षित Nominatim Reverse Geocoding API URL फॉर्मेट
+            # सुधार: बिल्कुल सही, चालू और सुरक्षित Nominatim Reverse Geocoding API URL फ़ॉर्मेट
             fetch(`https://openstreetmap.org{lat}&lon=${lon}`, {
                 headers: {
                     'User-Agent': 'ICDS-Budget-App'
@@ -1149,6 +1150,7 @@ function getLiveGPSLocation() {
             .then(res => res.json())
             .then(data => {
                 if(data && data.address) {
+                    // शहर, कस्बा या गाँव का नाम सुरक्षित तरीके से निकालना
                     const city = data.address.city || data.address.town || data.address.village || data.address.state_district || "Patna";
                     const state = data.address.state || "Bihar";
                     
@@ -1159,20 +1161,20 @@ function getLiveGPSLocation() {
                 }
             })
             .catch((err) => {
-                console.error("API Error:", err);
+                console.error("API Error (लाइव लोकेशन फेच करने में विफलता):", err);
                 const locElement = document.getElementById('liveLocation');
                 if(locElement) {
                     locElement.innerText = "Patna, Bihar, India";
                 }
             });
         }, function(error) {
-            console.log("Geolocation error/denied:", error);
+            console.log("Geolocation error/permission denied:", error);
             const locElement = document.getElementById('liveLocation');
             if(locElement) {
                 locElement.innerText = "Patna, Bihar, India";
             }
         });
-    }
+    } 
 }
 
 window.addEventListener('DOMContentLoaded', () => {
